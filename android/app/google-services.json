@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "471314318797",
+    "project_id": "art-in-you",
+    "storage_bucket": "art-in-you.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:471314318797:android:996a56c93e7138a1f3f084",
+        "android_client_info": {
+          "package_name": "com.artinyou.art_inyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "471314318797-s78rabvm679qcr446d40qa03ve08q3jq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.artinyou.art_inyou",
+            "certificate_hash": "c543069e7d9aab91452aa854960f8fa8c5b4a44f"
+          }
+        },
+        {
+          "client_id": "471314318797-50p8103eamll8b6au9punsffjkjo31nr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv9LaVjEUWVIGky5TFuKLG18lEuVG_U8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "471314318797-50p8103eamll8b6au9punsffjkjo31nr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "471314318797-kg0c7u4tud7firlb6glpt31fv92g2a67.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.artinyou.artInyou"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

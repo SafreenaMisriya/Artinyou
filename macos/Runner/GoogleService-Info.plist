@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>471314318797-9bd2j98eei8jkaq7h0usi0m8jc39qutd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.471314318797-9bd2j98eei8jkaq7h0usi0m8jc39qutd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>471314318797-s78rabvm679qcr446d40qa03ve08q3jq.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD6BxIzpJBlTjiyRY6cOsnXInTpYzFgdyU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>471314318797</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.artinyou.artInyou.RunnerTests</string>
+	<key>PROJECT_ID</key>
+	<string>art-in-you</string>
+	<key>STORAGE_BUCKET</key>
+	<string>art-in-you.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:471314318797:ios:13315e49b7fea463f3f084</string>
+</dict>
+</plist>
