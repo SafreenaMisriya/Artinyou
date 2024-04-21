@@ -10,7 +10,6 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
-    double width = Responsive.screenWidth(context);
     return Scaffold(
       body: Column(
         children: [
