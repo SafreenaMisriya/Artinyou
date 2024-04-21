@@ -12,6 +12,7 @@ import 'package:art_inyou/core/presentation/widgets/password.dart';
 import 'package:art_inyou/core/presentation/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpAuth extends StatefulWidget {
   const SignUpAuth({super.key});
@@ -118,8 +119,10 @@ class _SignUpAuthState extends State<SignUpAuth> {
                           SizedBox(height: height * 0.03),
                           labelwidget(
                             labelText: 'Sign Up',
-                            onTap: () {
+                            onTap: ()async {
                               if (formKey.currentState!.validate()) {
+                                SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+                                sharedPreferences.setString('email', emailcontroller.text);
                                 UserModel user = UserModel(
                                   email: emailcontroller.text,
                                   password: passwordcontroller.text,

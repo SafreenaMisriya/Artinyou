@@ -69,7 +69,7 @@ class _BottomBarState extends State<BottomBar> {
                 icon: Icons.search),
                  GButton(
                 text: 'Post',
-                icon: Icons.add_circle),
+                icon: Icons.add_circle_outline_rounded),
                  GButton(
                 text: 'Chat',
                 icon: Icons.chat_rounded),

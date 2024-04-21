@@ -18,7 +18,7 @@ class _DropDowmState extends State<DropDowm> {
     double width = Responsive.screenWidth(context);
     return  Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(18),
               color: color,
             ),
             height: height * 0.08,

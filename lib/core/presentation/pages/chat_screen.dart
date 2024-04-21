@@ -1,3 +1,6 @@
+import 'package:art_inyou/core/presentation/utils/colour.dart';
+import 'package:art_inyou/core/presentation/utils/font.dart';
+import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -5,6 +8,62 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+     double height = Responsive.screenHeight(context);
+    return Scaffold(
+      body:  Column(
+          children: [
+            SizedBox(
+                  height: height * 0.02,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text('Chat',style: MyFonts.headingTextStyle,),
+                    ),
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert_rounded))
+                  ],
+                ),
+                 SizedBox(
+                  height: height * 0.01,
+                ),
+                const Divider(),
+                 Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none
+                  ),
+                  focusColor: color,
+                  fillColor: color,
+                  filled: true,
+                  prefixIcon:const Icon(Icons.search,color: Colors.grey,),
+                  hintText: 'Search Here..',
+                  hintStyle:const TextStyle(color: Colors.grey),
+                ),
+              ),
+              
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return  ListTile(
+                   leading: ClipOval(child: CircleAvatar(child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh7ogUYtR66AVscPGclBkMHRagtzJ9D0w04Q&s'),)),
+                   title: const Text('George'),
+                   subtitle: const Text('How are you ?'),
+                   trailing: const Text('2.30 PM'),
+                  );
+                },),
+            )
+        
+        
+          ],
+        ),
+      
+    );
   }
 }

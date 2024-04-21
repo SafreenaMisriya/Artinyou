@@ -4,6 +4,7 @@ class MyFonts {
   static const TextStyle headingTextStyle = TextStyle(
     fontSize: 18.0,
     fontWeight: FontWeight.bold,
+    color: Colors.black
   );
 
   static const TextStyle bodyTextStyle = TextStyle(
@@ -17,6 +18,10 @@ class MyFonts {
    static const TextStyle boldTextStyle = TextStyle(
     fontSize: 15.0,
     fontWeight: FontWeight.bold,
+  );
+  static const TextStyle iconTextStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 16.0,
   );
 }
 Widget myfonts(String text) {

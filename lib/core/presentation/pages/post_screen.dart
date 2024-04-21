@@ -1,4 +1,6 @@
 
+import 'package:art_inyou/core/presentation/pages/bottombar.dart';
+import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/dropdown.dart';
 import 'package:art_inyou/core/presentation/widgets/textfield.dart';
@@ -15,7 +17,13 @@ class _PostScreenState extends State<PostScreen> {
  TextEditingController titlecontroller=TextEditingController() ;
  TextEditingController pricecontroller=TextEditingController() ;
  TextEditingController aboutcontroller=TextEditingController() ;
-
+@override
+  void dispose() {
+   titlecontroller.dispose();
+   pricecontroller.dispose();
+   aboutcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +36,16 @@ class _PostScreenState extends State<PostScreen> {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>const BottomBar()));}, icon: Icon(Icons.close,size: width*0.07,)),
+                  const Text('New Post',style: MyFonts.headingTextStyle,),
+                  TextButton(onPressed: (){}, child: const Text('Post',style: MyFonts.headingTextStyle,))
+                ],
+              ),
               SizedBox(
-                height: height * 0.06,
+                height: height * 0.03,
               ),
               Center(
                 child: Stack(
@@ -45,7 +61,7 @@ class _PostScreenState extends State<PostScreen> {
                     ),
                     Positioned(
                       bottom: width * 0.03,
-                      left: width * 0.3,
+                      right: width * 0.02,
                       child: IconButton(
                         onPressed: () {},
                         icon: const Icon(
@@ -60,7 +76,7 @@ class _PostScreenState extends State<PostScreen> {
               SizedBox(height: height * 0.03),
               CustomTextField(controller: titlecontroller,  labelText: 'Title',),
               SizedBox(height: height * 0.03),
-              CustomTextField(controller: pricecontroller, labelText: 'Price',keyboardType: TextInputType.number,),
+              CustomTextField(controller: pricecontroller, labelText: '₹ Price',keyboardType: TextInputType.number,),
               SizedBox(height: height * 0.03),
                const DropDowm(),
               SizedBox(height: height * 0.03),

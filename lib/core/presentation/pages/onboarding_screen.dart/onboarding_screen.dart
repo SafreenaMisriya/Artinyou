@@ -3,6 +3,7 @@ import 'package:art_inyou/core/presentation/pages/onboarding_screen.dart/intro_s
 import 'package:art_inyou/core/presentation/pages/onboarding_screen.dart/intro_screen2.dart';
 import 'package:art_inyou/core/presentation/pages/onboarding_screen.dart/intro_screen3.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/signup_screen.dart';
+import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -47,7 +48,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                   child: const Text(
                     'Skip',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                     style: MyFonts.bodyTextStyle,
                   ),
                 ),
                 SmoothPageIndicator(
@@ -68,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         },
                         child: const Text(
                           'Done',
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          style: MyFonts.bodyTextStyle,
                         ))
                     : GestureDetector(
                         onTap: () {
@@ -78,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         },
                         child: const Text(
                           'Next',
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          style: MyFonts.bodyTextStyle,
                         ))
               ],
             ),

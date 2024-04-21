@@ -13,20 +13,20 @@ class EmailauthBloc extends Bloc<EmailauthEvent, EmailauthState> {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
   EmailauthBloc() : super(EmailauthInitialState()) {
-    on<CheckLoginStatusEvent>(
-      (event, emit) async {
-        try {
-          User? user = auth.currentUser;
-          if (user != null) {
-            emit(AuthenticatedState(user));
-          } else {
-            emit(Unauthenticated());
-          }
-        } catch (e) {
-          emit(AuthenticatedErrorState(error: e.toString()));
-        }
-      },
-    );
+    // on<CheckLoginStatusEvent>(
+    //   (event, emit) async {
+    //     try {
+    //       User? user = auth.currentUser;
+    //       if (user != null) {
+    //         emit(AuthenticatedState(user));
+    //       } else {
+    //         emit(Unauthenticated());
+    //       }
+    //     } catch (e) {
+    //       emit(AuthenticatedErrorState(error: e.toString()));
+    //     }
+    //   },
+    // );
 
     on<SignInEvent>(
       (event, emit) async {
