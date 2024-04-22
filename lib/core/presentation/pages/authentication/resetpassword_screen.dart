@@ -68,25 +68,16 @@ class _ResetpasswordScreenState extends State<ResetpasswordScreen> {
                           },
                           labelText: 'Enter Email',
                         ),
-                        SizedBox(height: height * 0.02),
-                        SizedBox(height: height * 0.04),
+                        SizedBox(height: height * 0.06),
                         labelwidget(
-                          labelText: 'LogIn',
+                          labelText: 'Reset PassWord',
                           onTap: () {
                             if (formKey.currentState!.validate()) {
                               authBloc.add(ForgotpasswordEvent(email: emailcontroller.text));
                               Navigator.pop(context);
                             }
                           },
-                          child: BlocBuilder<EmailauthBloc, EmailauthState>(
-                            builder: (context, state) {
-                              if (state is EmailloadingState) {
-                                return const CircularProgressIndicator();
-                              } else {
-                                return myfonts('Reset PassWord');
-                              }
-                            },
-                          ),
+                        
                         )
                       ],
                     ),

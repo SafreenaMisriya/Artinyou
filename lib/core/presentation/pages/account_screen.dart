@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:art_inyou/core/presentation/pages/onboarding_screen.dart/onboarding_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/gridview.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -30,7 +34,11 @@ class AccountScreen extends StatelessWidget {
                 )),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: ()async {
+                   SharedPreferences sharedPreferences=await SharedPreferences.getInstance(); 
+              sharedPreferences.remove('email');
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>const OnboardingScreen()));
+                },
                 icon: Icon(Icons.menu_rounded, size: height * 0.04),
               ),
             ],
@@ -82,10 +90,3 @@ class AccountScreen extends StatelessWidget {
     );
   }
 }
-// Center(
-//             child: labelwidget(labelText: 'logout', onTap: ()async{
-//               SharedPreferences sharedPreferences=await SharedPreferences.getInstance(); 
-//               sharedPreferences.remove('email');
-//                Navigator.push(context, MaterialPageRoute(builder: (context)=>const OnboardingScreen()));
-//             }),
-//           )

@@ -2,6 +2,9 @@ import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/google_auth/cubit/googleauth_cubit.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -22,7 +25,10 @@ class ChatScreen extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20),
                       child: Text('Chat',style: MyFonts.headingTextStyle,),
                     ),
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert_rounded))
+                    IconButton(onPressed: (){
+                             final googleAuthCubit = context.read<GoogleauthCubit>();
+                         googleAuthCubit.logout();
+                    }, icon: const Icon(Icons.more_vert_rounded))
                   ],
                 ),
                  SizedBox(

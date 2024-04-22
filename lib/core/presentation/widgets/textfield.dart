@@ -6,7 +6,7 @@ class CustomTextField extends StatefulWidget {
   final String labelText;
   final TextInputType keyboardType;
   final int? maxLength;
- final int? maxLines;
+//  final int? maxLines;
   final String? Function(String?)? validator;
   final TextEditingController controller;
    bool obscureText;
@@ -18,7 +18,7 @@ class CustomTextField extends StatefulWidget {
      this.validator,
     required this.labelText,
     this.maxLength,
-     this.maxLines,
+    //  this.maxLines,
     this.obscureText = false,
   });
 
@@ -30,7 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: widget.obscureText ? 1 : widget.maxLines,
+      // maxLines: widget.obscureText ? 1 : widget.maxLines,
       controller: widget.controller,
       maxLength: widget.maxLength,
       autovalidateMode: AutovalidateMode.onUserInteraction,

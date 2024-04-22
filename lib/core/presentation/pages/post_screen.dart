@@ -80,7 +80,8 @@ class _PostScreenState extends State<PostScreen> {
               SizedBox(height: height * 0.03),
                const DropDowm(),
               SizedBox(height: height * 0.03),
-             CustomTextField(controller: aboutcontroller, labelText: 'About',maxLines: 3,keyboardType: TextInputType.multiline,),
+             CustomTextField(controller: aboutcontroller, labelText: 'About',
+             keyboardType: TextInputType.multiline,),
               
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -12,7 +13,7 @@ class GridViewScreen extends StatelessWidget {
     double width = Responsive.screenWidth(context);
     return Scaffold(
       body: MasonryGridView.builder(
-        itemCount: 9,
+        itemCount: 10,
         gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2),
         itemBuilder: (context, index) => Column(
@@ -23,7 +24,10 @@ class GridViewScreen extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(13),
-                    child: Image.asset('assets/image/img${index + 1}.jpg'),
+                    child: GestureDetector(child: Image.asset('assets/image/img${index + 1}.jpg'),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>FullimageScreen(imagePath:'assets/image/img${index + 1}.jpg' )));
+                    },),
                   ),
                   const Positioned(
                     top: 10,
