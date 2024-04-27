@@ -1,5 +1,7 @@
 
+import 'package:art_inyou/core/presentation/pages/creative_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/gridview.dart';
+import 'package:art_inyou/core/presentation/widgets/imageupload.dart';
 import 'package:flutter/material.dart';
 
 class TabBarViewScreen extends StatelessWidget {
@@ -7,7 +9,7 @@ class TabBarViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
+    return  const DefaultTabController(
       length: 7,
       child: Column(
         children: [
@@ -44,8 +46,8 @@ class TabBarViewScreen extends StatelessWidget {
             child: TabBarView(
               children: [
                 GridViewScreen(),
-                GridViewScreen(),
-                GridViewScreen(),
+                CreativeScreen(),
+                ImageuploadScreen(),
                 GridViewScreen(),
                 GridViewScreen(),
                 GridViewScreen(),

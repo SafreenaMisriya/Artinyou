@@ -23,3 +23,17 @@ bool containsDigit(String value) {
 bool containsSpecialCharacter(String value) {
   return value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 }
+String? validateEmail(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter an email';
+  } else if (!isEmailValid(value)) {
+    return 'Please enter a valid email';
+  } 
+    return null;
+  
+}
+
+bool isEmailValid(String email) {
+  final RegExp regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  return regex.hasMatch(email);
+}

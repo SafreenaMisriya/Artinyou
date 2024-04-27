@@ -4,6 +4,7 @@ import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart'
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
+import 'package:art_inyou/core/presentation/widgets/password.dart';
 import 'package:art_inyou/core/presentation/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,16 +57,7 @@ class _ResetpasswordScreenState extends State<ResetpasswordScreen> {
                         CustomTextField(
                           controller: emailcontroller,
                           keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter an email';
-                            } else if (!value.contains('@') ||
-                                !value.contains('.')) {
-                              return 'Please enter a valid email';
-                            } else {
-                              return null;
-                            }
-                          },
+                          validator: (value) => validateEmail(value),
                           labelText: 'Enter Email',
                         ),
                         SizedBox(height: height * 0.06),

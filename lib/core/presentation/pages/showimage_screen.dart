@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 
 class FullimageScreen extends StatelessWidget {
   final String imagePath;
-   const FullimageScreen({super.key, required this.imagePath});
+  final String title;
+  final String about ;
+  final String? price;
+   const FullimageScreen({super.key, required this.imagePath,required this.title,required this.about, this.price});
 
   @override
   Widget build(BuildContext context) {
      double height = Responsive.screenHeight(context);
+     double width = Responsive.screenWidth(context);
     return Scaffold(
       body:SafeArea(
         child: SingleChildScrollView(
@@ -23,24 +27,19 @@ class FullimageScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-                  const Text('Photography',style: MyFonts.boldTextStyle,),
+                   Text(title,style: MyFonts.boldTextStyle,),
                   IconButton(onPressed: (){}, icon:const Icon(Icons.menu) )
                 ],
               ),
              Padding(
-               padding: const EdgeInsets.all(40.0),
+               padding: const EdgeInsets.all( 20),
                child: Stack(
                  children:[
-                // const Positioned(
-                //         bottom: 30,
-                //         right: 20,
-                //         child: Text(
-                //           '₹199',
-                //           style: MyFonts.iconTextStyle,
-                //         )),
                   ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Center(child: Image.asset(imagePath))),
+                  borderRadius: BorderRadius.circular(14),
+                  child: SizedBox(
+                    height: height*0.4,
+                    child: Image.network(imagePath))),
             ]),
              ),
              Row(
@@ -63,7 +62,7 @@ class FullimageScreen extends StatelessWidget {
              SizedBox(
                 height: height * 0.02,
               ),
-              const Text('Creative Photography',style: MyFonts.boldTextStyle,),
+               Text(about,style: MyFonts.boldTextStyle,),
               SizedBox(
                 height: height * 0.03,
               ),

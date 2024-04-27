@@ -8,8 +8,8 @@ import 'package:art_inyou/core/presentation/widgets/carosel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class GridViewScreen extends StatelessWidget {
-  const GridViewScreen({
+class  CreativeScreen extends StatelessWidget {
+  const CreativeScreen({
     super.key,
   });
 
@@ -19,7 +19,7 @@ class GridViewScreen extends StatelessWidget {
     double width = Responsive.screenWidth(context);
     return Scaffold(
       body: FutureBuilder(
-        future: getPosts(),
+        future: getPostsByCategory('Creative'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(

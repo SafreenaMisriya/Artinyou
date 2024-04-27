@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:art_inyou/core/presentation/pages/onboarding_screen.dart/onboarding_screen.dart';
+import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/gridview.dart';
@@ -37,7 +37,7 @@ class AccountScreen extends StatelessWidget {
                 onPressed: ()async {
                    SharedPreferences sharedPreferences=await SharedPreferences.getInstance(); 
               sharedPreferences.remove('email');
-               Navigator.push(context, MaterialPageRoute(builder: (context)=>const OnboardingScreen()));
+               Navigator.push(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
                 },
                 icon: Icon(Icons.menu_rounded, size: height * 0.04),
               ),

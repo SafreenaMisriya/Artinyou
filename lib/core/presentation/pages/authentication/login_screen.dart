@@ -73,16 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         CustomTextField(
                           controller: emailcontroller,
                           keyboardType: TextInputType.emailAddress,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter an email';
-                            } else if (!value.contains('@') ||
-                                !value.contains('.')) {
-                              return 'Please enter a valid email';
-                            } else {
-                              return null;
-                            }
-                          },
+                        validator: (value) => validateEmail(value),
                           labelText: 'Enter Email',
                         ),
                         SizedBox(height: height * 0.03),

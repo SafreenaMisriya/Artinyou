@@ -4,7 +4,8 @@ import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
 
 class DropDowm extends StatefulWidget {
-  const DropDowm({super.key});
+    final ValueChanged<String>? onChanged;
+  const DropDowm({super.key,this.onChanged});
 
   @override
   State<DropDowm> createState() => _DropDowmState();
@@ -22,12 +23,15 @@ class _DropDowmState extends State<DropDowm> {
               color: color,
             ),
             height: height * 0.08,
-            width: width * 0.9,
+            width: width * 0.4,
             child: Center(
               child: DropdownButton<String>(
                 onChanged: (String? selectvalue) {
                   setState(() {
                     choosevalue = selectvalue!;
+                     if (widget.onChanged != null) {
+              widget.onChanged!(selectvalue);
+            }
                   });
                 },
                 value: choosevalue,
