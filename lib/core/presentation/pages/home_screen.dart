@@ -1,5 +1,5 @@
 
-import 'package:art_inyou/core/presentation/pages/tabbar.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/tabbar.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

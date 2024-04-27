@@ -1,7 +1,12 @@
 
-import 'package:art_inyou/core/presentation/pages/creative_screen.dart';
+import 'package:art_inyou/core/domain/fetching.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/craft_screen.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/creative_screen.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/fantasy_screen.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/photography_screen.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/screen3d.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/wallpapers_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/gridview.dart';
-import 'package:art_inyou/core/presentation/widgets/imageupload.dart';
 import 'package:flutter/material.dart';
 
 class TabBarViewScreen extends StatelessWidget {
@@ -9,11 +14,11 @@ class TabBarViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const DefaultTabController(
+    return   DefaultTabController(
       length: 7,
       child: Column(
         children: [
-          TabBar(
+        const  TabBar(
             indicatorColor: Colors.red,
             labelColor: Colors.black,
             unselectedLabelColor: Colors.grey,
@@ -45,13 +50,13 @@ class TabBarViewScreen extends StatelessWidget {
           Expanded(
             child: TabBarView(
               children: [
-                GridViewScreen(),
-                CreativeScreen(),
-                ImageuploadScreen(),
-                GridViewScreen(),
-                GridViewScreen(),
-                GridViewScreen(),
-                GridViewScreen(),
+                GridViewScreen(postsFuture: getPosts(),),
+                const CreativeScreen(),
+                const FantasyScreen(),
+                const PhotographyScreen(),
+                 const WallpapersScreen(),
+                const Screen3d(),
+                 const CraftScreen(),
               ],
             ),
           ),

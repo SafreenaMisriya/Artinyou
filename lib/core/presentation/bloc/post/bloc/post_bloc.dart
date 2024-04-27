@@ -28,8 +28,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     if (event is SelectImageEvent) {
       emit(ImageUploading()); 
       try {
-        final List<XFile>? images = await picker.pickMultiImage();
-        if (images != null && images.isNotEmpty) {
+        final List<XFile> images = await picker.pickMultiImage();
+        if (images.isNotEmpty) {
           emit(ImageSelected(images));
           event = UploadImageEvent(images); 
         } else {

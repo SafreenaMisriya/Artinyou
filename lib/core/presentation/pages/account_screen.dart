@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:art_inyou/core/domain/fetching.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -84,7 +85,7 @@ class AccountScreen extends StatelessWidget {
            SizedBox(
             height: height * 0.02,
           ),
-          const Expanded(child: GridViewScreen()),
+           Expanded(child: GridViewScreen(postsFuture:getPosts(),)),
         ],
       ),
     );
