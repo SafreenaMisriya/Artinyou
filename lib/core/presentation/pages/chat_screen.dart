@@ -3,10 +3,8 @@ import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../bloc/google_auth/cubit/googleauth_cubit.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});

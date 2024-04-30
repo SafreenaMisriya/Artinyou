@@ -1,14 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:art_inyou/core/data/model/profilemodel.dart';
-import 'package:art_inyou/core/domain/fetching.dart';
 import 'package:art_inyou/core/domain/profiledata.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
-import 'package:art_inyou/core/presentation/widgets/gridview.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,4 @@
 import 'package:art_inyou/core/data/model/postmodel.dart';
-import 'package:art_inyou/core/data/model/profilemodel.dart';
-import 'package:art_inyou/core/domain/profiledata.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/post_screen.dart';
 import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
@@ -120,15 +118,15 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                 return PopupMenuButton(
                                   iconColor: Colors.white,
                                   itemBuilder: (context) => [
-                                    PopupMenuItem(
+                                    const PopupMenuItem(
                                       child: Text('Save '),
                                     ),
-                                     PopupMenuItem(
+                                     const PopupMenuItem(
                                       child: Text('Share'),
                                     ),
                                     if (posts[index].userid == widget.userId)
                                     PopupMenuItem(
-                                      child:  Text('Edit'),
+                                      child:  const Text('Edit'),
                                       onTap: () {
                                         Navigator.push(
                                             context,
