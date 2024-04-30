@@ -7,13 +7,21 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class CaroselScreen extends StatelessWidget {
+class CaroselScreen extends StatefulWidget {
   final List<String> imageUrlList;
   final int itemCount;
   final double? screenHeight;
+  final bool? isautoPlay;
 
-   CaroselScreen({super.key,required  this.itemCount,required this.imageUrlList,this.screenHeight});
+  const   CaroselScreen({super.key,required  this.itemCount,required this.imageUrlList,this.screenHeight,this.isautoPlay});
+
+  @override
+  State<CaroselScreen> createState() => _CaroselScreenState();
+}
+
+class _CaroselScreenState extends State<CaroselScreen> {
     int activeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
    double height = Responsive.screenHeight(context);
@@ -22,21 +30,29 @@ class CaroselScreen extends StatelessWidget {
       child: Column(
         children: [
              CarouselSlider.builder(
-              itemCount: itemCount,
+              itemCount: widget.itemCount,
               itemBuilder: (context, index, realIndex) {
                 final imageUrl =
-                   imageUrlList[index];
+                   widget.imageUrlList[index];
                 return SizedBox(
-                  height: height *0.8,
-                  width: width *0.8,
+                  height: height *0.6,
+                  width: width *0.5,
                   child:ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(imageUrl, fit: BoxFit.cover)), 
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: Image.network(imageUrl, fit: BoxFit.cover),
+                    )), 
                 );
               },
               options: CarouselOptions(
-                // autoPlay: true,
-                height:screenHeight ,
+                  autoPlay: true ,
+                height:widget.screenHeight ?? height*0.3 ,
+                 onPageChanged: (index, reason) {
+                setState(() {
+                  activeIndex = index;
+                });
+              },
                 
               ),
             ),
@@ -47,6 +63,7 @@ class CaroselScreen extends StatelessWidget {
       ),
     );
   }
+
   Widget builderIndicator() => AnimatedSmoothIndicator(
         effect:  SwapEffect(
           activeDotColor: redcolor,
@@ -55,6 +72,6 @@ class CaroselScreen extends StatelessWidget {
           dotHeight: 6,
         ),
         activeIndex: activeIndex, 
-        count: 3,
+        count: widget.itemCount,
       );
 }

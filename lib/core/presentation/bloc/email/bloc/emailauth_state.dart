@@ -5,7 +5,7 @@ sealed class EmailauthState {}
 final class EmailauthInitialState extends EmailauthState{}
 final class EmailloadingState extends EmailauthState{}
 final class AuthenticatedState extends EmailauthState{
-  final User user;
+  final User? user;
   AuthenticatedState(this.user);
 }
 final class Unauthenticated extends EmailauthState{}

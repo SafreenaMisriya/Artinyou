@@ -3,12 +3,13 @@ import 'package:art_inyou/core/presentation/widgets/gridview.dart';
 import 'package:flutter/material.dart';
 
 class PhotographyScreen extends StatelessWidget {
-  const PhotographyScreen({super.key});
+  final String userId;
+  const PhotographyScreen({super.key,required this.userId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridViewScreen(postsFuture: getPostsByCategory('Photography')),
+      body: GridViewScreen(postsFuture: getPostsByCategory('Photography'),userId: userId,),
     );
   }
 }

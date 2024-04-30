@@ -23,6 +23,27 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(PostErrorstate(error: e.toString()));
     }
     });
+
+   on<PostEditEvent>((event, emit)async{
+    emit(Postloading());
+    try {
+      await firestoreService.updatePost(event.postid,event.post);
+      emit(PostEditsuccessState());
+    } catch (e) {
+      emit(PostErrorstate(error: e.toString()));
+    }
+   }); 
+
+   on<PostdeleteEvent>((event, emit)async{
+    try {
+      await firestoreService.deletePost(event.postid);
+      emit(Postdeletesuccessstate());
+      emit(Postloading());
+    } catch (e) {
+      emit(Postdeleteerrorstate(error: e.toString()));
+    }
+   });
+
    on<PostEvent>((event, emit) async {
   if (event is SelectImageEvent || event is UploadImageEvent) {
     if (event is SelectImageEvent) {

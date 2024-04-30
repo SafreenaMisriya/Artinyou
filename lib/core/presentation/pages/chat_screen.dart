@@ -1,8 +1,10 @@
+import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../bloc/google_auth/cubit/googleauth_cubit.dart';
 
@@ -25,9 +27,18 @@ class ChatScreen extends StatelessWidget {
                       padding: EdgeInsets.only(left: 20),
                       child: Text('Chat',style: MyFonts.headingTextStyle,),
                     ),
-                    IconButton(onPressed: (){
-                             final googleAuthCubit = context.read<GoogleauthCubit>();
-                         googleAuthCubit.logout();
+                    IconButton(onPressed: ()async{
+                        //      final googleAuthCubit = context.read<GoogleauthCubit>();
+                        //  googleAuthCubit.logout();
+                         SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              sharedPreferences.remove('email');
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
                     }, icon: const Icon(Icons.more_vert_rounded))
                   ],
                 ),

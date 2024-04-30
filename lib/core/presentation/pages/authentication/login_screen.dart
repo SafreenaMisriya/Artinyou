@@ -2,9 +2,9 @@
 
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/resetpassword_screen.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/signup_screen.dart';
+import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BottomBar(),
+                        builder: (context) => const ProfileScreen(),
                       ),
                     );
                   }
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (state is GoogleauthsuccessState) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const BottomBar()),
+                    MaterialPageRoute(builder: (context) =>const ProfileScreen()),
                   );
                 }
               },

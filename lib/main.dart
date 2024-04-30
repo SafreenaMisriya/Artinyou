@@ -1,9 +1,11 @@
 
 import 'package:art_inyou/core/data/model/postmodel.dart';
+import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
 import 'package:art_inyou/core/presentation/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<GoogleauthCubit>(create: (context) => GoogleauthCubit()),
         BlocProvider<EmailauthBloc>(create: (context) => EmailauthBloc(),),
         BlocProvider<PostBloc>(create: (context)=>PostBloc(firestoreService: FirestoreService())),
+        BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(firestoreService: Profilestorage())),
       
       ],
       child: MaterialApp(

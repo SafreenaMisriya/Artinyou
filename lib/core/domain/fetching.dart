@@ -7,8 +7,11 @@ Future<List<PostModel>> getPosts() async {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance.collection('posts').get();
       for (var doc in querySnapshot.docs) {
-        posts.add(PostModel.fromJson(doc.data()));
+        PostModel p=PostModel.fromJson(doc.data(),id: doc.id);
+        posts.add(p);
       }
+  
+
     } catch (e) {
       throw Exception('Failed to fetch posts: $e');
     }
@@ -20,8 +23,7 @@ Future<List<PostModel>> getPosts() async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
         await FirebaseFirestore.instance.collection('posts').get();
     for (var doc in querySnapshot.docs) {
-      var postModel = PostModel.fromJson(doc.data());
-      // Check if the post belongs to the selected category
+      var postModel = PostModel.fromJson(doc.data(),id: doc.id);
       if (postModel.category == category) {
         posts.add(postModel);
       }

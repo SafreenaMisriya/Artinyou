@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
+import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -59,7 +59,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const BottomBar(),
+                        builder: (context) => const ProfileScreen(),
                       ),
                     );
                   } else if (state is OtpAuthErrorState) {

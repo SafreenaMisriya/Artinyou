@@ -1,9 +1,9 @@
 import 'package:art_inyou/core/data/model/emailmodel.dart';
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/signinphone.dart';
+import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -66,7 +66,7 @@ class _SignUpAuthState extends State<SignUpAuth> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const BottomBar(),
+                          builder: (context) => const ProfileScreen(),
                         ),
                       );
                     }
@@ -180,7 +180,7 @@ class _SignUpAuthState extends State<SignUpAuth> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const BottomBar()),
+                              builder: (context) => const ProfileScreen()),
                         );
                       }
                     },

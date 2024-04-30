@@ -13,3 +13,15 @@ class UploadImageEvent extends PostEvent {
 
   UploadImageEvent(this.images);
 }
+class PostEditEvent extends PostEvent{
+ 
+  final String postid;
+  final PostModel post;
+  PostEditEvent({
+  required this.postid,
+  required this.post});
+}
+class PostdeleteEvent extends PostEvent{
+  final String postid;
+  PostdeleteEvent({required this.postid});
+}

@@ -27,3 +27,16 @@ class ImageErrorState extends PostState{
   final String error;
   ImageErrorState({required this.error});
 }
+class PostEditsuccessState extends PostState{
+  
+}
+class PostEditerrorstate extends PostState{
+  final String error;
+  PostEditerrorstate({required this .error});
+}
+class Postdeletesuccessstate extends PostState{}
+
+class Postdeleteerrorstate extends PostState{
+  final String error;
+  Postdeleteerrorstate({required this.error});
+  }
