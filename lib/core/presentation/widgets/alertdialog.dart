@@ -6,11 +6,14 @@ import 'package:art_inyou/core/presentation/utils/font.dart';
 class ConfirmationDialog extends StatelessWidget {
   final String message;
   final Function onYesPressed;
+  final String? pass;
 
   const ConfirmationDialog({
     super.key,
     required this.message,
     required this.onYesPressed,
+    this.pass,
+    
   });
 
   @override
@@ -38,7 +41,7 @@ class ConfirmationDialog extends StatelessWidget {
             TextButton(
               onPressed: () {
                 onYesPressed();
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const BottomBar()));
+              pass ??  Navigator.push(context, MaterialPageRoute(builder: (context)=>const BottomBar()));
               },
               child: const Text('YES', style: TextStyle(color: Color.fromARGB(255, 14, 140, 19))),
             ),

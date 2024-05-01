@@ -7,9 +7,11 @@ import 'package:art_inyou/core/presentation/bloc/otpauth_bloc/bloc/otpauth_bloc_
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/splash_screen.dart';
+import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -36,7 +38,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: redcolor),
+          textTheme: GoogleFonts.latoTextTheme(),
+        ),
         home:const SplashScreen(),
       ),
     );

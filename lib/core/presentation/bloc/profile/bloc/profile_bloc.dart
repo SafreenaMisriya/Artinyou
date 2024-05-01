@@ -56,7 +56,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(Profileloading());
     try {
       await firestoreService.addprofile(event.model);
-      // emit(ProfileLoaded());
       emit(Profileaddstate());
       
      
@@ -65,17 +64,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
     });
 
-  //  on<ProfileEditEvent>((event, emit)async{
-  //   emit(Profileloading());
-  //   try {
-  //     await firestoreService.updateProfile(event.id,event.model);
-  //     // emit(ProfileLoaded());
-  //     emit(ProfileEditState());
+   on<ProfileEditEvent>((event, emit)async{
+    emit(Profileloading());
+    try {
+      await firestoreService.updateProfile(event.model);
+      emit(ProfileEditState());
        
-  //   } catch (e) {
-  //     emit(ProfileEditError(error: e.toString()));
-  //   }
-  //  }); 
+    } catch (e) {
+      emit(ProfileEditError(error: e.toString()));
+    }
+   }); 
 
   }
 }

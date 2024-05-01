@@ -46,30 +46,20 @@ class Profilestorage {
     }
   }
 
-  Future<void> updateProfile(ProfileModel profile) async {
+Future<String> updateProfile(ProfileModel profile) async {
   try {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       String userId = user.uid;
-      DocumentReference profileRef =
-          firestore.collection('profile').doc(userId);
-      DocumentSnapshot profileSnapshot = await profileRef.get();
+      DocumentReference profileRef = firestore.collection('profile').doc(userId);
 
-      if (profileSnapshot.exists) {
-        await profileRef.update({
-          'imageUrl': profile.imageurl,
-          'username': profile.username,
-          'bio': profile.bio,
-          'userId': userId,
-        });
-      } else {
-        await profileRef.set({
-          'imageUrl': profile.imageurl,
-          'username': profile.username,
-          'bio': profile.bio,
-          'userId': userId,
-        });
-      }
+      await profileRef.set({
+        'imageUrl': profile.imageurl,
+        'username': profile.username,
+        'bio': profile.bio,
+        'userId': userId,
+      }, SetOptions(merge: true)); 
+      return userId;
     } else {
       throw Exception('User not authenticated');
     }
@@ -77,6 +67,8 @@ class Profilestorage {
     throw Exception('Failed to update profile: $e');
   }
 }
+
+
  Future<ProfileModel?> getProfile(String userId) async {
   try {
     DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('profile').doc(userId).get();

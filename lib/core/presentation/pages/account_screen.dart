@@ -7,6 +7,7 @@ import 'package:art_inyou/core/presentation/pages/authentication/login_screen.da
 import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
+import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,11 @@ class AccountScreen extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () async {
-                              SharedPreferences sharedPreferences =
+                            
+                              showDialog(context: context, builder: (BuildContext context) {
+                               return  ConfirmationDialog(message: 'Are you sure you want to Logout ?',
+                                onYesPressed:()async{
+                                  SharedPreferences sharedPreferences =
                                   await SharedPreferences.getInstance();
                               sharedPreferences.remove('email');
                               Navigator.pushReplacement(
@@ -65,7 +70,12 @@ class AccountScreen extends StatelessWidget {
                                 MaterialPageRoute(
                                   builder: (context) => const LoginScreen(),
                                 ),
-                              );
+                              ); 
+                               }
+                               
+                               );
+                                
+                              });
                             },
                             icon: Icon(
                               Icons.menu_rounded,
@@ -79,11 +89,13 @@ class AccountScreen extends StatelessWidget {
                           width: height * 0.1,
                           height: height * 0.1,
                           child: ClipOval(
-                            child: Image.network(
-                              profileData.imageurl.isNotEmpty
-                                  ? profileData.imageurl
-                                  : 'https://cdn.vectorstock.com/i/500p/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.jpg',
-                              fit: BoxFit.cover,
+                            child: Placeholder(
+                              child: Image.network(
+                                profileData.imageurl.isNotEmpty
+                                    ? profileData.imageurl
+                                    : 'https://cdn.vectorstock.com/i/500p/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.jpg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),

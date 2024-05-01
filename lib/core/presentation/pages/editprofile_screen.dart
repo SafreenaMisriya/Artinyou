@@ -64,11 +64,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 TextButton(
                     onPressed: () {
                       ProfileModel model = ProfileModel(
+                        
                         userid: userId,
                           username: usernamecontroller.text,
                           bio: biocontroller.text,
                           imageurl: images.join());
-                    isdEdit?  profilebloc.add(ProfileEditEvent(model: model, id: userId))
+                    isdEdit?  profilebloc.add(ProfileEditEvent(model: model, ))
                            : profilebloc.add(ProfileAddEvent(model: model));
                     isdEdit ? Navigator.pop(context)     
                      : Navigator.push(context, MaterialPageRoute(builder: (context)=> const BottomBar()));

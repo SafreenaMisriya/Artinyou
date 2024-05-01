@@ -100,8 +100,6 @@ class _PostScreenState extends State<PostScreen> {
                           TextButton(
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
-                                  print(widget.userId);
-                                  print(widget.postid);
                                   PostModel postModel = PostModel(
                                     userid: widget.userId ?? ' id'  , 
                                     imageUrl: uploadedImageUrls.join(','),
@@ -149,9 +147,11 @@ class _PostScreenState extends State<PostScreen> {
                                   width: width * 0.5,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
-                                    child: Image.network(
-                                      uploadedImageUrls[0],
-                                      fit: BoxFit.cover,
+                                    child: Placeholder(
+                                      child: Image.network(
+                                        uploadedImageUrls[0],
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 )

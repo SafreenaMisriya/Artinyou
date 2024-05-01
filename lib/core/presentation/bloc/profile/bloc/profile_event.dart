@@ -17,6 +17,5 @@ class ProfileAddEvent extends ProfileEvent{
 }
 class ProfileEditEvent extends ProfileEvent{
   final ProfileModel model;
-  final String id;
-  ProfileEditEvent({required this.model,required this.id});
+  ProfileEditEvent({required this.model,});
 }

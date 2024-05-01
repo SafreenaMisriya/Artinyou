@@ -41,7 +41,7 @@ class _CaroselScreenState extends State<CaroselScreen> {
                     borderRadius: BorderRadius.circular(12),
                     child: Padding(
                       padding: const EdgeInsets.all(2),
-                      child: Image.network(imageUrl, fit: BoxFit.cover),
+                      child: Placeholder(child: Image.network(imageUrl, fit: BoxFit.cover)),
                     )), 
                 );
               },
