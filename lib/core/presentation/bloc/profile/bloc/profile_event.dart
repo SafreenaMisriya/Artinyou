@@ -19,3 +19,8 @@ class ProfileEditEvent extends ProfileEvent{
   final ProfileModel model;
   ProfileEditEvent({required this.model,});
 }
+class ProfileSearchEvent extends ProfileEvent{
+    final List<ProfileModel> profiles;
+    final String searchword;
+ProfileSearchEvent(this.profiles,this.searchword);
+}

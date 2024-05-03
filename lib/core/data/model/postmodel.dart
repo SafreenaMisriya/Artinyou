@@ -66,7 +66,6 @@ class FirestoreService {
         throw Exception('Profile not found for post: ${post.userid}');
       }
     } catch (e) {
-      print('Error adding post: $e');
       throw Exception('Failed to add post: $e');
     }
   }

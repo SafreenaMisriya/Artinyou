@@ -76,15 +76,17 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                     posts[index].about,
                                     posts[index].price)
                                 : GestureDetector(
-                                    child: Placeholder(
-                                      child: SizedBox(
+                                    child: 
+                                       SizedBox(
                                         height: height * 0.3,
-                                        child: Image.network(
-                                          posts[index].imageUrl,
-                                          fit: BoxFit.cover,
+                                        child: Placeholder(
+                                          child: Image.network(
+                                            posts[index].imageUrl,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(

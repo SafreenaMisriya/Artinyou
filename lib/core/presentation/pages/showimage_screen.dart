@@ -60,7 +60,7 @@ class FullimageScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14),
                         child: SizedBox(
                           height: height * 0.4,
-                          child: Placeholder(child: Image.network(singleImagePath!)),
+                          child:  Image.network(singleImagePath!)
                         ),
                       ),
                     if (price != null)

@@ -29,7 +29,7 @@ class _BottomBarState extends State<BottomBar> {
       const HomeScreen(),
       const SearchScreen(),
       PostScreen(userId:  userId),
-      const ChatScreen(),
+       ChatScreen(),
       const AccountScreen(),
     ];
 
@@ -43,6 +43,7 @@ class _BottomBarState extends State<BottomBar> {
                 itemCount: pages.length,
                 onPageChanged: (index) {
                   setState(() {
+                    FocusScope.of(context).unfocus();
                     currentIndex = index;
                   });
                 },

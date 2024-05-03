@@ -35,3 +35,13 @@ class ImageUploaded extends ProfileState {
 
   ImageUploaded(this.imageUrls);
 }
+class SearchLoaded extends ProfileState {
+  final List<ProfileModel> filteredProfiles;
+
+  SearchLoaded(this.filteredProfiles);
+}
+class Searchstart extends ProfileState{}
+class SearchErrorstate extends ProfileState{
+  final String error;
+  SearchErrorstate({required this.error});
+}

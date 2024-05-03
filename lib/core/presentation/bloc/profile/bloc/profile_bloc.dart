@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:art_inyou/core/data/model/profilemodel.dart';
+import 'package:art_inyou/core/domain/search_profile.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -73,7 +74,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } catch (e) {
       emit(ProfileEditError(error: e.toString()));
     }
-   }); 
+   });
+   on<ProfileSearchEvent>((event, emit)async{
+     emit(Searchstart());
+     try {
+    final filtered= getFilteredProfiles(event.profiles, event.searchword);
+     emit(SearchLoaded(filtered) );
+
+     } catch (e) {
+       emit(SearchErrorstate(error: e.toString()));
+     }
+   });
+
 
   }
 }

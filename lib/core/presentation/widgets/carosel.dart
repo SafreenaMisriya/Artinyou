@@ -3,6 +3,7 @@
 
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -41,7 +42,7 @@ class _CaroselScreenState extends State<CaroselScreen> {
                     borderRadius: BorderRadius.circular(12),
                     child: Padding(
                       padding: const EdgeInsets.all(2),
-                      child: Placeholder(child: Image.network(imageUrl, fit: BoxFit.cover)),
+                      child: CachedNetworkImage(imageUrl: imageUrl),
                     )), 
                 );
               },
