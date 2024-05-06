@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:art_inyou/core/data/model/postmodel.dart';
+import 'package:art_inyou/core/data/repository/post_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';

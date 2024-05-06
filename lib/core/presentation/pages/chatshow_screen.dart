@@ -1,8 +1,7 @@
-import 'package:art_inyou/core/data/model/profilemodel.dart';
+import 'package:art_inyou/core/domain/profiledata.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
-import 'package:art_inyou/core/presentation/widgets/dropdown.dart';
 import 'package:flutter/material.dart';
 
 class ChatShowScreen extends StatefulWidget {
@@ -16,6 +15,8 @@ class ChatShowScreen extends StatefulWidget {
 }
 
 class _ChatShowScreenState extends State<ChatShowScreen> {
+  List<String>list=[];
+  TextEditingController textcontroller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
@@ -28,13 +29,13 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
             automaticallyImplyLeading: false,
             flexibleSpace: Row(
               children: [
-                IconButton(onPressed: () {Navigator.pop(context);}, icon: Icon(Icons.arrow_back)),
+                IconButton(onPressed: () {Navigator.pop(context);}, icon: const Icon(Icons.arrow_back)),
                 SizedBox(
                   height: height * 0.05,
                   width: height * 0.05,
                   child: ClipOval(
                     child: Image.network(
-                      selecteditem.imageurl,
+                      selecteditem.imageurl?? "",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -44,7 +45,7 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                 ),
                 Column(
                   children: [
-                    Text(selecteditem.username,style: MyFonts.boldTextStyle,),
+                    Text(selecteditem.username ?? "",style: MyFonts.boldTextStyle,),
                     const Text('Last seen 2.30 pm',style: TextStyle(color: Colors.black54),),
 
                   ],
@@ -54,6 +55,33 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
           ),
           body: Column(
             children: [
+              Expanded(
+                child: StreamBuilder(
+                      stream: getAllProfile(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(
+                            child: Text('Error: ${snapshot.error}'),
+                          );
+                        } else if (snapshot.hasData) {
+                       final list=[];
+                
+                          return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount:  list.length,
+                      itemBuilder: (context, index) {
+                        return const Text('vvhh');
+                      },
+                    );
+                        } else {
+                          return const Text('No data');
+                        }
+                      }),
+              ),
               chatput(),
             ],
           
@@ -61,23 +89,49 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
       ),
     );
   }
- chatput(){
-   Expanded(child:Card(
+Widget chatput(){
+   return  Padding(
+     padding: const EdgeInsets.all(8.0),
      child: Row(
-      children: [
-        IconButton(onPressed: (){}, icon: Icon(Icons.emoji_emotions)),
-        Expanded(child: TextField(
-          decoration: InputDecoration(
-            hintText: 'Type your Message ...',
-            hintStyle: TextStyle(color: greycolor),
-            border: InputBorder.none,
-          ),
-        )),
-        IconButton(onPressed: (){}, icon: Icon(Icons.image)),
-        
-     
-      ],
+         children: [
+               Expanded(
+               child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                 child:  Row(
+                      children: [
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.emoji_emotions)),
+                       Expanded(
+                         child: TextField(
+                          controller: textcontroller,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                            decoration: InputDecoration(
+                              hintText: 'Type your Message ...',
+                              hintStyle: TextStyle(color: greycolor),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                       ),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.image)),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.camera_alt)),
+                      ],
+                     ),
+                 ),
+               ),
+              MaterialButton(
+                onPressed: (){
+                  if(textcontroller.text.isNotEmpty){
+                    
+                    textcontroller.text="";
+                  }
+                },
+     child: Icon(Icons.send,color: redcolor,),
+             
+           ),
+         ],
+       
      ),
-   ) ,);
+   );
+   
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:art_inyou/core/data/model/profilemodel.dart';
+import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/domain/search_profile.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';

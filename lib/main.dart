@@ -1,6 +1,6 @@
 
-import 'package:art_inyou/core/data/model/postmodel.dart';
-import 'package:art_inyou/core/data/model/profilemodel.dart';
+import 'package:art_inyou/core/data/repository/post_repository.dart';
+import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
 import 'package:art_inyou/core/presentation/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          colorScheme: const ColorScheme.light(),
           textTheme: GoogleFonts.latoTextTheme(),
         ),
         home:const SplashScreen(),

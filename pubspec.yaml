@@ -51,7 +51,6 @@ dependencies:
   firebase_storage: ^11.7.2
   carousel_slider: ^4.2.1
   firebase_app_check: ^0.2.2+4
-  dash_chat: ^1.1.16
   firebase_analytics: ^10.10.4
   delightful_toast: ^1.1.0
   get_it: ^7.7.0
