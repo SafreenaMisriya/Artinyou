@@ -4,18 +4,6 @@ import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-Future<ProfileModel?> getProfile(String userId) async {
-  try {
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('profile').doc(userId).get();
-    if (snapshot.exists) {
-      return ProfileModel.fromJson(snapshot.data()!, id: snapshot.id);
-    } else {
-      return null;
-    }
-  } catch (e) {
-    throw Exception('Failed to fetch profile: $e');
-  }
-}
 Stream<List<ProfileModel>> getAllProfile() {
   User? currentUser = FirebaseAuth.instance.currentUser;
   String userId = currentUser?.uid ?? '';

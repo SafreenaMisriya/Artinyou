@@ -29,7 +29,7 @@ class _BottomBarState extends State<BottomBar> {
       const HomeScreen(),
       const SearchScreen(),
       PostScreen(userId:  userId),
-       ChatScreen(),
+       ChatScreen(userid: userId,),
       const AccountScreen(),
     ];
 

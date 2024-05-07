@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 class CustomListView extends StatelessWidget {
   final List<ProfileModel> items;
   final double height;
+  final String userid;
 
   const CustomListView({super.key, 
     required this.items,
     required this.height,
+    required this.userid,
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomListView extends StatelessWidget {
             height: height,
           ),
           onTap: () {
-           Navigator.push(context, MaterialPageRoute(builder: (_)=>ChatShowScreen(items: items,selecteditem: index,))); 
+           Navigator.push(context, MaterialPageRoute(builder: (_)=>ChatShowScreen(items: items,selecteditem: index,userid: userid,))); 
           },
         );
       },

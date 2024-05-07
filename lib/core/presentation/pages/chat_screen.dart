@@ -13,8 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key});
-  bool isSearch = false;
+  final String userid;
+ const ChatScreen({super.key,required this.userid});
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +102,7 @@ class ChatScreen extends StatelessWidget {
               List<ProfileModel> profiles = state.filteredProfiles;
               return profiles.isNotEmpty
                   ? Expanded(
-                      child: CustomListView(items: profiles, height: height))
+                      child: CustomListView(items: profiles, height: height,userid: userid,))
                   : Image.asset('assets/image/noresult.gif');
             } else if (state is Searchstart) {
               return const Text('loading');
@@ -110,18 +111,13 @@ class ChatScreen extends StatelessWidget {
                 child: StreamBuilder(
                     stream: getAllProfile(),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (snapshot.hasError) {
+                     if (snapshot.hasError) {
                         return Center(
                           child: Text('Error: ${snapshot.error}'),
                         );
                       } else if (snapshot.hasData) {
                         List<ProfileModel>? posts = snapshot.data;
-
-                        return CustomListView(items: posts!, height: height);
+                        return CustomListView(items: posts!, height: height,userid:userid,);
                       } else {
                         return const Text('No data');
                       }

@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:art_inyou/core/data/model/profilemodel.dart';
-import 'package:art_inyou/core/domain/profiledata.dart';
+import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
@@ -21,12 +21,13 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
      User? currentUser = FirebaseAuth.instance.currentUser;
+     Profilestorage storage=Profilestorage();
   String userId = currentUser?.uid ?? '';
     return Scaffold(
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           return FutureBuilder(
-            future: getProfile(userId),
+            future:storage. getProfile(userId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
