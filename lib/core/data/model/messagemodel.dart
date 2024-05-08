@@ -5,17 +5,20 @@ class MessageModel {
   final String message;
   final String time;
   final String toIdname;
-  final bool read;
+  final String read;
+  final String messageid;
   MessageModel({
     required this.fromId,
     required this.message,
     required this.toId,
     required this.time,
     required this.toIdname,
-    required this.read
+    required this.read,
+    this.messageid='',
+     
 
   });
-  factory MessageModel.fromJson(Map<String, dynamic> json) {
+  factory MessageModel.fromJson(Map<String, dynamic> json,{String id = ''}) {
     return MessageModel(
       fromId: json['fromId']??'',
       message:json['message']??" " ,
@@ -23,6 +26,7 @@ class MessageModel {
       time: json['time']?? '',
       toIdname: json['toIdname']??"",
       read: json['read']??'',
+      messageid: id,
     );
   }
    Map<String, dynamic> toJson() => {
@@ -32,5 +36,6 @@ class MessageModel {
         'time': time,
         'toIdname': toIdname,
         'read':read,
+        'messageid': messageid,
       };
 }

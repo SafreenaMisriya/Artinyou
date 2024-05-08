@@ -2,6 +2,7 @@
 import 'package:art_inyou/core/data/repository/chat_repository.dart';
 import 'package:art_inyou/core/data/repository/post_repository.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
+import 'package:art_inyou/core/presentation/bloc/emoji/emoji_cubit.dart';
 import 'package:art_inyou/core/presentation/bloc/bloc/message_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<PostBloc>(create: (context)=>PostBloc(firestoreService: FirestoreService())),
         BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(firestoreService: Profilestorage())),
         BlocProvider<MessageBloc>(create: (context)=>MessageBloc(chatrepository: ChatRepository())),
+        BlocProvider<EmojiCubit>(create: (context)=>EmojiCubit()),
       
       ],
       child: MaterialApp(

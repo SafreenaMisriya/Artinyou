@@ -5,7 +5,9 @@ import 'package:art_inyou/core/data/repository/chat_repository.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:flutter/material.dart';
- ChatRepository chat=ChatRepository();
+
+ChatRepository chat = ChatRepository();
+
 class MessageCard extends StatelessWidget {
   final MessageModel messages;
   final String userid;
@@ -17,11 +19,13 @@ class MessageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-    return userid == messages.fromId? sendCustom() : receiveCustom();
+    return userid == messages.fromId ? sendCustom() : receiveCustom();
   }
 
   Widget receiveCustom() {
+    if (messages.read != 'true') {
+      chat.updateMessageReadStatus(userid, messages.toId, messages.messageid);
+    }
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Row(
@@ -46,14 +50,13 @@ class MessageCard extends StatelessWidget {
                   style: MyFonts.bodyTextStyle,
                 ),
                 const SizedBox(height: 4.0),
-                    Text(
-                      messages.time,
-                      style: TextStyle(
-                        color: greycolor,
-                        fontSize: 10.0,
-                      ),
-                    ),
-                 
+                Text(
+                  messages.time,
+                  style: TextStyle(
+                    color: greycolor,
+                    fontSize: 10.0,
+                  ),
+                ),
               ],
             ),
           ),
@@ -63,18 +66,6 @@ class MessageCard extends StatelessWidget {
   }
 
   Widget sendCustom({String? message, String? time}) {
-     void markMessageAsRead() async {
-    try {
-      await chat.markMessageAsRead( messages.fromId,messages.toId);
-    } catch (e) {
-      print('Failed to mark message as read: $e');
-    }
-  }
-
-  if (messages.read != 'true') {
-    // If the message has not been read yet, mark it as read
-    markMessageAsRead();
-  }
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Row(
@@ -101,14 +92,10 @@ class MessageCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                       Icon( messages.read == 'true'
-                          ? Icons.done_all
-                          : Icons.done,
-                      color: messages.read == 'true'
-                          ? Colors.black
-                          : Colors.blue,),
+                      if (messages.read.isNotEmpty)
+                        const Icon(Icons.done_all, color: Colors.black),
                       Text(
                         messages.time,
                         style: TextStyle(
