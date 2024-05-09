@@ -23,9 +23,9 @@ class MessageCard extends StatelessWidget {
   }
 
   Widget receiveCustom() {
-    if (messages.read != 'true') {
-      chat.updateMessageReadStatus(userid, messages.toId, messages.messageid);
-    }
+    // if (messages.read != 'true') {
+    //   chat.updateMessageReadStatus(userid, messages.toId, messages.messageid);
+    // }
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Row(

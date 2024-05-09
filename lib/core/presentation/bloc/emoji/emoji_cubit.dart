@@ -7,4 +7,9 @@ class EmojiCubit extends Cubit<EmojiState> {
   void toggleEmoji() {
     emit(state == EmojiState.show ? EmojiState.hide : EmojiState.show);
   }
+   void hideEmoji() {
+    if (state == EmojiState.show) {
+      emit(EmojiState.hide);
+    }
+  }
 }

@@ -103,10 +103,10 @@ class CustomListTile extends StatelessWidget {
                 trailing: Text(lastMessage.time),
               );
             } else {
-              return Text('');
+              return const Text('');
             }
           } else {
-            return Text('No message');
+            return const Text('No message');
           }
         });
   }

@@ -82,6 +82,7 @@ class ChatScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide.none),
                         focusColor: color,
+                        
                         fillColor: color,
                         filled: true,
                         prefixIcon: const Icon(

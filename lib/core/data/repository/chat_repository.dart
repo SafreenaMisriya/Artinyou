@@ -44,21 +44,21 @@ class ChatRepository {
         }).toList();
       });
     }
-     Future<void> updateMessageReadStatus(String fromid,String toId, String messageId) async {
-      List<String> ids = [fromid, toId];
-      ids.sort();
-      String chatroomsid = ids.join("_");
-    try {
-      await firestore
-          .collection('conversations')
-          .doc(chatroomsid)
-          .collection('message')
-          .doc(messageId)
-          .update({'read': 'true'});
-    } catch (e) {
-      throw Exception('Failed to update message read status: $e');
-    }
-  } 
+  //    Future<void> updateMessageReadStatus(String fromid,String toId, String messageId) async {
+  //     List<String> ids = [fromid, toId];
+  //     ids.sort();
+  //     String chatroomsid = ids.join("_");
+  //   try {
+  //     await firestore
+  //         .collection('conversations')
+  //         .doc(chatroomsid)
+  //         .collection('message')
+  //         .doc(messageId)
+  //         .update({'read': 'true'});
+  //   } catch (e) {
+  //     throw Exception('Failed to update message read status: $e');
+  //   }
+  // } 
   Stream<List<MessageModel>> getLastMessages(String toId,String fromid) {
       List<String> ids = [fromid, toId];
       ids.sort();
