@@ -1,6 +1,7 @@
 import 'package:art_inyou/core/data/model/postmodel.dart';
 import 'package:art_inyou/core/data/repository/post_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/post_screen.dart';
 import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
@@ -9,6 +10,7 @@ import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
 import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
 import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
+import 'package:art_inyou/core/presentation/widgets/loadining.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,10 +34,12 @@ class GridViewScreen extends StatefulWidget {
 
 class _GridViewScreenState extends State<GridViewScreen> {
   late PostBloc postbloc;
+  late SaveBloc saveBloc;
   TextEditingController commentcontroller = TextEditingController();
   @override
   void initState() {
     postbloc = BlocProvider.of<PostBloc>(context);
+    saveBloc = BlocProvider.of<SaveBloc>(context);
     super.initState();
   }
 
@@ -48,9 +52,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
         future: widget.postsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return shimmerloading();
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
@@ -95,15 +97,15 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 FullimageScreen(
-                                                    title: posts[index].title,
-                                                    about: posts[index].about,
-                                                    price: posts[index].price,
-                                                    singleImagePath:
-                                                        posts[index]
-                                                            .imageUrl,
-                                                            postBloc: postbloc,
-                                                            postid: posts[index].postid,
-                                                            userid: widget.userId,)))),
+                                                  title: posts[index].title,
+                                                  about: posts[index].about,
+                                                  price: posts[index].price,
+                                                  singleImagePath:
+                                                      posts[index].imageUrl,
+                                                  postBloc: postbloc,
+                                                  postid: posts[index].postid,
+                                                  userid: widget.userId,
+                                                )))),
                           ),
                           Positioned(
                             top: 10,
@@ -128,8 +130,11 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                 return PopupMenuButton(
                                   iconColor: Colors.white,
                                   itemBuilder: (context) => [
-                                    const PopupMenuItem(
-                                      child: Text('Save '),
+                                    PopupMenuItem(
+                                      child: const Text('Save '),
+                                      onTap: () => saveBloc.add(SavePostEvent(
+                                          postid: posts[index].postid,
+                                          userid: widget.userId)),
                                     ),
                                     const PopupMenuItem(
                                       child: Text('Share'),
@@ -185,19 +190,18 @@ class _GridViewScreenState extends State<GridViewScreen> {
                           Positioned(
                             bottom: 85,
                             right: 4,
-                            child: 
-                                likeFunction(widget.userId, posts[index].postid, postbloc),
-                            
+                            child: likeFunction(
+                                widget.userId, posts[index].postid, postbloc),
                           ),
                           Positioned(
-                            bottom: 40,
-                            right: 3,
-                            child: commentFunction( context,
-                                        posts[index].postid,
-                                        postbloc,
-                                        height,
-                                        widget.userId)
-                          ),
+                              bottom: 40,
+                              right: 3,
+                              child: commentFunction(
+                                  context,
+                                  posts[index].postid,
+                                  postbloc,
+                                  height,
+                                  widget.userId)),
                         ],
                       ),
                     ),
@@ -208,10 +212,12 @@ class _GridViewScreenState extends State<GridViewScreen> {
                           height: height * 0.03,
                           width: height * 0.03,
                           child: ClipOval(
-                            child: CachedNetworkImage(
-                              imageUrl: posts[index].profileImageUrl,
-                              fit: BoxFit.cover,
-                            ),
+                            child: posts[index].profileImageUrl.isNotEmpty
+                                ? CachedNetworkImage(
+                                    imageUrl: posts[index].profileImageUrl,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Placeholder(),
                           ),
                         ),
                         SizedBox(
@@ -236,27 +242,27 @@ class _GridViewScreenState extends State<GridViewScreen> {
       ),
     );
   }
+}
 
-  Widget _buildCarousel(String imageUrl, BuildContext context, String title,
-      String about, String price) {
-    List<String> imageUrlList = imageUrl.split(',');
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => FullimageScreen(
-                      imagePathList: imageUrlList,
-                      title: title,
-                      about: about,
-                      price: price,
-                    )));
-      },
-      child: CaroselScreen(
-        screenHeight: 260,
-        itemCount: imageUrlList.length,
-        imageUrlList: imageUrlList,
-      ),
-    );
-  }
+Widget _buildCarousel(String imageUrl, BuildContext context, String title,
+    String about, String price) {
+  List<String> imageUrlList = imageUrl.split(',');
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => FullimageScreen(
+                    imagePathList: imageUrlList,
+                    title: title,
+                    about: about,
+                    price: price,
+                  )));
+    },
+    child: CaroselScreen(
+      screenHeight: 260,
+      itemCount: imageUrlList.length,
+      imageUrlList: imageUrlList,
+    ),
+  );
 }

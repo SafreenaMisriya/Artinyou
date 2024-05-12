@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 TextEditingController controller = TextEditingController();
-bottompCommentsheet(BuildContext context, String? id, PostBloc postBloc,
+bottompCommentsheet(BuildContext context, String postid, PostBloc postBloc,
     double height, String userid) {
   showModalBottomSheet(
     backgroundColor: color,
@@ -37,75 +37,80 @@ bottompCommentsheet(BuildContext context, String? id, PostBloc postBloc,
               child: Column(
                 children: [
                   Expanded(
-                    child: FutureBuilder(
-                        future: getComments(id!),
-                        builder: (context, snapshot) {
-                          if (snapshot.data == null) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasData) {
-                            List<CommentModel> comments = snapshot.data!;
-                            return ListView.builder(
-                              itemCount: comments.length,
-                              itemBuilder: (
-                                BuildContext context,
-                                int index,
-                              ) {
-                                return ListTile(
-                                  leading: SizedBox(
-                                    height: height * 0.05,
-                                    width: height * 0.05,
-                                    child: ClipOval(
-                                      child: comments[index]
-                                              .profileImageUrl
-                                              .isNotEmpty
-                                          ? CachedNetworkImage(
-                                              imageUrl: comments[index]
-                                                  .profileImageUrl,
-                                              fit: BoxFit.cover,
-                                            )
-                                          : const Placeholder(),
-                                    ),
-                                  ),
-                                  title: Text(
-                                    comments[index].text,
-                                    style: MyFonts.boldTextStyle,
-                                  ),
-                                  subtitle: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(comments[index].username),
-                                      Text(comments[index].time.toString()),
-                                    ],
-                                  ),
-                                  trailing: BlocBuilder<PostBloc, PostState>(
-                                    builder: (context, state) {
-                                      return PopupMenuButton(
-                                          itemBuilder: (context) => [
-                                                PopupMenuItem(
-                                                  child: const Text('Delete'),
-                                                  onTap: () {
-                                                    postBloc.add(
-                                                        CommentdeleteEvent(
-                                                            postid: id,
-                                                            commentid: comments[
-                                                                    index]
-                                                                .commentid));
-                                                  },
-                                                ),
-                                                const PopupMenuItem(
-                                                  child: Text('Share'),
-                                                ),
-                                              ]);
-                                    },
-                                  ),
+                    child: BlocBuilder<PostBloc, PostState>(
+                      builder: (context, state) {
+                        return FutureBuilder(
+                            future: getComments(postid),
+                            builder: (context, snapshot) {
+                              if (snapshot.data == null) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (snapshot.hasData) {
+                                List<CommentModel> comments = snapshot.data!;
+                                return ListView.builder(
+                                  itemCount: comments.length,
+                                  itemBuilder: (
+                                    BuildContext context,
+                                    int index,
+                                  ) {
+                                    return ListTile(
+                                        leading: SizedBox(
+                                          height: height * 0.05,
+                                          width: height * 0.05,
+                                          child: ClipOval(
+                                            child: comments[index]
+                                                    .profileImageUrl
+                                                    .isNotEmpty
+                                                ? CachedNetworkImage(
+                                                    imageUrl: comments[index]
+                                                        .profileImageUrl,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : const Placeholder(),
+                                          ),
+                                        ),
+                                        title: Text(
+                                          comments[index].text,
+                                          style: MyFonts.boldTextStyle,
+                                        ),
+                                        subtitle: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(comments[index].username),
+                                            Text(comments[index]
+                                                .time
+                                                .toString()),
+                                          ],
+                                        ),
+                                        trailing: PopupMenuButton(
+                                            itemBuilder: (context) => [
+                                                  if (userid ==
+                                                      comments[index].userid)
+                                                    PopupMenuItem(
+                                                      child:
+                                                          const Text('Delete'),
+                                                      onTap: () {
+                                                        postBloc.add(
+                                                            CommentdeleteEvent(
+                                                                postid: postid,
+                                                                commentid: comments[
+                                                                        index]
+                                                                    .commentid));
+                                                      },
+                                                    ),
+                                                  const PopupMenuItem(
+                                                    child: Text('Share'),
+                                                  ),
+                                                ]));
+                                  },
                                 );
-                              },
-                            );
-                          } else {
-                            return const Text('No Comments');
-                          }
-                        }),
+                              } else {
+                                return const Text('No Comments');
+                              }
+                            });
+                      },
+                    ),
                   ),
                   ListTile(
                     title: const Text(
@@ -113,7 +118,7 @@ bottompCommentsheet(BuildContext context, String? id, PostBloc postBloc,
                       style: MyFonts.boldTextStyle,
                     ),
                     onTap: () {
-                      showcommentdialog(context, id, postBloc, userid);
+                      showcommentdialog(context, postid, postBloc, userid);
                     },
                   )
                 ],

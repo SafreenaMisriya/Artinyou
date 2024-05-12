@@ -1,6 +1,6 @@
 
 class ProfileModel {
-  final String imageurl;
+  final String? imageurl;
   final String username;
   final String bio;
   final String userid;

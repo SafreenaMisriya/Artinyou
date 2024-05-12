@@ -9,6 +9,7 @@ import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cu
 import 'package:art_inyou/core/presentation/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
+import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(firestoreService: Profilestorage())),
         BlocProvider<MessageBloc>(create: (context)=>MessageBloc(chatrepository: ChatRepository())),
         BlocProvider<EmojiCubit>(create: (context)=>EmojiCubit()),
+        BlocProvider<SaveBloc>(create: (context) => SaveBloc(),),
       
       ],
       child: MaterialApp(

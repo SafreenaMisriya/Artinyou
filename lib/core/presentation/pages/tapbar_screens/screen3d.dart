@@ -11,6 +11,7 @@ class Screen3d extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body:
+
              GridViewScreen(postsFuture: getPostsByCategory('3D Art'),userId: userId,),
           
         );

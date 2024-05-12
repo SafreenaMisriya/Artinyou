@@ -3,16 +3,14 @@
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
+import 'package:art_inyou/core/presentation/pages/settings.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
-import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key, });
@@ -60,23 +58,7 @@ class AccountScreen extends StatelessWidget {
                           IconButton(
                             onPressed: () async {
                             
-                              showDialog(context: context, builder: (BuildContext context) {
-                               return  ConfirmationDialog(message: 'Are you sure you want to Logout ?',
-                                onYesPressed:()async{
-                                  SharedPreferences sharedPreferences =
-                                  await SharedPreferences.getInstance();
-                              sharedPreferences.remove('email');
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
-                                ),
-                              ); 
-                               }
-                               
-                               );
-                                
-                              });
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SettingsScreen()));
                             },
                             icon: Icon(
                               Icons.menu_rounded,
@@ -92,9 +74,9 @@ class AccountScreen extends StatelessWidget {
                           child: ClipOval(
                             child: Placeholder(
                               child: Image.network(
-                                profileData.imageurl.isNotEmpty
-                                    ? profileData.imageurl
-                                    : 'https://cdn.vectorstock.com/i/500p/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.jpg',
+                               
+                                     profileData.imageurl!,
+                                    
                                 fit: BoxFit.cover,
                               ),
                             ),

@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, must_be_immutable
 
 
+import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -76,3 +77,25 @@ class _CaroselScreenState extends State<CaroselScreen> {
         count: widget.itemCount,
       );
 }
+  Widget buildCarousel(String imageUrl, BuildContext context, String title,
+      String about, String price) {
+    List<String> imageUrlList = imageUrl.split(',');
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FullimageScreen(
+                      imagePathList: imageUrlList,
+                      title: title,
+                      about: about,
+                      price: price,
+                    )));
+      },
+      child: CaroselScreen(
+        screenHeight: 260,
+        itemCount: imageUrlList.length,
+        imageUrlList: imageUrlList,
+      ),
+    );
+  }

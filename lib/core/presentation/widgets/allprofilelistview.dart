@@ -34,7 +34,7 @@ class CustomProfilesListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           child: CustomListTile(
-            imageUrl: items[index].imageurl,
+            imageUrl: items[index].imageurl!,
             username: items[index].username,
             height: height,
           ),

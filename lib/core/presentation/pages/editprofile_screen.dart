@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
        isdEdit = true;
       usernamecontroller.text= edit.username;
       biocontroller.text=edit.bio;
-      images=edit.imageurl.split(',');
+      images=edit.imageurl!.split(',');
     }
     super.initState();
   }
@@ -42,6 +42,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final profilebloc = BlocProvider.of<ProfileBloc>(context);
      User? currentUser = FirebaseAuth.instance.currentUser;
   String userId = currentUser?.uid ?? '';
+  if (images.isEmpty) {
+    images.add('https://cdn.vectorstock.com/i/500p/15/40/blank-profile-picture-image-holder-with-a-crown-vector-42411540.jpg');
+  }
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
