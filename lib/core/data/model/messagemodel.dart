@@ -7,6 +7,7 @@ class MessageModel {
   final String toIdname;
   final String read;
   final String messageid;
+  final Type type;
   MessageModel({
     required this.fromId,
     required this.message,
@@ -14,6 +15,7 @@ class MessageModel {
     required this.time,
     required this.toIdname,
     required this.read,
+    required this.type,
     this.messageid='',
      
 
@@ -27,6 +29,7 @@ class MessageModel {
       toIdname: json['toIdname']??"",
       read: json['read']??'',
       messageid: id,
+      type: json['type']==Type.image.name? Type.image:Type.text,
     );
   }
    Map<String, dynamic> toJson() => {
@@ -37,5 +40,7 @@ class MessageModel {
         'toIdname': toIdname,
         'read':read,
         'messageid': messageid,
+        'type': type.name,
       };
 }
+enum Type{image,text}

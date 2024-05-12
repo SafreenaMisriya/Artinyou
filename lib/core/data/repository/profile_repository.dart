@@ -14,7 +14,6 @@ class Profilestorage {
           'username': profile.username,
           'bio': profile.bio,
           'userId': userId,
-
         });
       } else {
         throw Exception('User not authenticated');
@@ -30,7 +29,6 @@ Future<String> updateProfile(ProfileModel profile) async {
     if (user != null) {
       String userId = user.uid;
       DocumentReference profileRef = firestore.collection('profile').doc(userId);
-
       await profileRef.set({
         'imageUrl': profile.imageurl,
         'username': profile.username,
@@ -59,6 +57,32 @@ Future<String> updateProfile(ProfileModel profile) async {
     throw Exception('Failed to fetch profile: $e');
   }
 }
+Future<Map<String, dynamic>?> getLastMessageWithProfile(String chatroomId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> lastMessageSnapshot =
+          await firestore.collection('conversations').doc(chatroomId).collection('lastMessage').doc(chatroomId).get();
+
+      if (lastMessageSnapshot.exists) {
+        // Get the sender's user ID from the last message
+        String userId = lastMessageSnapshot.data()!['userId'];
+
+        // Fetch the sender's profile information
+        ProfileModel? senderProfile = await getProfile(userId);
+
+        if (senderProfile != null) {
+          // Construct the result with last message, sender's profile, and last message time
+          return {
+            'lastMessageTime': lastMessageSnapshot.data()!['time'],
+            'lastMessage': lastMessageSnapshot.data()!['message'],
+            'senderProfile': senderProfile,
+          };
+        }
+      }
+      return null;
+    } catch (e) {
+      throw Exception('Failed to fetch last message with profile: $e');
+    }
+  }
 
 
 }

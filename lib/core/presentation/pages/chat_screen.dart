@@ -1,9 +1,11 @@
-// ignore_for_file: use_build_context_synchronously, must_be_immutable
+
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/domain/profiledata.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
+import 'package:art_inyou/core/presentation/pages/showall_profile.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -23,7 +25,9 @@ class ChatScreen extends StatelessWidget {
     double height = Responsive.screenHeight(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>ShowAllProfile(userid: userid,)));
+        },
         backgroundColor: color,
         child: Icon(
           Icons.group_add_rounded,
@@ -72,10 +76,10 @@ class ChatScreen extends StatelessWidget {
                 stream: getAllProfile(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    List<ProfileModel> posts = snapshot.data!;
+                    List<ProfileModel> chats = snapshot.data!;
                     return TextField(
                       onChanged: (value) {
-                        profilebloc.add(ProfileSearchEvent(posts, value));
+                        profilebloc.add(ProfileSearchEvent(chats, value));
                       },
                       decoration: InputDecoration(
                         border: OutlineInputBorder(

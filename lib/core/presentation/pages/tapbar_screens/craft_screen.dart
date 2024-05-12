@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 
 class CraftScreen extends StatelessWidget {
   final String userId;
+
   const CraftScreen({super.key,
-  required this.userId
+  required this.userId,
+
   });
 
   @override

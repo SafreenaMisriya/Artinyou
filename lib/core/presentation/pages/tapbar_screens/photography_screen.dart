@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PhotographyScreen extends StatelessWidget {
   final String userId;
-  const PhotographyScreen({super.key,required this.userId});
+  const PhotographyScreen({super.key,required this.userId,});
 
   @override
   Widget build(BuildContext context) {

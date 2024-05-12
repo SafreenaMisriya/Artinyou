@@ -10,3 +10,14 @@ final class MessaggeError extends MessageState{
   final String error;
   MessaggeError({required this.error});
 }
+class MsgImageSelected extends MessageState {
+  final List<XFile> images;
+
+  MsgImageSelected(this.images);
+}
+
+class MsgImageUploaded extends MessageState {
+  final List<String> imageUrls;
+
+  MsgImageUploaded(this.imageUrls);
+}

@@ -13,7 +13,6 @@ import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 ChatRepository chat = ChatRepository();
-
 class ChatShowScreen extends StatefulWidget {
   final List<dynamic> items;
   final int selecteditem;
@@ -32,6 +31,7 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
   TextEditingController textcontroller = TextEditingController();
   ChatRepository chat = ChatRepository();
   FocusNode myfocusnode = FocusNode();
+  List<String> images = [];
 
   @override
   void initState() {
@@ -120,42 +120,43 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
           ),
           body: Column(
             children: [
-              Expanded(
-                  child: StreamBuilder<List<MessageModel>>(
-                stream: chat.getMessages(selecteditem.userid, widget.userid),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text('Error: ${snapshot.error}'),
-                    );
-                  } else if (snapshot.hasData) {
-                    List<MessageModel> messagesList = snapshot.data!;
-                    return messagesList.isEmpty
-                        ? Center(
-                            child: Image.network(
-                              'https://i.pinimg.com/originals/8a/a4/59/8aa4595fb24b6ed585dddac4622b2445.gif',
-                            ),
-                          )
-                        : ListView.builder(
-                            controller: scrollController,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: messagesList.length,
-                            itemBuilder: (context, index) {
-                              return MessageCard(
-                                messages: messagesList[index],
-                                userid: widget.userid,
+              Expanded(child: BlocBuilder<MessageBloc, MessageState>(
+                builder: (context, state) {
+                  return StreamBuilder<List<MessageModel>>(
+                    stream:
+                        chat.getMessages(selecteditem.userid, widget.userid),
+                    builder: (context, snapshot) {
+                       if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      } else if (snapshot.hasData) {
+                        List<MessageModel> messagesList = snapshot.data!;
+                        return messagesList.isEmpty
+                            ? Center(
+                                child: Image.network(
+                                  'https://i.pinimg.com/originals/8a/a4/59/8aa4595fb24b6ed585dddac4622b2445.gif',
+                                ),
+                              )
+                            : ListView.builder(
+                                controller: scrollController,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: messagesList.length,
+                                itemBuilder: (context, index) {
+                                  return MessageCard(
+                                    height: height * 0.5,
+                                    messages: messagesList[index],
+                                    userid: widget.userid,
+                                  );
+                                },
                               );
-                            },
-                          );
-                  } else {
-                    return const Center(
-                      child: Text('No data'),
-                    );
-                  }
+                      } else {
+                        return const Center(
+                          child: Text('No data'),
+                        );
+                      }
+                    },
+                  );
                 },
               )),
               chatput(selecteditem.userid, widget.userid, messageBloc,
@@ -223,27 +224,93 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                       ),
                     ),
                   ),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.image)),
-                  IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.camera_alt)),
+                  BlocConsumer<MessageBloc, MessageState>(
+                    listener: (context, state) {
+                      if (state is MsgImageUploaded) {
+                        images = state.imageUrls;
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is Messageloading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                context
+                                    .read<MessageBloc>()
+                                    .add(SelectprofileImageEvent());
+                                String formattedTime =
+                                    DateFormat.jm().format(DateTime.now());
+                                if (images.isNotEmpty) {
+                                  MessageModel model = MessageModel(
+                                    toIdname: toIdname,
+                                    fromId: fromid,
+                                    message: images.join(),
+                                    toId: toid,
+                                    type: Type.image,
+                                    time: formattedTime,
+                                    read: '',
+                                  );
+                                  scrollDown();
+                                  bloc.add(MessageAddEvent(
+                                    messages: model,
+                                  ));
+                                }
+                              },
+                              icon: const Icon(Icons.image)),
+                          IconButton(
+                              onPressed: () {
+                                context.read<MessageBloc>().add(
+                                    SelectprofileImageEvent(fromCamera: true));
+                                String formattedTime =
+                                    DateFormat.jm().format(DateTime.now());
+                                if (images.isNotEmpty) {
+                                  MessageModel model = MessageModel(
+                                    toIdname: toIdname,
+                                    fromId: fromid,
+                                    message: images.join(),
+                                    toId: toid,
+                                    type: Type.image,
+                                    time: formattedTime,
+                                    read: '',
+                                  );
+
+                                  scrollDown();
+                                  bloc.add(MessageAddEvent(
+                                    messages: model,
+                                  ));
+                                }
+                              },
+                              icon: const Icon(Icons.camera_alt)),
+                        ],
+                      );
+                    },
+                  ),
                   MaterialButton(
                     onPressed: () async {
                       String formattedTime =
                           DateFormat.jm().format(DateTime.now());
-                      MessageModel model = MessageModel(
-                        toIdname: toIdname,
-                        fromId: fromid,
-                        message: textcontroller.text,
-                        toId: toid,
-                        time: formattedTime,
-                        read: '',
-                      );
                       if (textcontroller.text.isNotEmpty) {
+                        MessageModel model = MessageModel(
+                          toIdname: toIdname,
+                          fromId: fromid,
+                          message: textcontroller.text,
+                          toId: toid,
+                          type: Type.text,
+                          time: formattedTime,
+                          read: '',
+                        );
                         scrollDown();
-                        bloc.add(MessageAddEvent(messages: model));
-                        textcontroller.text = "";
-                        scrollDown();
+                        bloc.add(MessageAddEvent(
+                          messages: model,
+                        ));
                       }
+                      textcontroller.text = "";
+                      scrollDown();
                     },
                     child: Icon(
                       Icons.send,

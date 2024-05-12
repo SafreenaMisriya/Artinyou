@@ -40,3 +40,9 @@ class Postdeleteerrorstate extends PostState{
   final String error;
   Postdeleteerrorstate({required this.error});
   }
+  class PostedCommentstate extends PostState{}
+
+class PostCommenterrorstate extends PostState{
+  final String error;
+  PostCommenterrorstate({required this.error});
+  }

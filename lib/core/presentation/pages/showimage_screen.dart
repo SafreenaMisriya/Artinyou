@@ -1,8 +1,10 @@
-import 'package:art_inyou/core/presentation/utils/colour.dart';
+import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
+import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
+import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
 import 'package:flutter/material.dart';
 
 class FullimageScreen extends StatelessWidget {
@@ -11,10 +13,16 @@ class FullimageScreen extends StatelessWidget {
   final String? title;
   final String? about;
   final String? price;
+  final String? userid;
+  final String? postid;
+  final PostBloc? postBloc;
   const FullimageScreen(
       {super.key,
       this.singleImagePath,
       this.imagePathList,
+      this.postBloc,
+      this.userid,
+      this.postid,
       this.title,
       this.about,
       this.price});
@@ -78,29 +86,8 @@ class FullimageScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.favorite_sharp,
-                        color: redcolor,
-                      ),
-                      const Text(
-                        '2k likes',
-                        style: MyFonts.normalTextStyle,
-                      ),
-                    ],
-                  ),
-                  const Row(
-                    children: [
-                      Icon(
-                        Icons.comment_outlined,
-                      ),
-                      Text(
-                        '2 ',
-                        style: MyFonts.normalTextStyle,
-                      ),
-                    ],
-                  )
+                  likeFunction(userid!, postid!, postBloc!),
+                  commentFunction(context, postid!, postBloc!, height, userid!),
                 ],
               ),
               SizedBox(

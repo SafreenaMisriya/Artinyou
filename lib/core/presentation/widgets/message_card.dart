@@ -11,11 +11,12 @@ ChatRepository chat = ChatRepository();
 class MessageCard extends StatelessWidget {
   final MessageModel messages;
   final String userid;
-  const MessageCard({
-    super.key,
-    required this.messages,
-    required this.userid,
-  });
+  final double height;
+  const MessageCard(
+      {super.key,
+      required this.messages,
+      required this.userid,
+      required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +46,19 @@ class MessageCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                messages.type==Type.text
+                ?
                 Text(
                   messages.message,
                   style: MyFonts.bodyTextStyle,
+                ):   SizedBox(
+                  height: height * 0.3,
+                  child: Placeholder(
+                    child: Image.network(
+                      messages.message,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 4.0),
                 Text(
@@ -86,10 +97,19 @@ class MessageCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
+                  messages.type ==Type.text
+                 ? Text(
                     messages.message,
                     style: MyFonts.iconTextStyle,
-                  ),
+                  ): SizedBox(
+                  height: height * 0.6,
+                  
+                    child: Image.network(
+                      messages.message,
+                      fit: BoxFit.cover,
+                    ),
+                
+                ),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisSize: MainAxisSize.min,

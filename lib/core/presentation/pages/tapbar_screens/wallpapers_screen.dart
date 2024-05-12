@@ -4,8 +4,13 @@ import 'package:flutter/material.dart';
 
 class WallpapersScreen extends StatelessWidget {
  final String userId;
-  const WallpapersScreen({super.key,
-  required this.userId
+
+  const WallpapersScreen({
+  
+    super.key,
+  required this.userId,
+
+
   });
 
   @override

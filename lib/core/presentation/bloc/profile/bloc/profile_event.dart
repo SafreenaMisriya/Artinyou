@@ -24,3 +24,8 @@ class ProfileSearchEvent extends ProfileEvent{
     final String searchword;
 ProfileSearchEvent(this.profiles,this.searchword);
 }
+class ProfileChatSearchEvent extends ProfileEvent{
+    final List<ProfileModel> profiles;
+    final String searchword;
+ProfileChatSearchEvent(this.profiles,this.searchword);
+}

@@ -1,24 +1,29 @@
 import 'package:art_inyou/core/data/model/postmodel.dart';
+import 'package:art_inyou/core/data/repository/post_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/post_screen.dart';
 import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
-import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
+import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
+import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+FirestoreService service = FirestoreService();
+
 class GridViewScreen extends StatefulWidget {
   final Future<List<PostModel>> postsFuture;
-    final String userId;
+  final String userId;
 
   const GridViewScreen({
     super.key,
     required this.postsFuture,
-    required this.userId
+    required this.userId,
   });
 
   @override
@@ -27,7 +32,7 @@ class GridViewScreen extends StatefulWidget {
 
 class _GridViewScreenState extends State<GridViewScreen> {
   late PostBloc postbloc;
-
+  TextEditingController commentcontroller = TextEditingController();
   @override
   void initState() {
     postbloc = BlocProvider.of<PostBloc>(context);
@@ -76,17 +81,15 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                     posts[index].about,
                                     posts[index].price)
                                 : GestureDetector(
-                                    child: 
-                                       SizedBox(
-                                        height: height * 0.3,
-                                        child: Placeholder(
-                                          child: Image.network(
-                                            posts[index].imageUrl,
-                                            fit: BoxFit.cover,
-                                          ),
+                                    child: SizedBox(
+                                      height: height * 0.3,
+                                      child: Placeholder(
+                                        child: Image.network(
+                                          posts[index].imageUrl,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                    
+                                    ),
                                     onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -97,7 +100,10 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                                     price: posts[index].price,
                                                     singleImagePath:
                                                         posts[index]
-                                                            .imageUrl)))),
+                                                            .imageUrl,
+                                                            postBloc: postbloc,
+                                                            postid: posts[index].postid,
+                                                            userid: widget.userId,)))),
                           ),
                           Positioned(
                             top: 10,
@@ -125,43 +131,44 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                     const PopupMenuItem(
                                       child: Text('Save '),
                                     ),
-                                     const PopupMenuItem(
+                                    const PopupMenuItem(
                                       child: Text('Share'),
                                     ),
                                     if (posts[index].userid == widget.userId)
-                                    PopupMenuItem(
-                                      child:  const Text('Edit'),
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PostScreen(
-                                                      edit: posts[index],
-                                                      postid:
-                                                          posts[index].postid,
-                                                    )));
-                                      },
-                                    ),
+                                      PopupMenuItem(
+                                        child: const Text('Edit'),
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      PostScreen(
+                                                        edit: posts[index],
+                                                        postid:
+                                                            posts[index].postid,
+                                                      )));
+                                        },
+                                      ),
                                     if (posts[index].userid == widget.userId)
-                                    PopupMenuItem(
-                                      child: const Text('Delete'),
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return ConfirmationDialog(
-                                                  message:
-                                                      'Are You sure you want to delete this ?',
-                                                  onYesPressed: () {
-                                                    postbloc.add(
-                                                        PostdeleteEvent(
-                                                            postid: posts[index]
-                                                                .postid));
-                                                  });
-                                            });
-                                      },
-                                    ),
+                                      PopupMenuItem(
+                                        child: const Text('Delete'),
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return ConfirmationDialog(
+                                                    message:
+                                                        'Are You sure you want to delete this ?',
+                                                    onYesPressed: () {
+                                                      postbloc.add(
+                                                          PostdeleteEvent(
+                                                              postid:
+                                                                  posts[index]
+                                                                      .postid));
+                                                    });
+                                              });
+                                        },
+                                      ),
                                   ],
                                 );
                               },
@@ -176,69 +183,46 @@ class _GridViewScreenState extends State<GridViewScreen> {
                             ),
                           ),
                           Positioned(
-                            bottom: 75,
+                            bottom: 85,
                             right: 4,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.favorite,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  '2k',
-                                  style: TextStyle(color: color),
-                                ),
-                              ],
-                            ),
+                            child: 
+                                likeFunction(widget.userId, posts[index].postid, postbloc),
+                            
                           ),
                           Positioned(
                             bottom: 40,
-                            right: 4,
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.comment_rounded,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                Text(
-                                  '23',
-                                  style: TextStyle(color: color),
-                                ),
-                              ],
-                            ),
+                            right: 3,
+                            child: commentFunction( context,
+                                        posts[index].postid,
+                                        postbloc,
+                                        height,
+                                        widget.userId)
                           ),
                         ],
                       ),
                     ),
-                   Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: height * 0.03,
-                                width: height * 0.03,
-                                child: ClipOval(
-                                  child: Image.network(
-                                   posts[index].profileImageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: width * 0.02,
-                              ),
-                              Text(
-                                posts[index].username,
-                                style: MyFonts.bodyTextStyle,
-                              ),
-                            ],
-                          )
-                       
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: height * 0.03,
+                          width: height * 0.03,
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              imageUrl: posts[index].profileImageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: width * 0.02,
+                        ),
+                        Text(
+                          posts[index].username,
+                          style: MyFonts.bodyTextStyle,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

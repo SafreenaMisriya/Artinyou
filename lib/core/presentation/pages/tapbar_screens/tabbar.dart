@@ -9,6 +9,8 @@ import 'package:art_inyou/core/presentation/widgets/gridview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+
+
 class TabBarViewScreen extends StatelessWidget {
   const TabBarViewScreen({super.key});
 
@@ -16,6 +18,7 @@ class TabBarViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String userId = currentUser?.uid ?? '';
+   
     return DefaultTabController(
       length: 7,
       child: Column(

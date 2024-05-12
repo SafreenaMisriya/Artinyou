@@ -1,10 +1,15 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/domain/search_profile.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart'as p;
 import 'package:meta/meta.dart';
 
 part 'profile_event.dart';
@@ -29,8 +34,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         }
         
         if (image != null) {
-          emit(ImageSelected([image])); 
-          event =  UploadprofileImageEvent([image]); 
+          var file=  await ImageCropper().cropImage(sourcePath: image.path,aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1));
+          if(file ==null){
+            return;
+          }
+          XFile?  picked= await compressImage(file.path,35);
+          emit(ImageSelected([picked!])); 
+          event =  UploadprofileImageEvent([picked]); 
         } else {
           emit( Profileerrorstate(error: 'No image selected.'));
           return; 
@@ -88,5 +98,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
    });
 
 
+
   }
+  Future<XFile?>compressImage(String path, int i)async {
+   final newpath=  p.join((await getTemporaryDirectory()).path,'${DateTime.now()}.${p.extension(path)}');
+   final result= await FlutterImageCompress.compressAndGetFile(path, newpath,quality: i);
+   return result;
 }
+
+
+}
+
