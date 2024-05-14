@@ -1,5 +1,5 @@
 import 'package:art_inyou/core/presentation/pages/account_screen.dart';
-import 'package:art_inyou/core/presentation/pages/chat_screen.dart';
+import 'package:art_inyou/core/presentation/pages/chat/chat_screen.dart';
 import 'package:art_inyou/core/presentation/pages/home_screen.dart';
 import 'package:art_inyou/core/presentation/pages/post_screen.dart';
 import 'package:art_inyou/core/presentation/pages/search_screen.dart';

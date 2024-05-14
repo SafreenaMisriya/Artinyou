@@ -3,8 +3,9 @@ import 'package:art_inyou/core/domain/profiledata.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
+import 'package:art_inyou/core/presentation/utils/loadinglistview.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
-import 'package:art_inyou/core/presentation/widgets/allprofilelistview.dart';
+import 'package:art_inyou/core/presentation/pages/chat/allprofilelistview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,7 +84,7 @@ class ShowAllProfile extends StatelessWidget {
                           child: CustomProfilesListView(items: profiles, height: height,userid: userid,))
                       : Image.asset('assets/image/noresult.gif');
                 } else if (state is Searchstart) {
-                  return const Text('loading');
+                  return shimmerChatListView();
                 } else {
                   return Expanded(
                     child: StreamBuilder(

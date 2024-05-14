@@ -5,7 +5,7 @@
 import 'package:art_inyou/core/data/model/messagemodel.dart';
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/chat_repository.dart';
-import 'package:art_inyou/core/presentation/pages/chatshow_screen.dart';
+import 'package:art_inyou/core/presentation/pages/chat/chatshow_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
