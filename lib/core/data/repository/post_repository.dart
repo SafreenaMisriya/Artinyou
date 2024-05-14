@@ -77,7 +77,6 @@ class FirestoreService {
       throw Exception('Failed to comment post: $e');
     }
   }
-  // Function to check if the current user has already liked the post
   Future<bool> hasUserLikedPost(String userId, String postId) async {
     try {
       DocumentSnapshot snapshot = await firestore
@@ -92,15 +91,11 @@ class FirestoreService {
       throw Exception('Failed to check like status: $e');
     }
   }
-
-  // Function to add or remove a like for the current user to/from the post
   Future<void> toggleLikePost(LikeModel model, String postId) async {
     try {
-      // Check if the user has already liked the post
       bool hasLiked = await hasUserLikedPost(model.userid, postId);
 
       if (!hasLiked) {
-        // If the user hasn't liked the post yet, add the like
         await firestore
             .collection('posts')
             .doc(postId)
@@ -108,7 +103,6 @@ class FirestoreService {
             .doc(model.userid)
             .set({'liked': model.isliked});
       } else {
-        // If the user has already liked the post, remove the like
         await firestore
             .collection('posts')
             .doc(postId)

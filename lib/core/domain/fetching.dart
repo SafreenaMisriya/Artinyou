@@ -33,3 +33,19 @@ Future<List<PostModel>> getPosts() async {
   }
   return posts;
 }
+  Future<List<PostModel>> getPostOfuser(String userid) async {
+  List<PostModel> posts = [];
+  try {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await FirebaseFirestore.instance.collection('posts').get();
+    for (var doc in querySnapshot.docs) {
+      var postModel = PostModel.fromJson(doc.data(),id: doc.id);
+      if (postModel.userid == userid) {
+        posts.add(postModel);
+      }
+    }
+  } catch (e) {
+    throw Exception('Failed to fetch posts: $e');
+  }
+  return posts;
+}

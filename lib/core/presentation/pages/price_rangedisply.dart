@@ -20,45 +20,66 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class DropdownPrice extends StatelessWidget {
   final Future<List<PostModel>>? postsFuture;
- final List<PostModel>? posts;
+  final bool visible;
+  final List<PostModel>? posts;
   final String? title;
-   DropdownPrice({super.key, this.postsFuture, this.title,this.posts});
+  DropdownPrice(
+      {super.key,
+      this.postsFuture,
+      this.title,
+      this.posts,
+      required this.visible});
   String selectedPriceRange = 'All';
-   late PostBloc postbloc;
+  late PostBloc postbloc;
   late SaveBloc saveBloc;
   @override
   Widget build(BuildContext context) {
-      User? currentUser = FirebaseAuth.instance.currentUser;
+    User? currentUser = FirebaseAuth.instance.currentUser;
     String userId = currentUser?.uid ?? '';
-      double height = Responsive.screenHeight(context);
-          postbloc = BlocProvider.of<PostBloc>(context);
+    double height = Responsive.screenHeight(context);
+    postbloc = BlocProvider.of<PostBloc>(context);
     saveBloc = BlocProvider.of<SaveBloc>(context);
     double width = Responsive.screenWidth(context);
     return SafeArea(
-      child: Scaffold(body:Column(
-        children: [
-          Row(
-                  children: [
-                    IconButton(onPressed: () => Navigator.pop(context),
-                     icon:const Icon(Icons.arrow_back) ),
-                     SizedBox(width: width*0.1,),
-                      Text(title ??"Post",style: MyFonts.headingTextStyle,),
-                     SizedBox(height: height*0.05,),
-                  ],
-                ),
-          Expanded(
-            child: FutureBuilder(
-                future: postsFuture ,
+      child: Scaffold(
+        body: Column(
+          children: [
+            visible
+                ? Row(
+                    children: [
+                      IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back)),
+                      SizedBox(
+                        width: width * 0.1,
+                      ),
+                      Text(
+                        title ?? "Post",
+                        style: MyFonts.headingTextStyle,
+                      ),
+                      SizedBox(
+                        height: height * 0.05,
+                      ),
+                    ],
+                  )
+                : Container(),
+            Expanded(
+              child: FutureBuilder(
+                future: postsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return  Center(child: LinearProgressIndicator(color: redcolor,),);
+                    return Center(
+                      child: LinearProgressIndicator(
+                        color: redcolor,
+                      ),
+                    );
                   } else if (snapshot.hasData) {
                     List<PostModel>? posts = snapshot.data;
 
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: MasonryGridView.builder(
-                        itemCount: posts?.length ,
+                        itemCount: posts?.length,
                         gridDelegate:
                             const SliverSimpleGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
@@ -93,13 +114,18 @@ class DropdownPrice extends StatelessWidget {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         FullimageScreen(
-                                                          title: posts[index].title,
-                                                          about: posts[index].about,
-                                                          price: posts[index].price,
+                                                          title: posts[index]
+                                                              .title,
+                                                          about: posts[index]
+                                                              .about,
+                                                          price: posts[index]
+                                                              .price,
                                                           singleImagePath:
-                                                              posts[index].imageUrl,
+                                                              posts[index]
+                                                                  .imageUrl,
                                                           postBloc: postbloc,
-                                                          postid: posts[index].postid,
+                                                          postid: posts[index]
+                                                              .postid,
                                                           userid: userId,
                                                         )))),
                                   ),
@@ -117,20 +143,22 @@ class DropdownPrice extends StatelessWidget {
                                     child: BlocBuilder<PostBloc, PostState>(
                                       builder: (context, state) {
                                         if (state is Postdeletesuccessstate) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                              const SnackBar(
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
                                                   backgroundColor: Colors.red,
-                                                  content:
-                                                      Text('Deleted Successfully')));
+                                                  content: Text(
+                                                      'Deleted Successfully')));
                                         }
                                         return PopupMenuButton(
                                           iconColor: Colors.white,
                                           itemBuilder: (context) => [
                                             PopupMenuItem(
                                               child: const Text('Save '),
-                                              onTap: () => saveBloc.add(SavePostEvent(
-                                                  postid: posts[index].postid,
-                                                  userid: userId)),
+                                              onTap: () => saveBloc.add(
+                                                  SavePostEvent(
+                                                      postid:
+                                                          posts[index].postid,
+                                                      userid: userId)),
                                             ),
                                             const PopupMenuItem(
                                               child: Text('Share'),
@@ -144,28 +172,30 @@ class DropdownPrice extends StatelessWidget {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               PostScreen(
-                                                                edit: posts[index],
+                                                                edit: posts[
+                                                                    index],
                                                                 postid:
-                                                                    posts[index].postid,
+                                                                    posts[index]
+                                                                        .postid,
                                                               )));
                                                 },
                                               ),
-                                            if (posts[index].userid ==userId)
+                                            if (posts[index].userid == userId)
                                               PopupMenuItem(
                                                 child: const Text('Delete'),
                                                 onTap: () {
                                                   showDialog(
                                                       context: context,
-                                                      builder: (BuildContext context) {
+                                                      builder: (BuildContext
+                                                          context) {
                                                         return ConfirmationDialog(
                                                             message:
                                                                 'Are You sure you want to delete this ?',
                                                             onYesPressed: () {
-                                                              postbloc.add(
-                                                                  PostdeleteEvent(
-                                                                      postid:
-                                                                          posts[index]
-                                                                              .postid));
+                                                              postbloc.add(PostdeleteEvent(
+                                                                  postid: posts[
+                                                                          index]
+                                                                      .postid));
                                                             });
                                                       });
                                                 },
@@ -187,7 +217,7 @@ class DropdownPrice extends StatelessWidget {
                                     bottom: 85,
                                     right: 4,
                                     child: likeFunction(
-                                      userId, posts[index].postid, postbloc),
+                                        userId, posts[index].postid, postbloc),
                                   ),
                                   Positioned(
                                       bottom: 40,
@@ -208,9 +238,12 @@ class DropdownPrice extends StatelessWidget {
                                   height: height * 0.03,
                                   width: height * 0.03,
                                   child: ClipOval(
-                                    child: posts[index].profileImageUrl.isNotEmpty
+                                    child: posts[index]
+                                            .profileImageUrl
+                                            .isNotEmpty
                                         ? CachedNetworkImage(
-                                            imageUrl: posts[index].profileImageUrl,
+                                            imageUrl:
+                                                posts[index].profileImageUrl,
                                             fit: BoxFit.cover,
                                           )
                                         : const Placeholder(),
@@ -231,14 +264,18 @@ class DropdownPrice extends StatelessWidget {
                     );
                   } else {
                     return const Center(
-                      child: Text('No data available',style: MyFonts.boldTextStyle,),
+                      child: Text(
+                        'No data available',
+                        style: MyFonts.boldTextStyle,
+                      ),
                     );
                   }
                 },
               ),
-          ),
-        ],
-      ),),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

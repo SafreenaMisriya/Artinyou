@@ -9,7 +9,7 @@ class ChatRepository {
   User? user = FirebaseAuth.instance.currentUser;
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // Generate chat ID utility function
+  // generating id
   String generateChatId({required String username1, required String username2}) {
     return username1.compareTo(username2) < 0
         ? '$username1-$username2'

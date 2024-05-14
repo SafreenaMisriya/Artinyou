@@ -54,6 +54,7 @@ class _PriceRangeDropdownState extends State<PriceRangeDropdown> {
                         builder: (context) => DropdownPrice(
                               postsFuture: fetchPosts(newValue),
                               title: newValue,
+                              visible: true,
                             )));
               });
             },

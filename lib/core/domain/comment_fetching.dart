@@ -25,12 +25,11 @@ Future<int> getCommentCount(String postId) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
-        .collection('comment') // Ensure this matches the collection name in Firestore
+        .collection('comment') 
         .get();
 
     return querySnapshot.size;
   } catch (e) {
-    // Log the exception message for debugging
     throw Exception('Failed to fetch comment count: $e');
   }
 }

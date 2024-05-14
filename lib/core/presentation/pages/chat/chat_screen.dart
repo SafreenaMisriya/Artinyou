@@ -6,12 +6,13 @@ import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/presentation/pages/chat/chatshow_screen.dart';
 import 'package:art_inyou/core/presentation/pages/chat/showall_profile.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
+import 'package:art_inyou/core/presentation/utils/fetchingchat.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/loadinglistview.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/fetchingchat.dart';
+
 
 
 

@@ -2,14 +2,19 @@
 
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
+import 'package:art_inyou/core/domain/fetching.dart';
+import 'package:art_inyou/core/domain/most_commented.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
+import 'package:art_inyou/core/presentation/pages/price_rangedisply.dart';
 import 'package:art_inyou/core/presentation/pages/settings.dart';
+import 'package:art_inyou/core/presentation/pages/tapbar_screens/grid_tabview.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountScreen extends StatelessWidget {
@@ -145,11 +150,9 @@ class AccountScreen extends StatelessWidget {
                         },
                       ),
                       SizedBox(height: height * 0.02),
-                      // Expanded(
-                      //   child: GridViewScreen(
-                      //     postsFuture: getPosts(),
-                      //   ),
-                      // ),
+                      const Expanded(child: TabBarViewGridScreen())
+                      
+                      //  Expanded(child: DropdownPrice(postsFuture: getPostOfuser(userId),visible: false,)),
                     ],
                   );
                 } else {

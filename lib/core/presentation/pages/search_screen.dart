@@ -190,7 +190,7 @@ class SearchScreen extends StatelessWidget {
                   }
                 }
               ),
-              // Expanded(child: DropdownPrice(postsFuture: mostlikedPosts())),
+             
             ],
           ),
         ),

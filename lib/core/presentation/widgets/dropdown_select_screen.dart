@@ -53,6 +53,7 @@ class _DropDownSelectState extends State<DropDownSelect> {
                       builder: (context) => DropdownPrice(
                             postsFuture: getPostsByCategory(selectvalue),
                             title: selectvalue,
+                            visible: true,
                           )));
             });
           },
