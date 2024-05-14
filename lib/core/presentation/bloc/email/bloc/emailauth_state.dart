@@ -13,3 +13,7 @@ final class AuthenticatedErrorState extends EmailauthState{
   final String error;
   AuthenticatedErrorState({required this.error});
 }
+final class AuthenticatedloginErrorState extends EmailauthState{
+  final String error;
+  AuthenticatedloginErrorState({required this.error});
+}

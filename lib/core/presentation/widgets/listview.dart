@@ -71,7 +71,7 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: chat.getLastMessages(toid, fromid),
+        stream: chat.getChats(fromid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
@@ -80,9 +80,9 @@ class CustomListTile extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasData) {
-            final List<MessageModel>? messages = snapshot.data;
-            if (messages != null && messages.isNotEmpty) {
-              final MessageModel lastMessage = messages.first;
+            final List<String> messages = snapshot.data!;
+            if (messages.isNotEmpty) {
+              // final MessageModel lastMessage = messages.first;
               return ListTile(
                 leading: SizedBox(
                   height: height * 0.05,
@@ -98,11 +98,11 @@ class CustomListTile extends StatelessWidget {
                   username,
                   style: MyFonts.boldTextStyle,
                 ),
-                subtitle: Text(
-                  lastMessage.message 
-                
+                subtitle: const Text(
+                  
+                'jey',
                  ),
-                trailing: Text(lastMessage.time ),
+                trailing: const Text('jasof' ),
               );
             } else {
               return const Text('Start New conversation');

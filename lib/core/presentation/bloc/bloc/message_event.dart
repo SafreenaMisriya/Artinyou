@@ -5,8 +5,10 @@ part of 'message_bloc.dart';
 @immutable
 sealed class MessageEvent {}
 class MessageAddEvent extends MessageEvent{
+  final String userid;
+  final String receiverid;
    final MessageModel messages;
- MessageAddEvent({required this.messages,});
+ MessageAddEvent({required this.messages,required this.receiverid,required this.userid});
 }
 class SelectprofileImageEvent extends MessageEvent {
    final bool fromCamera; 

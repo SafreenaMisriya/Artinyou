@@ -22,7 +22,7 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
     on<MessageAddEvent>((event, emit) async{
       emit(Messageloading());
     try {
-      await chatrepository.addMessages(event.messages);
+      await chatrepository.sendMessage( event.receiverid,event.userid,event.messages,);
       emit(MessageSuccess());
 
     } catch (e) {

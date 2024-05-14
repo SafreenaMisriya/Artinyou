@@ -9,11 +9,3 @@ List<ProfileModel> getFilteredProfiles(List<ProfileModel>? allProfiles,String se
       return (allProfiles ?? []).where((profile) => profile.username.toLowerCase().contains(searchQuery)).toList();
     }
   }
-  // List<ProfileModel> getFilteredchatProfiles(List<ChatListItem>? allProfiles,String search) {
-  //   String searchQuery = search.toLowerCase();
-  //   if (searchQuery.isEmpty) {
-  //     return allProfiles ?? [];
-  //   }else {
-  //     return (allProfiles ?? []).where((profile) => profile.username.toLowerCase().contains(searchQuery)).toList();
-  //   }
-  // }

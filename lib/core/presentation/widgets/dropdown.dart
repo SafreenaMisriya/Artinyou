@@ -11,7 +11,7 @@ class DropDowm extends StatefulWidget {
   State<DropDowm> createState() => _DropDowmState();
 }
 String choosevalue = "Creative";
-  final List<String> items = ['Creative', 'Fantasy', 'Craft', '3D Image', 'Wallpapers', 'Photography'];
+  final List<String> items = ['Creative', 'Fantasy', 'Craft', 'Drawings', 'Wallpapers', 'Photography',"Horror","TraditionalArt",'GameArt','DigitalArt'];
 class _DropDowmState extends State<DropDowm> {
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class _DropDowmState extends State<DropDowm> {
                      if (widget.onChanged != null) {
               widget.onChanged!(selectvalue);
             }
+            
                   });
                 },
                 value: choosevalue,

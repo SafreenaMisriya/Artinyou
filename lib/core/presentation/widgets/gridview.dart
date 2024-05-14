@@ -10,7 +10,7 @@ import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
 import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
 import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
-import 'package:art_inyou/core/presentation/widgets/loadining.dart';
+import 'package:art_inyou/core/presentation/utils/loadining.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +52,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
         future: widget.postsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return shimmerloading();
+            return buildShimmerGridView(height, width);
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
@@ -70,7 +70,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                 itemBuilder: (context, index) => Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Stack(
                         children: [
                           ClipRRect(

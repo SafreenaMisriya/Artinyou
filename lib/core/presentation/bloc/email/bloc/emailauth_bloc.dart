@@ -62,7 +62,7 @@ class EmailauthBloc extends Bloc<EmailauthEvent, EmailauthState> {
           emit(Unauthenticated());
         }
       } catch (e) {
-        emit(AuthenticatedErrorState(error: e.toString()));
+        emit(AuthenticatedloginErrorState(error: e.toString()));
       }
     },);
     on<ForgotpasswordEvent>((event, emit)async {

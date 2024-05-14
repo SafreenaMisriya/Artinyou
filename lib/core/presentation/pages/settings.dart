@@ -34,12 +34,11 @@ class SettingsScreen extends StatelessWidget {
                     'Settings And Activity',
                     style: MyFonts.headingTextStyle,
                   ),
-                  
                 ],
               ),
               SizedBox(
-                    height: height * 0.06,
-                  ),
+                height: height * 0.06,
+              ),
               Row(
                 children: [
                   const Icon(Icons.arrow_forward_ios),
@@ -50,7 +49,8 @@ class SettingsScreen extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => SavedPostScreen()));
                       },
-                      child: const Text('Saved Post',style: TextStyle(fontSize: 18,color: Colors.black))),
+                      child: const Text('Saved Post',
+                          style: TextStyle(fontSize: 18, color: Colors.black))),
                 ],
               ),
               Row(
@@ -70,13 +70,15 @@ class SettingsScreen extends StatelessWidget {
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const LoginScreen(),
+                                        builder: (context) =>
+                                            const LoginScreen(),
                                       ),
                                     );
                                   });
                             });
                       },
-                      child: const Text('Log Out',style: TextStyle(fontSize: 18,color: Colors.black))),
+                      child: const Text('Log Out',
+                          style: TextStyle(fontSize: 18, color: Colors.black))),
                 ],
               ),
             ],

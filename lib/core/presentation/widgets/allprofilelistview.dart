@@ -2,14 +2,14 @@
 
 // ignore_for_file: must_be_immutable
 
-import 'package:art_inyou/core/data/model/chatlist.dart';
 import 'package:art_inyou/core/data/model/messagemodel.dart';
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/chat_repository.dart';
 import 'package:art_inyou/core/presentation/pages/chatshow_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
+import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+
 
 ChatRepository chat = ChatRepository();
 
@@ -39,17 +39,6 @@ class CustomProfilesListView extends StatelessWidget {
             height: height,
           ),
           onTap: () {
-            ConversationModel conveseration=ConversationModel(
-              
-              initiatedAt: DateTime.now(),
-              initiatedBy: userid,
-              lastUpdatedAt: DateTime.now(),
-              participantIds: [userid,items[index].userid],
-              participants: [userid,items[index].username],
-              lastMessage: {},
-            
-               );
-               chat.addConversation(conveseration);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -79,6 +68,7 @@ class CustomListTile extends StatelessWidget {
   MessageModel? message;
   @override
   Widget build(BuildContext context) {
+     double width = Responsive.screenWidth(context);
     return ListTile(
       leading: SizedBox(
         height: height * 0.05,
@@ -94,7 +84,22 @@ class CustomListTile extends StatelessWidget {
         username,
         style: MyFonts.boldTextStyle,
       ),
-      trailing:Shimmer.fromColors( baseColor:Colors.blue,highlightColor: Colors.white, child: const Text( 'Chat',style: MyFonts.boldTextStyle,),),
+      
+      trailing:Container(
+          height: height * 0.05,
+          width: width * 0.25,
+          color: Colors.blue,
+          child: const Center(
+            child: Text(
+              'Message',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
     );
   }
 }

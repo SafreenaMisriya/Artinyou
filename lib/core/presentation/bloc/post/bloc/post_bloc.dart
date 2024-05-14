@@ -4,6 +4,7 @@ import 'package:art_inyou/core/data/model/likemodel.dart';
 import 'package:art_inyou/core/data/model/postmodel.dart';
 import 'package:art_inyou/core/data/repository/post_repository.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -74,6 +75,21 @@ class PostBloc extends Bloc<PostEvent, PostState> {
          emit(PostedCommentstate());
       } catch (e) {
           emit(PostCommenterrorstate(error: e.toString()));
+      }
+    });
+        on<PostSearchEvent>((event, emit) async {
+       emit(Postloading());
+      try {
+        QuerySnapshot<Map<String, dynamic>> postsSnapshot =
+            await FirebaseFirestore.instance.collection('posts').get();
+        List<PostModel>post = postsSnapshot.docs
+           .map((doc) => PostModel.fromJson(doc.data(), id: doc.id))
+           .where((post) => post.title.toLowerCase().contains(event.value.toLowerCase()) ||
+                           post.about.toLowerCase().contains(event.value.toLowerCase()))
+           .toList();
+        emit(SearchLoaded(post));
+      } catch (e) {
+        emit(PostSearcherrorstate(error: e.toString()));
       }
     });
 

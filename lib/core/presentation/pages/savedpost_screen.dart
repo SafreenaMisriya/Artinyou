@@ -11,6 +11,7 @@ import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
 import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
 import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
+import 'package:art_inyou/core/presentation/utils/loadining.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,8 @@ class SavedPostScreen extends StatelessWidget {
                                 backgroundColor: Colors.green,
                                 content: Text('Saved Successfully'),
                               ));
+                            }else if(state is Saveloading){
+                             buildShimmerGridView(height, width);
                             }
                           },
                           builder: (context, state) {
@@ -139,7 +142,7 @@ class SavedPostScreen extends StatelessWidget {
                                                     child: Text('Share'),
                                                   ),
                                                   PopupMenuItem(
-                                                    child: const Text('Delete'),
+                                                    child: const Text('Remove'),
                                                     onTap: () {
                                                       showDialog(
                                                           context: context,

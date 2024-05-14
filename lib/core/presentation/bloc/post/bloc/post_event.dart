@@ -42,3 +42,8 @@ class CommentdeleteEvent extends PostEvent {
   final String commentid;
  CommentdeleteEvent({required this.postid,required this.commentid});
 }
+class PostSearchEvent extends PostEvent {
+  final String value;
+ PostSearchEvent({required this.value});
+}
+

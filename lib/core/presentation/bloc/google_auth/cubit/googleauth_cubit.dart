@@ -30,7 +30,6 @@ class GoogleauthCubit extends Cubit<GoogleauthState> {
      await googleSignIn.signOut(); 
       await auth.signOut(); 
       emit(Googleunauthenticated());
-  emit(Googleunauthenticated());
   } catch (e) {
     emit(GoogleauthFailedState(e.toString()));
   }

@@ -124,7 +124,7 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                 builder: (context, state) {
                   return StreamBuilder<List<MessageModel>>(
                     stream:
-                        chat.getMessages(selecteditem.userid, widget.userid),
+                        chat.getChat(selecteditem.userid, widget.userid),
                     builder: (context, snapshot) {
                        if (snapshot.hasError) {
                         return Center(
@@ -258,6 +258,8 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                                   scrollDown();
                                   bloc.add(MessageAddEvent(
                                     messages: model,
+                                    receiverid: model.toId,
+                                    userid: model.fromId
                                   ));
                                 }
                               },
@@ -282,6 +284,8 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                                   scrollDown();
                                   bloc.add(MessageAddEvent(
                                     messages: model,
+                                    receiverid: model.toId,
+                                    userid: model.fromId
                                   ));
                                 }
                               },
@@ -307,6 +311,8 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                         scrollDown();
                         bloc.add(MessageAddEvent(
                           messages: model,
+                          receiverid: model.toId,
+                          userid: model.fromId
                         ));
                       }
                       textcontroller.text = "";

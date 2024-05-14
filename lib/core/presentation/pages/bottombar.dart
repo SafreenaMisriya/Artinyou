@@ -21,13 +21,12 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
-    // Get the current user's ID
     User? currentUser = FirebaseAuth.instance.currentUser;
     String userId = currentUser?.uid ?? '';
 
     final List<Widget> pages = [
       const HomeScreen(),
-      const SearchScreen(),
+       SearchScreen(userid: userId,),
       PostScreen(userId:  userId),
        ChatScreen(userid: userId,),
       const AccountScreen(),

@@ -4,6 +4,7 @@ import 'package:art_inyou/core/data/model/messagemodel.dart';
 import 'package:art_inyou/core/data/repository/chat_repository.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 ChatRepository chat = ChatRepository();
@@ -46,20 +47,18 @@ class MessageCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                messages.type==Type.text
-                ?
-                Text(
-                  messages.message,
-                  style: MyFonts.bodyTextStyle,
-                ):   SizedBox(
-                  height: height * 0.3,
-                  child: Placeholder(
-                    child: Image.network(
-                      messages.message,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                messages.type == Type.text
+                    ? Text(
+                        messages.message,
+                        style: MyFonts.bodyTextStyle,
+                      )
+                    : SizedBox(
+                        height: height * 0.5,
+                        child: CachedNetworkImage(
+                          imageUrl: messages.message,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                 const SizedBox(height: 4.0),
                 Text(
                   messages.time,
@@ -97,19 +96,18 @@ class MessageCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  messages.type ==Type.text
-                 ? Text(
-                    messages.message,
-                    style: MyFonts.iconTextStyle,
-                  ): SizedBox(
-                  height: height * 0.6,
-                  
-                    child: Image.network(
-                      messages.message,
-                      fit: BoxFit.cover,
-                    ),
-                
-                ),
+                  messages.type == Type.text
+                      ? Text(
+                          messages.message,
+                          style: MyFonts.iconTextStyle,
+                        )
+                      : SizedBox(
+                          height: height * 0.6,
+                          child: CachedNetworkImage(
+                            imageUrl: messages.message,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                   const SizedBox(height: 4),
                   Row(
                     mainAxisSize: MainAxisSize.min,

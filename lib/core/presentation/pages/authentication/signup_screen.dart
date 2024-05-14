@@ -1,4 +1,5 @@
 import 'package:art_inyou/core/data/model/emailmodel.dart';
+import 'package:art_inyou/core/domain/service/sharedpreferance.dart';
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
@@ -111,7 +112,8 @@ class _SignUpAuthState extends State<SignUpAuth> {
                           labelwidget(
                             labelText: 'Sign Up',
                             onTap: ()async {
-                              if (formKey.currentState!.validate()) {
+                              if (formKey.currentState!.validate()){
+                                await SharedPreferenceHelper().saveEmail(emailcontroller.text);
                                 SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
                                 sharedPreferences.setString('email', emailcontroller.text);
                                 UserModel user = UserModel(
