@@ -91,7 +91,8 @@ class SavedPostScreen extends StatelessWidget {
                                                       context,
                                                       post[index].title,
                                                       post[index].about,
-                                                      post[index].price)
+                                                      post[index].price,
+                                                      post[index].username)
                                                   : GestureDetector(
                                                       child: SizedBox(
                                                         height: height * 0.3,
@@ -122,6 +123,8 @@ class SavedPostScreen extends StatelessWidget {
                                                                     postid: post[index]
                                                                         .postid,
                                                                     userid: userId,
+                                                                    name: post[index].username,
+
                                                                   )))),
                                             ),
                                             Positioned(

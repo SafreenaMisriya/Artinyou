@@ -17,6 +17,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:shimmer/shimmer.dart';
 
 class DropdownPrice extends StatelessWidget {
   final Future<List<PostModel>>? postsFuture;
@@ -73,6 +74,16 @@ class DropdownPrice extends StatelessWidget {
                         color: redcolor,
                       ),
                     );
+                  } else if (snapshot.data!.isEmpty) {
+                    return Center(
+                        child: Shimmer.fromColors(
+                            baseColor: Colors.blue,
+                            highlightColor: Colors.white,
+                            child: const Text(
+                              'No Data Available',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w300),
+                            )));
                   } else if (snapshot.hasData) {
                     List<PostModel>? posts = snapshot.data;
 
@@ -98,7 +109,8 @@ class DropdownPrice extends StatelessWidget {
                                             context,
                                             posts[index].title,
                                             posts[index].about,
-                                            posts[index].price)
+                                            posts[index].price,
+                                            posts[index].username)
                                         : GestureDetector(
                                             child: SizedBox(
                                               height: height * 0.3,
@@ -127,6 +139,7 @@ class DropdownPrice extends StatelessWidget {
                                                           postid: posts[index]
                                                               .postid,
                                                           userid: userId,
+                                                          name: posts[index].username,
                                                         )))),
                                   ),
                                   Positioned(

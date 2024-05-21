@@ -2,6 +2,7 @@ import 'package:art_inyou/core/data/model/commentmodel.dart';
 import 'package:art_inyou/core/domain/comment_fetching.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
+import 'package:art_inyou/core/presentation/utils/date_time.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -152,13 +153,13 @@ showcommentdialog(
         ),
         TextButton(
           onPressed: () {
-            DateTime dateTime = DateTime.now();
-            String formattedTime =
-                "${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')} ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
+
+            String? formattedTime = dateAndtime();
+               
             CommentModel commentModel = CommentModel(
               userid: userid,
               text: controller.text,
-              time: formattedTime,
+              time: formattedTime!,
             );
 
             postBloc.add(PostCommentEvent(comment: commentModel, postid: id));

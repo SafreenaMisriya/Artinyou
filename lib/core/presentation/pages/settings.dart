@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:art_inyou/core/domain/fetching.dart';
 import 'package:art_inyou/core/domain/most_commented.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
 import 'package:art_inyou/core/presentation/pages/price_rangedisply.dart';

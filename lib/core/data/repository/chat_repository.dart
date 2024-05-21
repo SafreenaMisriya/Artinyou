@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:art_inyou/core/data/model/chatlistinfo.dart';
 import 'package:art_inyou/core/data/model/messagemodel.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
+import 'package:art_inyou/core/presentation/utils/date_time.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -27,7 +29,7 @@ class ChatRepository {
   }
 
   // Get chats for a user
-Stream<List<String>> getChats(String userId) {
+  Stream<List<ChatInfo>> getChats(String userId) {
     return firestore
         .collection('chats')
         .where('members', arrayContains: userId)
@@ -37,7 +39,12 @@ Stream<List<String>> getChats(String userId) {
           return snapshot.docs.map((doc) {
             List<String> members = List<String>.from(doc.data()['members']);
             members.remove(userId);
-            return members.first;
+            return ChatInfo(
+              member: members.first,
+              lastActive: (doc.data()['lastActive']),
+              lastMessage: doc.data()['lastMessage'] ?? '',
+              lastMessageTime: (doc.data()['lastMessageTime']),
+            );
           }).toList();
         });
   }
@@ -69,24 +76,26 @@ Stream<List<String>> getChats(String userId) {
     bool existsOrNot = await checkChatExistsOrNot(username1: to, username2: from);
     FirebaseFirestore tempDb = FirebaseFirestore.instance;
     String chatId = generateChatId(username1: from, username2: to);
-    Timestamp now = Timestamp.now();
+     String time=dateAndtime();
+
+      var messageRef = tempDb.collection('chats').doc(chatId).collection('messages').doc();
+      message = message.copyWith(messageid: messageRef.id);
+      await messageRef.set(message.toJson());
+        Map<String, dynamic> chatData = {
+      'lastActive': time,
+      'lastMessage': message.message, 
+      'lastMessageTime': time,
+    };
+
 
     if (!existsOrNot) {
       List<String> members = [to, from];
-      var messageRef = tempDb.collection('chats').doc(chatId).collection('messages').doc();
-      message = message.copyWith(messageid: messageRef.id);
-      await messageRef.set(message.toJson());
-
-      await tempDb.collection('chats').doc(chatId).set({
-        'lastActive': now,
-        'members': members,
-      });
+       chatData['members'] = members;
+      await tempDb.collection('chats').doc(chatId).set(chatData);
     } else {
-      var messageRef = tempDb.collection('chats').doc(chatId).collection('messages').doc();
-      message = message.copyWith(messageid: messageRef.id);
-      await messageRef.set(message.toJson());
 
-      await tempDb.collection('chats').doc(chatId).update({'lastActive': now});
+
+      await tempDb.collection('chats').doc(chatId).update(chatData);
     }
   }
   

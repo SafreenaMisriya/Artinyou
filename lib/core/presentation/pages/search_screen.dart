@@ -95,7 +95,8 @@ class SearchScreen extends StatelessWidget {
                                           context,
                                          state .post[index].title,
                                          state .post[index].about,
-                                         state .post[index].price)
+                                         state .post[index].price,
+                                         state.post[index].username)
                                       : GestureDetector(
                                           child: SizedBox(
                                             height: height * 0.3,

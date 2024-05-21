@@ -21,84 +21,86 @@ class TabBarViewScreen extends StatelessWidget {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String userId = currentUser?.uid ?? '';
 
-    return DefaultTabController(
-      length: 11,
-      child: Column(
-        children: [
-          const TabBar(
-            indicatorColor: Colors.red,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey,
-            isScrollable: true,
-            tabs: [
-              Tab(
-                child: Text('All'),
-              ),
-              Tab(
-                child: Text('Creative'),
-              ),
-              Tab(
-                child: Text('Fantasy'),
-              ),
-              Tab(
-                child: Text('Photography'),
-              ),
-              Tab(
-                child: Text('Wallpapers'),
-              ),
-              Tab(
-                child: Text('Drawings'),
-              ),
-              Tab(
-                child: Text('Craft'),
-              ),
-              Tab(
-                child: Text('Horror'),
-              ),
-              Tab(
-                child: Text('TraditionalArt'),
-              ),
-              Tab(
-                child: Text('DigitalArt'),
-              ),
-              Tab(
-                child: Text('GameArt'),
-              ),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              children: [
-                GridViewScreen(
-                  postsFuture: getPosts(),
-                  userId: userId,
+    return SafeArea(
+      child: DefaultTabController(
+        length: 11,
+        child: Column(
+          children: [
+            const TabBar(
+              indicatorColor: Colors.red,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey,
+              isScrollable: true,
+              tabs: [
+                Tab(
+                  child: Text('All'),
                 ),
-                CreativeScreen(
-                  userId: userId,
+                Tab(
+                  child: Text('Creative'),
                 ),
-                FantasyScreen(
-                  userId: userId,
+                Tab(
+                  child: Text('Fantasy'),
                 ),
-                PhotographyScreen(
-                  userId: userId,
+                Tab(
+                  child: Text('Photography'),
                 ),
-                WallpapersScreen(
-                  userId: userId,
+                Tab(
+                  child: Text('Wallpapers'),
                 ),
-                DrawingsScreen(
-                  userId: userId,
+                Tab(
+                  child: Text('Drawings'),
                 ),
-                CraftScreen(
-                  userId: userId,
+                Tab(
+                  child: Text('Craft'),
                 ),
-                HorrorScreen(userid: userId),
-                TraditionalArtScreen(userid: userId),
-                DigitalArtScreen(userid: userId, ),
-                GameArtScreen(userid: userId),
+                Tab(
+                  child: Text('Horror'),
+                ),
+                Tab(
+                  child: Text('TraditionalArt'),
+                ),
+                Tab(
+                  child: Text('DigitalArt'),
+                ),
+                Tab(
+                  child: Text('GameArt'),
+                ),
               ],
             ),
-          ),
-        ],
+            Expanded(
+              child: TabBarView(
+                children: [
+                  GridViewScreen(
+                    postsFuture: getPosts(),
+                    userId: userId,
+                  ),
+                  CreativeScreen(
+                    userId: userId,
+                  ),
+                  FantasyScreen(
+                    userId: userId,
+                  ),
+                  PhotographyScreen(
+                    userId: userId,
+                  ),
+                  WallpapersScreen(
+                    userId: userId,
+                  ),
+                  DrawingsScreen(
+                    userId: userId,
+                  ),
+                  CraftScreen(
+                    userId: userId,
+                  ),
+                  HorrorScreen(userid: userId),
+                  TraditionalArtScreen(userid: userId),
+                  DigitalArtScreen(userid: userId, ),
+                  GameArtScreen(userid: userId),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

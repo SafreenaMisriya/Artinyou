@@ -1,4 +1,5 @@
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/core/presentation/pages/payment/steps_payemt.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
@@ -8,6 +9,7 @@ import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
 import 'package:flutter/material.dart';
 
 class FullimageScreen extends StatelessWidget {
+
   final List<String>? imagePathList;
   final String? singleImagePath;
   final String? title;
@@ -15,6 +17,7 @@ class FullimageScreen extends StatelessWidget {
   final String? price;
   final String? userid;
   final String? postid;
+  final String? name;
   final PostBloc? postBloc;
   const FullimageScreen(
       {super.key,
@@ -25,11 +28,13 @@ class FullimageScreen extends StatelessWidget {
       this.postid,
       this.title,
       this.about,
-      this.price});
+      this.price,
+      this.name});
 
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -100,7 +105,10 @@ class FullimageScreen extends StatelessWidget {
               SizedBox(
                 height: height * 0.03,
               ),
-              labelwidget(labelText: 'Download', onTap: () {})
+              labelwidget(labelText: 'Buy Now', onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>
+              // HardcopyPaymentSteps(postid: postid!,price: price!,name: name!, product: title!,),
+              SoftCopyPayment(price: price!, postid: postid!, username: name!, product: title!, imageurl: singleImagePath!)
+              ));})
             ],
           ),
         ),

@@ -78,7 +78,7 @@ class _CaroselScreenState extends State<CaroselScreen> {
       );
 }
   Widget buildCarousel(String imageUrl, BuildContext context, String title,
-      String about, String price) {
+      String about, String price,String name) {
     List<String> imageUrlList = imageUrl.split(',');
     return GestureDetector(
       onTap: () {
@@ -90,6 +90,7 @@ class _CaroselScreenState extends State<CaroselScreen> {
                       title: title,
                       about: about,
                       price: price,
+                      name:name ,
                     )));
       },
       child: CaroselScreen(

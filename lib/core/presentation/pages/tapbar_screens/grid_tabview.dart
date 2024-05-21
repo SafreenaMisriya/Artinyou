@@ -1,5 +1,5 @@
 import 'package:art_inyou/core/domain/fetching.dart';
-import 'package:art_inyou/core/domain/most_commented.dart';
+import 'package:art_inyou/core/domain/savedpost_fetching.dart';
 import 'package:art_inyou/core/presentation/pages/price_rangedisply.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class TabBarViewGridScreen extends StatelessWidget {
             child: TabBarView(
               children: [
                 DropdownPrice(postsFuture: getPostOfuser(userId),visible: false,),
-               DropdownPrice(postsFuture: mostCommentedPosts(),visible: false,)
+               DropdownPrice(postsFuture: fetchSaved(userId),visible: false,)
               ],
             ),
           ),

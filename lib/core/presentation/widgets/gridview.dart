@@ -6,6 +6,7 @@ import 'package:art_inyou/core/presentation/pages/post_screen.dart';
 import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
+import 'package:art_inyou/core/presentation/utils/snakbar.dart';
 import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
 import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
@@ -15,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:shimmer/shimmer.dart';
 
 FirestoreService service = FirestoreService();
 
@@ -57,7 +59,17 @@ class _GridViewScreenState extends State<GridViewScreen> {
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
-          } else if (snapshot.hasData) {
+          }else if (snapshot.data!.isEmpty) {
+                    return Center(
+                        child: Shimmer.fromColors(
+                            baseColor: Colors.blue,
+                            highlightColor: Colors.white,
+                            child: const Text(
+                              'No Data Available',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w300),
+                            )));
+                  } else if (snapshot.hasData) {
             List<PostModel>? posts = snapshot.data;
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -105,6 +117,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                                   postBloc: postbloc,
                                                   postid: posts[index].postid,
                                                   userid: widget.userId,
+                                                  name: posts[index].username,
                                                 )))),
                           ),
                           Positioned(
@@ -121,20 +134,18 @@ class _GridViewScreenState extends State<GridViewScreen> {
                             child: BlocBuilder<PostBloc, PostState>(
                               builder: (context, state) {
                                 if (state is Postdeletesuccessstate) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          backgroundColor: Colors.red,
-                                          content:
-                                              Text('Deleted Successfully')));
+                                 snakbarDeleteMessage(context, 'Post Deleted Successfully');
                                 }
                                 return PopupMenuButton(
                                   iconColor: Colors.white,
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
                                       child: const Text('Save '),
-                                      onTap: () => saveBloc.add(SavePostEvent(
+                                      onTap: () { saveBloc.add(SavePostEvent(
                                           postid: posts[index].postid,
-                                          userid: widget.userId)),
+                                          userid: widget.userId));
+                                          snakbarSuccessMessage(context, 'Post Saved Successfully');
+                                      }  
                                     ),
                                     const PopupMenuItem(
                                       child: Text('Share'),

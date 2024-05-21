@@ -1,20 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:art_inyou/core/data/model/chatlist.dart';
+import 'package:art_inyou/core/data/model/chatlistinfo.dart';
 import 'package:art_inyou/core/data/repository/chat_repository.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
-import 'package:art_inyou/core/presentation/pages/chat/chatshow_screen.dart';
+import 'package:art_inyou/core/presentation/pages/chat/chat_view.dart';
 import 'package:art_inyou/core/presentation/pages/chat/showall_profile.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
+import 'package:art_inyou/core/presentation/utils/date_time.dart';
 import 'package:art_inyou/core/presentation/utils/fetchingchat.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/loadinglistview.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:flutter/material.dart';
-
-
-
-
 
 Profilestorage storge = Profilestorage();
 ChatRepository chat = ChatRepository();
@@ -71,53 +69,59 @@ class ChatScreen extends StatelessWidget {
               if (chatSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               }
-
               if (chatSnapshot.hasError) {
                 return Center(child: Text('Error: ${chatSnapshot.error}'));
               }
-
               if (!chatSnapshot.hasData || chatSnapshot.data!.isEmpty) {
-                return const Center(child: Text('No conversations found'));
+                return const Center(child: Text('Start Your Conversation'));
               }
-
-              List<String> userIds = chatSnapshot.data!;
-
+              List<ChatInfo> chatInfos = chatSnapshot.data!;
               return FutureBuilder<List<ChatItem>>(
-                future: fetchChatItems(userIds),
+                future: fetchChatItems(chatInfos),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return shimmerChatListView();
                   }
-
                   if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   }
-
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No conversations found'));
+                    return const Center(child: Text('Start Your Conversation'));
                   }
-
                   List<ChatItem> chatItems = snapshot.data!;
-
                   return Expanded(
                     child: ListView.builder(
                       itemCount: chatItems.length,
                       itemBuilder: (context, index) {
-                        ChatItem? chatItem = chatItems[index];
-
+                        ChatItem chatItem = chatItems[index];
+                        ChatInfo chatInfoItem = chatInfos[index];
+                         bool isImageLink = chatInfoItem.lastMessage.startsWith('http://') ||
+                                 chatInfoItem.lastMessage.startsWith('https://');
                         return ListTile(
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(chatItem.imageurl),
                           ),
-                          title: Text(chatItem.username),
+                          title: Text(chatItem.username,
+                              style: MyFonts.boldTextStyle),
+                          subtitle: Text(
+                            isImageLink ? 'Image 📷'
+                            :chatInfoItem.lastMessage,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: Text(
+                           formatDateTime(  chatInfoItem.lastMessageTime,),
+                            style: TextStyle(color: greycolor),
+                          ),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ChatShowScreen(
+                                  activetime: chatInfoItem.lastActive,
                                   items: chatItems,
                                   selecteditem: index,
                                   userid: userid,
+
                                 ),
                               ),
                             );
@@ -132,6 +136,4 @@ class ChatScreen extends StatelessWidget {
           )
         ]));
   }
-
- 
 }

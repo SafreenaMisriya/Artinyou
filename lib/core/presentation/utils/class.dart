@@ -32,21 +32,12 @@ class Imageselect{
         storageref.ref().child('multiple image').child(image.name);
     UploadTask uploadTask = reference.putFile(File(image.path));
     await uploadTask.whenComplete(() {
-      // setState(() {
-      //   uploaditem++;
-      //   if (uploaditem == selectedfile.length) {
-      //     isuploading = false;
-      //     uploaditem = 0;
-      //   }
-      // });
+
     });
     return await reference.getDownloadURL();
   }
 
   uploadFuction(List<XFile> images) {
-    // setState(() {
-    //   isuploading = true;
-    // });
     for (int i = 0; i < images.length; i++) {
       var imageUrl = uploading(images[i]);
       arrImage.add(imageUrl.toString());

@@ -9,8 +9,8 @@ class DigitalArtScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: 
-         GridViewScreen(postsFuture: getPostsByCategory('DigitalArt'), userId: userid),
+     body:  GridViewScreen(postsFuture: getPostsByCategory('DigitalArt'),userId: userid,),
+         
         
       );
     
