@@ -109,8 +109,9 @@ class DropdownPrice extends StatelessWidget {
                                             context,
                                             posts[index].title,
                                             posts[index].about,
-                                            posts[index].price,
-                                            posts[index].username)
+                                            posts[index].softprice,
+                                            posts[index].username,
+                                            posts[index].hardprice)
                                         : GestureDetector(
                                             child: SizedBox(
                                               height: height * 0.3,
@@ -130,8 +131,9 @@ class DropdownPrice extends StatelessWidget {
                                                               .title,
                                                           about: posts[index]
                                                               .about,
-                                                          price: posts[index]
-                                                              .price,
+                                                         softprice: posts[index]
+                                                              .softprice,
+                                                              hardprice: posts[index].hardprice,
                                                           singleImagePath:
                                                               posts[index]
                                                                   .imageUrl,
@@ -222,7 +224,7 @@ class DropdownPrice extends StatelessWidget {
                                     bottom: 30,
                                     right: 4,
                                     child: Text(
-                                      '₹${posts[index].price}',
+                                      '₹${posts[index].softprice}',
                                       style: MyFonts.iconTextStyle,
                                     ),
                                   ),

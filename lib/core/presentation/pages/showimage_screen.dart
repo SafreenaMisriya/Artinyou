@@ -1,5 +1,5 @@
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/payment/steps_payemt.dart';
+import 'package:art_inyou/core/presentation/utils/alert_dialogswitch.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/carosel.dart';
@@ -7,6 +7,7 @@ import 'package:art_inyou/core/presentation/widgets/comment_post.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
 import 'package:art_inyou/core/presentation/widgets/like_buttonscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FullimageScreen extends StatelessWidget {
 
@@ -14,7 +15,8 @@ class FullimageScreen extends StatelessWidget {
   final String? singleImagePath;
   final String? title;
   final String? about;
-  final String? price;
+  final String? softprice;
+  final String? hardprice;
   final String? userid;
   final String? postid;
   final String? name;
@@ -28,7 +30,8 @@ class FullimageScreen extends StatelessWidget {
       this.postid,
       this.title,
       this.about,
-      this.price,
+      this.softprice,
+      this.hardprice,
       this.name});
 
   @override
@@ -76,15 +79,7 @@ class FullimageScreen extends StatelessWidget {
                           child:  Image.network(singleImagePath!)
                         ),
                       ),
-                    if (price != null)
-                      Positioned(
-                        bottom: 40,
-                        right: 10,
-                        child: Text(
-                          '₹$price',
-                          style: MyFonts.iconTextStyle,
-                        ),
-                      ),
+                   
                   ],
                 ),
               ),
@@ -98,6 +93,22 @@ class FullimageScreen extends StatelessWidget {
               SizedBox(
                 height: height * 0.02,
               ),
+               Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                 Text('SoftCopy Price :',style: GoogleFonts.aladin(fontSize: 17),),
+                 Text('₹${softprice?? " "}',style: MyFonts.boldTextStyle,),
+                ],),
+              
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+               Text('HardCopy Price :',style: GoogleFonts.aladin(fontSize: 17),),
+               Text('₹${hardprice?? " "}',style: MyFonts.boldTextStyle,),
+              ],),
+              SizedBox(
+                height: height * 0.02,
+              ),
               Text(
                 about ?? '',
                 style: MyFonts.boldTextStyle,
@@ -105,10 +116,14 @@ class FullimageScreen extends StatelessWidget {
               SizedBox(
                 height: height * 0.03,
               ),
-              labelwidget(labelText: 'Buy Now', onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context)=>
+              labelwidget(labelText: 'Buy Now', onTap: () {
+                //  Navigator.push(context, MaterialPageRoute(builder: (context)=>
               // HardcopyPaymentSteps(postid: postid!,price: price!,name: name!, product: title!,),
-              SoftCopyPayment(price: price!, postid: postid!, username: name!, product: title!, imageurl: singleImagePath!)
-              ));})
+              // SoftCopyPayment(price: softprice!, postid: postid!, username: name!, product: title!, imageurl: singleImagePath!)
+              
+              // ));
+              showCustomDialog(context,softprice!,postid!,name!,title!,singleImagePath!,hardprice!,userid!);
+              })
             ],
           ),
         ),

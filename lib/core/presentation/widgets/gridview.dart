@@ -93,7 +93,8 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                     context,
                                     posts[index].title,
                                     posts[index].about,
-                                    posts[index].price)
+                                    posts[index].softprice,
+                                    posts[index].hardprice)
                                 : GestureDetector(
                                     child: SizedBox(
                                       height: height * 0.3,
@@ -111,7 +112,8 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                                 FullimageScreen(
                                                   title: posts[index].title,
                                                   about: posts[index].about,
-                                                  price: posts[index].price,
+                                                  softprice: posts[index].softprice,
+                                                  hardprice: posts[index].hardprice,
                                                   singleImagePath:
                                                       posts[index].imageUrl,
                                                   postBloc: postbloc,
@@ -194,7 +196,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                             bottom: 30,
                             right: 4,
                             child: Text(
-                              '₹${posts[index].price}',
+                              '₹${posts[index].softprice}',
                               style: MyFonts.iconTextStyle,
                             ),
                           ),
@@ -256,7 +258,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
 }
 
 Widget _buildCarousel(String imageUrl, BuildContext context, String title,
-    String about, String price) {
+    String about, String softprice,String hardprice) {
   List<String> imageUrlList = imageUrl.split(',');
   return GestureDetector(
     onTap: () {
@@ -267,7 +269,8 @@ Widget _buildCarousel(String imageUrl, BuildContext context, String title,
                     imagePathList: imageUrlList,
                     title: title,
                     about: about,
-                    price: price,
+                    softprice: softprice,
+                    hardprice: hardprice,
                   )));
     },
     child: CaroselScreen(

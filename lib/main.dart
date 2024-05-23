@@ -11,6 +11,7 @@ import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/softcopy/softcopy_bloc.dart';
+import 'package:art_inyou/core/presentation/bloc/toggle/toggle_cubit.dart';
 import 'package:art_inyou/core/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<SaveBloc>(create: (context) => SaveBloc(),),
         BlocProvider<SoftcopyBloc>(create: (context)=>SoftcopyBloc()),
         BlocProvider<HardcopyBloc>(create: (context)=>HardcopyBloc()),
+         BlocProvider<ToggleCubit>(create: (context)=>ToggleCubit()),
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

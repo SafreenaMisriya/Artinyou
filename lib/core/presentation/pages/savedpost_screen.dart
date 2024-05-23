@@ -91,8 +91,9 @@ class SavedPostScreen extends StatelessWidget {
                                                       context,
                                                       post[index].title,
                                                       post[index].about,
-                                                      post[index].price,
-                                                      post[index].username)
+                                                      post[index].softprice,
+                                                      post[index].username,
+                                                      post[index].hardprice)
                                                   : GestureDetector(
                                                       child: SizedBox(
                                                         height: height * 0.3,
@@ -114,8 +115,9 @@ class SavedPostScreen extends StatelessWidget {
                                                                         .title,
                                                                     about: post[index]
                                                                         .about,
-                                                                    price: post[index]
-                                                                        .price,
+                                                                    softprice: post[index]
+                                                                        .softprice,
+                                                                        hardprice: post[index].hardprice,
                                                                     singleImagePath:
                                                                         post[index]
                                                                             .imageUrl,
@@ -173,7 +175,7 @@ class SavedPostScreen extends StatelessWidget {
                                               bottom: 30,
                                               right: 4,
                                               child: Text(
-                                                '₹${post[index].price}',
+                                                '₹${post[index].softprice}',
                                                 style: MyFonts.iconTextStyle,
                                               ),
                                             ),

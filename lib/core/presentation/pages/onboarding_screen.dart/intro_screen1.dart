@@ -8,16 +8,20 @@ class IntroPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
-    return Center(
-      child: Column(
-        children: [
-         Container(
-          height: height *1,
-          decoration: const BoxDecoration(
-            image: DecorationImage(image:  AssetImage('assets/image/intro1.jpg'),fit: BoxFit.cover)
-          )
-         )
-        ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+             Container(
+              height: height *1,
+              decoration: const BoxDecoration(
+                image: DecorationImage(image:  AssetImage('assets/image/intro1.jpg'),fit: BoxFit.cover)
+              )
+             )
+            ],
+          ),
+        ),
       ),
     );
   }

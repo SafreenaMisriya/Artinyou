@@ -15,12 +15,14 @@ class SoftCopyPayment extends StatelessWidget {
   final String postid;
   final String username;
   final String product;
+  final String userid;
   final String imageurl;
   const SoftCopyPayment(
       {super.key,
       required this.price,
       required this.postid,
       required this.username,
+      required this.userid,
       required this.product,
       required this.imageurl});
 
@@ -32,13 +34,13 @@ class SoftCopyPayment extends StatelessWidget {
       create: (context) => SoftcopyBloc(),
       child: Builder(
         builder: (context) {
-          final PaymentService paymentService = PaymentService(context);
+          final PaymentService paymentService = PaymentService(context,price: price,postid: postid,userid: userid);
           return SafeArea(
-            child: Scaffold(
-              body: BlocBuilder<SoftcopyBloc, SoftcopyState>(
+              child: Scaffold(
+            body:  BlocBuilder<SoftcopyBloc, SoftcopyState>(
                 builder: (context, state) {
                   if (state.completed) {
-                    return const SuccessScreen();
+                    return  const SuccessScreen(text: 'ThankYou For Downloading !');
                   } else {
                     return Theme(
                       data: Theme.of(context).copyWith(
@@ -158,31 +160,6 @@ class SoftCopyPayment extends StatelessWidget {
                   height: height * 0.02,
                 ),
                 GestureDetector(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10)),
-                    height: height * 0.07,
-                    width: width * 0.8,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.wallet),
-                        SizedBox(
-                          width: width * 0.03,
-                        ),
-                        const Text(
-                          'Wallets',
-                          style: MyFonts.bodyTextStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {},
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                GestureDetector(
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border.all(
@@ -207,7 +184,6 @@ class SoftCopyPayment extends StatelessWidget {
                     onTap: () {
                       int amount = int.parse(price);
                       pay.openCheckout(amount, name, product);
-                      context.read<SoftcopyBloc>().add(PaymentSuccessEvent());
                     }),
               ],
             ),
@@ -231,18 +207,22 @@ class SoftCopyPayment extends StatelessWidget {
               SizedBox(
                 height: height * 0.06,
               ),
-              labelwidget(
-                  labelText: 'Dowload Now',
-                  onTap: () async {
-                    final dowload = MediaDownload();
-                    state.paymentCompleted
-                        ? dowload.downloadMedia(context, imageurl)
-                        : snakbarDeleteMessage(
-                            context, 'Please Pay the amount and Download Now');
-                  })
+              BlocBuilder<SoftcopyBloc, SoftcopyState>(
+                builder: (context, state) {
+                  return labelwidget(
+                      labelText: 'Dowload Now',
+                      onTap: () async {
+                        final dowload = MediaDownload();
+                        state.paymentCompleted
+                            ? dowload.downloadMedia(context, imageurl)
+                            : snakbarDeleteMessage(context,
+                                'Please Pay the amount and Download Now');
+                      });
+                },
+              )
             ],
           ),
-          isActive: currentStep >= 1 && state.paymentCompleted,
+          isActive: currentStep >= 1,
         ),
       ];
 }

@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/price_select_dropdown.dart';
 import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
@@ -67,7 +66,7 @@ class SearchScreen extends StatelessWidget {
                   const PriceRangeDropdown()
                 ],
               ),
-              SizedBox(height: height*0.05,),
+              SizedBox(height: height*0.04,),
               BlocBuilder<PostBloc, PostState>(
                 builder: (context, state) {
                   if(state is SearchLoaded){
@@ -95,7 +94,8 @@ class SearchScreen extends StatelessWidget {
                                           context,
                                          state .post[index].title,
                                          state .post[index].about,
-                                         state .post[index].price,
+                                         state .post[index].softprice,
+                                         state.post[index].hardprice,
                                          state.post[index].username)
                                       : GestureDetector(
                                           child: SizedBox(
@@ -114,7 +114,8 @@ class SearchScreen extends StatelessWidget {
                                                       FullimageScreen(
                                                         title:state. post[index].title,
                                                         about:state .post[index].about,
-                                                        price: state.post[index].price,
+                                                        softprice: state.post[index].softprice,
+                                                        hardprice: state.post[index].hardprice,
                                                         singleImagePath:
                                                             state.post[index].imageUrl,
                                                         postBloc: postbloc,
@@ -134,7 +135,7 @@ class SearchScreen extends StatelessWidget {
                                   bottom: 30,
                                   right: 4,
                                   child: Text(
-                                    '₹${state.post[index].price}',
+                                    '₹${state.post[index].softprice}',
                                     style: MyFonts.iconTextStyle,
                                   ),
                                 ),
@@ -190,7 +191,7 @@ class SearchScreen extends StatelessWidget {
                     return const Center(child: Text(''),);
                   }
                 }
-              ),
+              )
              
             ],
           ),

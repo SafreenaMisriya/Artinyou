@@ -23,7 +23,7 @@ class _DropDowmState extends State<DropDowm> {
               color: color,
             ),
             height: height * 0.08,
-            width: width * 0.4,
+            width: width * 0.9,
             child: Center(
               child: DropdownButton<String>(
                 onChanged: (String? selectvalue) {

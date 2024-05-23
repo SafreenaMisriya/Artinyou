@@ -69,6 +69,9 @@ dependencies:
   internet_connection_checker_plus: ^2.3.0
   equatable: ^2.0.5
   flutter_media_downloader: ^1.0.4
+  url_launcher: ^6.2.6
+  
+
   
 
 

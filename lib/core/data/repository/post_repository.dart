@@ -16,7 +16,8 @@ class FirestoreService {
         Map<String, dynamic> postData = {
           'imageUrl': post.imageUrl,
           'title': post.title,
-          'price': post.price,
+          'softprice': post.softprice,
+          'hardprice': post.hardprice,
           'category': post.category,
           'about': post.about,
           'postId': post.userid,
@@ -38,7 +39,8 @@ class FirestoreService {
       Map<String, dynamic> updateData = {
         'imageUrl': post.imageUrl,
         'title': post.title,
-        'price': post.price,
+        'softprice': post.softprice,
+        'hardprice': post.hardprice,
         'category': post.category,
         'about': post.about,
         'createdAt': DateTime.now(),
@@ -58,16 +60,17 @@ class FirestoreService {
     }
   }
 
- Future<void>  addcomment(CommentModel comment,String postId) async {
+  Future<void> addcomment(CommentModel comment, String postId) async {
     try {
-       ProfileModel? userProfile = await profileStorage.getProfile(comment.userid);
-       Map<String, dynamic> commentdata={
-         "comment": comment.text,
+      ProfileModel? userProfile =
+          await profileStorage.getProfile(comment.userid);
+      Map<String, dynamic> commentdata = {
+        "comment": comment.text,
         'commentedby': userProfile?.username,
         'commenttime': comment.time,
-        'commentedprofile':userProfile?.imageurl,
-        'commenteduserId':comment.userid,
-       };
+        'commentedprofile': userProfile?.imageurl,
+        'commenteduserId': comment.userid,
+      };
       await firestore
           .collection('posts')
           .doc(postId)
@@ -77,6 +80,7 @@ class FirestoreService {
       throw Exception('Failed to comment post: $e');
     }
   }
+
   Future<bool> hasUserLikedPost(String userId, String postId) async {
     try {
       DocumentSnapshot snapshot = await firestore
@@ -91,6 +95,7 @@ class FirestoreService {
       throw Exception('Failed to check like status: $e');
     }
   }
+
   Future<void> toggleLikePost(LikeModel model, String postId) async {
     try {
       bool hasLiked = await hasUserLikedPost(model.userid, postId);
@@ -114,12 +119,33 @@ class FirestoreService {
       throw Exception('Failed to toggle like status: $e');
     }
   }
-    Future<void> deleteComment(String postId,String commentid) async {
+
+  Future<void> deleteComment(String postId, String commentid) async {
     try {
-      await firestore.collection('posts').doc(postId).collection('comment').doc(commentid).delete();
+      await firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comment')
+          .doc(commentid)
+          .delete();
     } catch (e) {
       throw Exception('Failed to delete post: $e');
     }
   }
-
+   Future<PostModel> getPostDetails(String postId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> docSnapshot = 
+          await firestore.collection('posts').doc(postId).get();
+      
+      if (docSnapshot.exists) {
+        Map<String, dynamic> data = docSnapshot.data()!;
+        PostModel post = PostModel.fromJson(data, id: docSnapshot.id);
+        return post;
+      } else {
+        throw Exception('Post not found');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch post details: $e');
+    }
+  }
 }

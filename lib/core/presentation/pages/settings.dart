@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:art_inyou/core/domain/most_commented.dart';
+import 'package:art_inyou/core/presentation/pages/about_screen.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/login_screen.dart';
-import 'package:art_inyou/core/presentation/pages/price_rangedisply.dart';
+import 'package:art_inyou/core/presentation/pages/privacy_policy.dart';
 import 'package:art_inyou/core/presentation/pages/savedpost_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
@@ -91,9 +91,23 @@ class SettingsScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DropdownPrice(postsFuture: mostCommentedPosts(),visible:true,)));
+                                builder: (context) =>const PrivacyPolicy()));
                       },
-                      child: const Text('Most Commented',
+                      child: const Text('Privacy Policy',
+                          style: TextStyle(fontSize: 18, color: Colors.black))),
+                ],
+              ),
+               Row(
+                children: [
+                  const Icon(Icons.arrow_forward_ios),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>const AboutScreen()));
+                      },
+                      child: const Text('About',
                           style: TextStyle(fontSize: 18, color: Colors.black))),
                 ],
               ),

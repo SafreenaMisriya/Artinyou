@@ -103,9 +103,7 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                                   'https://i.pinimg.com/originals/8a/a4/59/8aa4595fb24b6ed585dddac4622b2445.gif',
                                 ),
                               )
-                            : ListView.builder(
-                               reverse: true,
-                                controller: scrollController,
+                            : ListView.builder(                                controller: scrollController,
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: messagesList.length,
                                 itemBuilder: (context, index) {

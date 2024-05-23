@@ -7,7 +7,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:meta/meta.dart';
@@ -100,29 +99,28 @@ class PostBloc extends Bloc<PostEvent, PostState> {
           try {
             final List<XFile> images = await picker.pickMultiImage();
             if (images.isNotEmpty) {
-               List<XFile> picked = [];
-              for (var image in images) {
-                var croppedFile = await ImageCropper().cropImage(
-                  sourcePath: image.path,
-                  aspectRatio: const CropAspectRatio(ratioX: 3, ratioY: 3),
-                );
-                if (croppedFile == null) {
-                  continue;
-                }
+              //  List<XFile> picked = [];
+              // for (var image in images) {
+              //   var croppedFile = await ImageCropper().cropImage(
+              //     sourcePath: image.path,
+              //     aspectRatio: const CropAspectRatio(ratioX: 3, ratioY: 3),
+              //   );
+              //   if (croppedFile == null) {
+              //     continue;
+              //   }
                
-                XFile? compressedImage =
-                    await compressImage(croppedFile.path, 35);
-                if (compressedImage != null) {
-                  picked.add(compressedImage);
-                }
-              }
-                if (picked.isNotEmpty) {
-                  emit(ImageSelected(picked));
-                  event = UploadImageEvent(picked);
-                } else {
-                  emit(ImageErrorState(error: 'No images selected.'));
-                  return;
-                }
+              //   XFile? compressedImage =
+              //       await compressImage(croppedFile.path, 35);
+              //   if (compressedImage != null) {
+              //     picked.add(compressedImage);
+              //   }
+              // }
+              //   if (picked.isNotEmpty) {
+                  emit(ImageSelected(images));
+                  event = UploadImageEvent(images);
+               
+                  // emit(ImageErrorState(error: 'No images selected.'));
+              
               
             } else {
               emit(ImageErrorState(error: 'No images selected.'));

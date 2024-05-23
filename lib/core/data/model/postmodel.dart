@@ -2,7 +2,8 @@
 class PostModel {
   final String imageUrl;
   final String title;
-  final String price;
+  final String softprice;
+  final String hardprice;
   final String category;
   final String about;
   final String userid;
@@ -14,7 +15,8 @@ class PostModel {
   PostModel({
     required this.imageUrl,
     required this.title,
-    required this.price,
+    required this.softprice,
+    required this .hardprice,
     required this.category,
     required this.about,
         this.postid='',
@@ -29,7 +31,8 @@ class PostModel {
     return PostModel(
       imageUrl: json['imageUrl'] ?? '',
       title: json['title'] ?? '',
-      price: json['price'] ?? '',
+      softprice: json['softprice'] ?? '',
+      hardprice: json['hardprice']?? '',
       category: json['category'] ?? '',
       about: json['about'] ?? '',
       postid: id,

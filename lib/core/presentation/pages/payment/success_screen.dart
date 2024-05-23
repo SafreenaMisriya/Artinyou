@@ -1,11 +1,12 @@
 
 import 'dart:async';
-import 'package:art_inyou/core/presentation/pages/home_screen.dart';
+import 'package:art_inyou/core/presentation/pages/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class SuccessScreen extends StatefulWidget {
-  const SuccessScreen({super.key});
+  final String text;
+  const SuccessScreen({super.key,required this.text});
 
   @override
   State<SuccessScreen> createState() => _SuccessScreenState();
@@ -15,9 +16,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
    @override
   void initState() {
      Timer(
-        const Duration(seconds: 3),
+         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen())));
+            MaterialPageRoute(builder: (context) => const BottomBar())));
     
     super.initState();
   }
@@ -33,7 +34,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
              Center(
               child: Lottie.asset('assets/animation/success.json',width: 200,height: 200) 
                      ),
-                     const Center(child: Text('Order Confirmed Successfully',style: TextStyle(color: Colors.green,fontSize: 18),),)
+                      Center(child:
+                      Text( widget.text,
+                      style:const TextStyle(color: Colors.green,fontSize: 18),),)
            ],
          ),
       

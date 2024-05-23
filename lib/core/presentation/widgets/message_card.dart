@@ -25,49 +25,48 @@ class MessageCard extends StatelessWidget {
   }
 
   Widget receiveCustom() {
-    // if (messages.read != 'true') {
-    //   chat.updateMessageReadStatus(userid, messages.toId, messages.messageid);
-    // }
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(13.0),
-                topRight: Radius.circular(13.0),
-                bottomRight: Radius.circular(13.0),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                messages.type == Type.text
-                    ? Text(
-                        messages.message,
-                        style: MyFonts.bodyTextStyle,
-                      )
-                    : SizedBox(
-                        height: height * 0.5,
-                        child: CachedNetworkImage(
-                          imageUrl: messages.message,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                const SizedBox(height: 4.0),
-                Text(
-                  messages.time,
-                  style: TextStyle(
-                    color: greycolor,
-                    fontSize: 10.0,
-                  ),
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(13.0),
+                  topRight: Radius.circular(13.0),
+                  bottomRight: Radius.circular(13.0),
                 ),
-              ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  messages.type == Type.text
+                      ? Text(
+                          messages.message,
+                          style: MyFonts.bodyTextStyle,
+                        )
+                      : SizedBox(
+                          height: height * 0.5,
+                          child: CachedNetworkImage(
+                            imageUrl: messages.message,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                  const SizedBox(height: 4.0),
+                  Text(
+                    messages.time,
+                    style: TextStyle(
+                      color: greycolor,
+                      fontSize: 10.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

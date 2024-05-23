@@ -4,6 +4,7 @@ import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
+import 'package:art_inyou/core/presentation/pages/order_sell_screen.dart';
 import 'package:art_inyou/core/presentation/pages/settings.dart';
 import 'package:art_inyou/core/presentation/pages/tapbar_screens/grid_tabview.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
@@ -45,17 +46,16 @@ class AccountScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 45),
-                                child: Text(
+                          IconButton(onPressed: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context)=>const TabBarOrderandSell()));  
+                          }, icon: Icon(Icons.shopping_cart, size: height * 0.04,)),
+                         Center(
+                              child:  Text(
                                   profileData.username,
                                   style: MyFonts.headingTextStyle,
                                 ),
                               ),
-                            ),
-                          ),
+                          
                           IconButton(
                             onPressed: () async {
                             
@@ -89,49 +89,7 @@ class AccountScreen extends StatelessWidget {
                         profileData.bio,
                         style: const TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(height: height * 0.03),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                '10',
-                                style: MyFonts.normalTextStyle,
-                              ),
-                              Text(
-                                'Post',
-                                style: MyFonts.boldTextStyle,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                '1000',
-                                style: MyFonts.normalTextStyle,
-                              ),
-                              Text(
-                                'Followers',
-                                style: MyFonts.boldTextStyle,
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                                '200',
-                                style: MyFonts.normalTextStyle,
-                              ),
-                              Text(
-                                'Following',
-                                style: MyFonts.boldTextStyle,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: height * 0.02),
+                      SizedBox(height: height * 0.04),
                       labelwidget(
                         labelText: 'Edit Profile',
                         onTap: () {
