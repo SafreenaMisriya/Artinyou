@@ -14,8 +14,9 @@ class PaymentService {
   final dynamic price;
   final String postid;
   final String userid;
+  final  String hardcopy;
 
-  PaymentService(this. context , {required this.price,required this.postid,required this.userid}) {
+  PaymentService(this. context , {required this.price,required this.postid,required this.userid,required this.hardcopy}) {
     razorpay = Razorpay();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentError);
@@ -47,7 +48,7 @@ class PaymentService {
     showfluttertoast('Payment Successful: ${response.paymentId},');
       User? currentUser = FirebaseAuth.instance.currentUser;
     String userId = currentUser?.uid ?? '';
-    PaymentModel model= PaymentModel(amount: price, time: dateAndtime(),postid: postid,);
+    PaymentModel model= PaymentModel(amount: price, time: dateAndtime(),postid: postid,userid: userId,hardcopy: hardcopy);
     repo.broughtproduct(model, userId,postid);
      context.read<SoftcopyBloc>().add(PaymentSuccessEvent());
   }

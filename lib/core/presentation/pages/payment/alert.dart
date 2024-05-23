@@ -41,6 +41,7 @@ void handlePayment(BuildContext context, String price, String postid, String nam
                     double totalAmount = double.parse(price);
                     if(walletBalance >= totalAmount){
                       PaymentModel paymentModel = PaymentModel(
+                        hardcopy: 'yes',
                       amount: price,
                       time: dateAndtime(),
                       postid: postid,

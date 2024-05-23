@@ -28,12 +28,12 @@ Future<List<PaymentModel>> getSellProduct(String userid) async {
         .collection('users_collection')
         .doc(userid)
         .collection('buy_products')
+        .where('userid', isEqualTo: userid)
+        .where('status', isNotEqualTo: 'Cancelled') 
         .get();
-    for (var doc in querySnapshot.docs) {
+  for (var doc in querySnapshot.docs) {
       var paymentmodel = PaymentModel.fromJson(doc.data(), id: doc.id);
-      if (paymentmodel.userid == userid ) {
-        posts.add(paymentmodel);
-      }
+      posts.add(paymentmodel);
     }
   } catch (e) {
     throw Exception('Failed to fetch posts: $e');

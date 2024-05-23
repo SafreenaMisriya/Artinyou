@@ -11,11 +11,12 @@ class PaymentRepo{
       Map<String, dynamic> paymentdata = {
         'amount': paymentModel.amount,
         'payedtime': paymentModel.time,
-        // 'paymentid': paymentModel.paymentid,
+        'status':paymentModel.status,
         'postid':paymentModel.postid,
         "image":post.imageUrl,
         'title':post.title,
         'userid':post.userid,
+        'hardcopy':paymentModel.hardcopy,
 
       };
       await firestore
@@ -27,7 +28,7 @@ class PaymentRepo{
       throw Exception('Failed to add post: $e');
     }
    }
-  Future<void> cancelOrder(String userid, String paymentId) async {
+Future<void> cancelOrder(String userid, String paymentId) async {
   try {
     DocumentReference docRef = FirebaseFirestore.instance
         .collection('users_collection')
@@ -51,9 +52,14 @@ class PaymentRepo{
           throw Exception('Order amount is not in a valid format');
         }
 
+        // Update the order status to 'Cancelled'
         await docRef.update({'status': 'Cancelled'});
 
+        // Perform the refund operation
         await refundToWallet(userid, amount);
+
+        // Remove the cancelled order from the collection
+        await docRef.delete();
       } else {
         throw Exception('Order amount not found');
       }
@@ -83,7 +89,6 @@ Future<void> refundToWallet(String userid, double amount) async {
           currentBalance = double.parse(walletData['balance']);
         } else if (walletData['balance'] is double) {
           currentBalance = walletData['balance'];
-          print(currentBalance);
         } else {
           throw Exception('Wallet balance is not in a valid format');
         }

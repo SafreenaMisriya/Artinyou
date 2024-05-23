@@ -34,7 +34,7 @@ class SoftCopyPayment extends StatelessWidget {
       create: (context) => SoftcopyBloc(),
       child: Builder(
         builder: (context) {
-          final PaymentService paymentService = PaymentService(context,price: price,postid: postid,userid: userid);
+          final PaymentService paymentService = PaymentService(context,price: price,postid: postid,userid: userid,hardcopy: '');
           return SafeArea(
               child: Scaffold(
             body:  BlocBuilder<SoftcopyBloc, SoftcopyState>(

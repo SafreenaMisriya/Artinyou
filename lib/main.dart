@@ -6,6 +6,7 @@ import 'package:art_inyou/core/presentation/bloc/emoji/emoji_cubit.dart';
 import 'package:art_inyou/core/presentation/bloc/message/message_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
+import 'package:art_inyou/core/presentation/bloc/orders/orders_cubit.dart';
 import 'package:art_inyou/core/presentation/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'core/presentation/bloc/bloc/hardcopy_bloc.dart';
+import 'core/presentation/bloc/hardcopy/hardcopy_bloc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<SoftcopyBloc>(create: (context)=>SoftcopyBloc()),
         BlocProvider<HardcopyBloc>(create: (context)=>HardcopyBloc()),
          BlocProvider<ToggleCubit>(create: (context)=>ToggleCubit()),
+         BlocProvider<OrdersCubit>(create: (context)=>OrdersCubit()),
         
       ],
       child: MaterialApp(

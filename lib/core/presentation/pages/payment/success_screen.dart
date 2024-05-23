@@ -16,7 +16,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
    @override
   void initState() {
      Timer(
-         const Duration(seconds: 3),
+         const Duration(seconds: 4),
         () => Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const BottomBar())));
     

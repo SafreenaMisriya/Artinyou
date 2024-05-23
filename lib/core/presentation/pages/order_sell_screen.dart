@@ -62,7 +62,7 @@ class TabBarOrderandSell extends StatelessWidget {
                     Expanded(
                       child: TabBarView(
                         children: [
-                         OrdersScreen(postsFuture: getbuyproducts(userId), userid: userId),
+                         OrdersScreen(userid: userId),
                           SellProductScreen(postsFuture: getSellProduct(userId), userid: userId),
                         ],
                       ),

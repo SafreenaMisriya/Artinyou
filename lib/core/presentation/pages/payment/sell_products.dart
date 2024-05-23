@@ -19,7 +19,9 @@ class SellProductScreen extends StatelessWidget {
           body: FutureBuilder(
         future: postsFuture,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+           if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator(),);
+          } else if (snapshot.hasData) {
             List<PaymentModel> buyprduct = snapshot.data!;
              double totalAmount = buyprduct.fold(0.0, (sum, item) => sum + item.amountAsDouble);
             return Column(
@@ -37,8 +39,11 @@ class SellProductScreen extends StatelessWidget {
                     itemCount: buyprduct.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                       leading:  CachedNetworkImage(
-                                imageUrl: buyprduct[index].imageurl),
+                       leading:  SizedBox(
+                        height: height*0.1,
+                         child: CachedNetworkImage(
+                                  imageUrl: buyprduct[index].imageurl),
+                       ),
                           title: Text(buyprduct[index].title,style: MyFonts.boldTextStyle,),
                           trailing: Text('₹${buyprduct[index].amount}',style: MyFonts.boldTextStyle,),
                       );

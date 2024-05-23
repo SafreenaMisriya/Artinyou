@@ -2,7 +2,7 @@
 import 'package:art_inyou/core/data/model/addressmodel.dart';
 import 'package:art_inyou/core/data/repository/payment_repository.dart';
 import 'package:art_inyou/core/domain/address_fetching.dart';
-import 'package:art_inyou/core/presentation/bloc/bloc/hardcopy_bloc.dart';
+import 'package:art_inyou/core/presentation/bloc/hardcopy/hardcopy_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/payment/hardcopy_steps.dart';
 import 'package:art_inyou/core/presentation/pages/payment/payment_screen.dart';
 import 'package:art_inyou/core/presentation/pages/payment/success_screen.dart';
@@ -89,7 +89,8 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
                             PaymentService(context,
                                 price: widget.price,
                                 postid: widget.postid,
-                                userid: widget.userid),
+                                userid: widget.userid,
+                                hardcopy: 'hardcopy'),
                             widget.name,
                             widget.product),
                         currentStep: state.currentStep,
@@ -168,7 +169,8 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
                                           PaymentService(context,
                                               price: widget.price,
                                               postid: widget.postid,
-                                              userid: widget.userid),
+                                              userid: widget.userid,
+                                              hardcopy: "hardcopy"),
                                           widget.name,
                                           widget.product)
                                       .length -

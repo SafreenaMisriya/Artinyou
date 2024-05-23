@@ -1,6 +1,6 @@
 import 'package:art_inyou/core/data/model/addressmodel.dart';
 import 'package:art_inyou/core/domain/address_fetching.dart';
-import 'package:art_inyou/core/presentation/bloc/bloc/hardcopy_bloc.dart';
+import 'package:art_inyou/core/presentation/bloc/hardcopy/hardcopy_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/payment/alert.dart';
 import 'package:art_inyou/core/presentation/pages/payment/payment_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
