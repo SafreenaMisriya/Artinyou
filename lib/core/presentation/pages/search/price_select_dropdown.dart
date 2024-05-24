@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:art_inyou/core/domain/pricefetching.dart';
-import 'package:art_inyou/core/presentation/pages/price_rangedisply.dart';
+import 'package:art_inyou/core/presentation/pages/search/price_rangedisply.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

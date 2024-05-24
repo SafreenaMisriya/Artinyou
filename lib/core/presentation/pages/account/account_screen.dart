@@ -3,9 +3,9 @@
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/data/repository/profile_repository.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
-import 'package:art_inyou/core/presentation/pages/order_sell_screen.dart';
-import 'package:art_inyou/core/presentation/pages/settings.dart';
+import 'package:art_inyou/core/presentation/pages/account/editprofile_screen.dart';
+import 'package:art_inyou/core/presentation/pages/buyandsell.dart/order_sell_screen.dart';
+import 'package:art_inyou/core/presentation/pages/settings/settings.dart';
 import 'package:art_inyou/core/presentation/pages/tapbar_screens/grid_tabview.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

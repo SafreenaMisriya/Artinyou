@@ -251,7 +251,7 @@ List<Step> getSteps(
                 width: width * 0.8,
                 child: Row(
                   children: [
-                    const Icon(Icons.wallet),
+                    const Icon(Icons.account_balance_wallet),
                     SizedBox(
                       width: width * 0.03,
                     ),

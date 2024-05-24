@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, must_be_immutable
 
 
-import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
+import 'package:art_inyou/core/presentation/pages/home/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';

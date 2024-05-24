@@ -9,7 +9,7 @@ import 'package:art_inyou/core/presentation/pages/tapbar_screens/photography_scr
 import 'package:art_inyou/core/presentation/pages/tapbar_screens/drawings_screen.dart';
 import 'package:art_inyou/core/presentation/pages/tapbar_screens/traditionalart_screen.dart';
 import 'package:art_inyou/core/presentation/pages/tapbar_screens/wallpapers_screen.dart';
-import 'package:art_inyou/core/presentation/widgets/gridview.dart';
+import 'package:art_inyou/core/presentation/pages/home/gridview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

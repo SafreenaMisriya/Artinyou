@@ -3,8 +3,8 @@
 import 'package:art_inyou/core/data/model/postmodel.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/post_screen.dart';
-import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
+import 'package:art_inyou/core/presentation/pages/post/post_screen.dart';
+import 'package:art_inyou/core/presentation/pages/home/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

@@ -1,4 +1,5 @@
 import 'package:art_inyou/core/presentation/bloc/softcopy/softcopy_bloc.dart';
+import 'package:art_inyou/core/presentation/pages/payment/alert.dart';
 import 'package:art_inyou/core/presentation/pages/payment/payment_screen.dart';
 import 'package:art_inyou/core/presentation/pages/payment/success_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
@@ -185,6 +186,32 @@ class SoftCopyPayment extends StatelessWidget {
                       int amount = int.parse(price);
                       pay.openCheckout(amount, name, product);
                     }),
+                      SizedBox(
+                  height: height * 0.02,
+                ),
+                       GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.green),
+                    borderRadius: BorderRadius.circular(10)),
+                height: height * 0.07,
+                width: width * 0.8,
+                child: Row(
+                  children: [
+                    const Icon(Icons.account_balance_wallet),
+                    SizedBox(
+                      width: width * 0.03,
+                    ),
+                    const Text(
+                      'Wallets',
+                      style: MyFonts.bodyTextStyle,
+                    ),
+                  ],
+                ),
+              ),
+              onTap: () => handlePayment(
+                  context, price, postid, name, product, pay, userid),
+            ),
               ],
             ),
             isActive: currentStep >= 0,

@@ -9,25 +9,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});
-    final String contactEmail = 'safreenamisriya02@gmail.com';
- void launchEmail() async {
-  final Uri emailLaunchUri = Uri(
-    scheme: 'mailto',
-    path: contactEmail,
-    queryParameters: {'subject': 'Privacy Policy Inquiry'},
-  );
-  bool canOpen = await canLaunch(emailLaunchUri.toString());
-if (!canOpen) {
-  throw 'Could not launch email';
-}
-
-}
- Future<void> email() async {
-    if (await launch('mailto:safreenamisriya02@mail.com')) {
-      throw "Try Again";
-    }
+sendEmail() async {
+  final Uri uri = Uri(scheme: 'mailto', path: 'safreenamisriya02@gmail.com');
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(uri);
   }
-
+}
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
@@ -107,7 +94,7 @@ if (!canOpen) {
               ),
                SizedBox(height: height *0.01),
             GestureDetector(
-              onTap: email,
+              onTap: sendEmail,
               child: const Text(
                 'Contact Us: safreenamisriya02@gamil.com',
                 style: TextStyle(

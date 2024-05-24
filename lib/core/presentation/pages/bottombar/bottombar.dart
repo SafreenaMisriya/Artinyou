@@ -1,8 +1,8 @@
-import 'package:art_inyou/core/presentation/pages/account_screen.dart';
+import 'package:art_inyou/core/presentation/pages/account/account_screen.dart';
 import 'package:art_inyou/core/presentation/pages/chat/chat_screen.dart';
-import 'package:art_inyou/core/presentation/pages/home_screen.dart';
-import 'package:art_inyou/core/presentation/pages/post_screen.dart';
-import 'package:art_inyou/core/presentation/pages/search_screen.dart';
+import 'package:art_inyou/core/presentation/pages/home/home_screen.dart';
+import 'package:art_inyou/core/presentation/pages/post/post_screen.dart';
+import 'package:art_inyou/core/presentation/pages/search/search_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

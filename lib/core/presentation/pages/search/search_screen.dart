@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/price_select_dropdown.dart';
-import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
+import 'package:art_inyou/core/presentation/pages/search/price_select_dropdown.dart';
+import 'package:art_inyou/core/presentation/pages/home/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

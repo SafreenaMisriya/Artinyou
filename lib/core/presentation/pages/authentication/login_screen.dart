@@ -4,8 +4,8 @@ import 'package:art_inyou/core/presentation/bloc/email/bloc/emailauth_bloc.dart'
 import 'package:art_inyou/core/presentation/bloc/google_auth/cubit/googleauth_cubit.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/resetpassword_screen.dart';
 import 'package:art_inyou/core/presentation/pages/authentication/signup_screen.dart';
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
-import 'package:art_inyou/core/presentation/pages/editprofile_screen.dart';
+import 'package:art_inyou/core/presentation/pages/bottombar/bottombar.dart';
+import 'package:art_inyou/core/presentation/pages/account/editprofile_screen.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

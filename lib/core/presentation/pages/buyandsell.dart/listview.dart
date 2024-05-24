@@ -9,15 +9,10 @@ import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-
 PaymentRepo repo = PaymentRepo();
-
 class OrdersScreen extends StatelessWidget {
   final String userid;
-
   const OrdersScreen({super.key, required this.userid});
-
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
@@ -30,7 +25,7 @@ class OrdersScreen extends StatelessWidget {
           child: BlocBuilder<OrdersCubit, OrdersState>(
             builder: (context, state) {
               if (state is OrderLoading) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is OrderLoaded) {
                 List<PaymentModel> buyProducts = state.orders;
                 return Column(
@@ -123,7 +118,7 @@ class OrdersScreen extends StatelessWidget {
               } else if (state is OrderError) {
                 return Center(child: Text(state.message));
               } else {
-                return Center(child: Text('No Data Available'));
+                return const Center(child: Text('No Data Available'));
               }
             },
           ),

@@ -1,4 +1,4 @@
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
+import 'package:art_inyou/core/presentation/pages/bottombar/bottombar.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:flutter/material.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';

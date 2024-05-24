@@ -65,7 +65,7 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
   void scrollDown() {
     if (scrollController.hasClients) {
       scrollController.animateTo(
-        scrollController.position.minScrollExtent,
+        scrollController.position.maxScrollExtent,
         duration: const Duration(seconds: 1),
         curve: Curves.fastOutSlowIn,
       );
@@ -103,7 +103,9 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                                   'https://i.pinimg.com/originals/8a/a4/59/8aa4595fb24b6ed585dddac4622b2445.gif',
                                 ),
                               )
-                            : ListView.builder(                                controller: scrollController,
+                            : ListView.builder(        
+                              reverse: true,  
+                                controller: scrollController,
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: messagesList.length,
                                 itemBuilder: (context, index) {

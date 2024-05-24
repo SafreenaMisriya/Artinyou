@@ -3,8 +3,8 @@
 import 'package:art_inyou/core/data/model/profilemodel.dart';
 import 'package:art_inyou/core/domain/service/sharedpreferance.dart';
 import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/account_screen.dart';
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
+import 'package:art_inyou/core/presentation/pages/account/account_screen.dart';
+import 'package:art_inyou/core/presentation/pages/bottombar/bottombar.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

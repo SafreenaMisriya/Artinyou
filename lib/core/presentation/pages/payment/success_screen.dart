@@ -1,6 +1,6 @@
 
 import 'dart:async';
-import 'package:art_inyou/core/presentation/pages/bottombar.dart';
+import 'package:art_inyou/core/presentation/pages/bottombar/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

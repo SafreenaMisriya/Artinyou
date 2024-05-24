@@ -26,7 +26,7 @@ void handlePayment(BuildContext context, String price, String postid, String nam
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  leading: const Icon(Icons.wallet),
+                  leading: const Icon(Icons.account_balance_wallet),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

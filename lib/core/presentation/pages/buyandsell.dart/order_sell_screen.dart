@@ -1,6 +1,6 @@
 import 'package:art_inyou/core/domain/buy_product_fetching.dart';
-import 'package:art_inyou/core/presentation/pages/payment/listview.dart';
-import 'package:art_inyou/core/presentation/pages/payment/sell_products.dart';
+import 'package:art_inyou/core/presentation/pages/buyandsell.dart/listview.dart';
+import 'package:art_inyou/core/presentation/pages/buyandsell.dart/sell_products.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

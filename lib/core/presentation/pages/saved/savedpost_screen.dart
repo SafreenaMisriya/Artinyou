@@ -4,7 +4,7 @@ import 'package:art_inyou/core/data/model/postmodel.dart';
 import 'package:art_inyou/core/domain/savedpost_fetching.dart';
 import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
-import 'package:art_inyou/core/presentation/pages/showimage_screen.dart';
+import 'package:art_inyou/core/presentation/pages/home/showimage_screen.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/alertdialog.dart';

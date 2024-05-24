@@ -13,7 +13,7 @@ import 'package:art_inyou/core/presentation/bloc/profile/bloc/profile_bloc.dart'
 import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/softcopy/softcopy_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/toggle/toggle_cubit.dart';
-import 'package:art_inyou/core/presentation/pages/splash_screen.dart';
+import 'package:art_inyou/core/presentation/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

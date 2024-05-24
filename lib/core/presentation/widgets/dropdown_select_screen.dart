@@ -1,5 +1,5 @@
 import 'package:art_inyou/core/domain/fetching.dart';
-import 'package:art_inyou/core/presentation/pages/price_rangedisply.dart';
+import 'package:art_inyou/core/presentation/pages/search/price_rangedisply.dart';
 import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';

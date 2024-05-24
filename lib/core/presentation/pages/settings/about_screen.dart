@@ -92,7 +92,7 @@ class AboutScreen extends StatelessWidget {
                       child: Align(
                         alignment: AlignmentDirectional.topStart,
                         child: Text(
-                          'Why ArtHub?',
+                          'Why ArtinYou?',
                           style: MyFonts.boldTextStyle,
                         ),
                       ),

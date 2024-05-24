@@ -33,7 +33,7 @@ class ChatRepository {
     return firestore
         .collection('chats')
         .where('members', arrayContains: userId)
-        .orderBy('lastActive', descending: true)
+        .orderBy('lastActive', descending: false)
         .snapshots()
         .map((snapshot) {
           return snapshot.docs.map((doc) {
@@ -86,8 +86,6 @@ class ChatRepository {
       'lastMessage': message.message, 
       'lastMessageTime': time,
     };
-
-
     if (!existsOrNot) {
       List<String> members = [to, from];
        chatData['members'] = members;
@@ -98,7 +96,5 @@ class ChatRepository {
       await tempDb.collection('chats').doc(chatId).update(chatData);
     }
   }
-  
-
 }
 

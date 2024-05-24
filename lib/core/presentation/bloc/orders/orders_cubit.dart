@@ -14,7 +14,7 @@ class OrdersCubit extends Cubit<OrdersState> {
       final orders = await getbuyproducts(userId);
       emit(OrderLoaded(orders));
     } catch (e) {
-      emit(OrderError('Failed to load orders'));
+      emit(const OrderError('Failed to load orders'));
     }
   }
 
@@ -24,7 +24,7 @@ class OrdersCubit extends Cubit<OrdersState> {
       final orders = await getbuyproducts(userId);
       emit(OrderLoaded(orders));
     } catch (e) {
-      emit(OrderError('Failed to cancel order'));
+      emit(const OrderError('Failed to cancel order'));
     }
   }
 }
