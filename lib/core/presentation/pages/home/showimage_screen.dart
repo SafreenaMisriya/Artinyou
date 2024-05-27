@@ -86,7 +86,8 @@ class FullimageScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  likeFunction(userid!, postid!, postBloc!),
+                  LikeButtonWidget(userId: userid!, postId: postid!, bloc:postBloc!),
+                  // likeFunction(userid!, postid!, postBloc!),
                   commentFunction(context, postid!, postBloc!, height, userid!),
                 ],
               ),
@@ -117,12 +118,7 @@ class FullimageScreen extends StatelessWidget {
                 height: height * 0.03,
               ),
               labelwidget(labelText: 'Buy Now', onTap: () {
-                //  Navigator.push(context, MaterialPageRoute(builder: (context)=>
-              // HardcopyPaymentSteps(postid: postid!,price: price!,name: name!, product: title!,),
-              // SoftCopyPayment(price: softprice!, postid: postid!, username: name!, product: title!, imageurl: singleImagePath!)
-              
-              // ));
-              showCustomDialog(context,softprice!,postid!,name!,title!,singleImagePath!,hardprice!,userid!);
+              showCustomDialog(context,softprice!,postid!,name!,title!,singleImagePath!,hardprice!,userid!,height);
               })
             ],
           ),

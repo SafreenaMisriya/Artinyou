@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 TextEditingController controller = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 bottompCommentsheet(BuildContext context, String postid, PostBloc postBloc,
     double height, String userid) {
   showModalBottomSheet(
@@ -138,10 +139,20 @@ showcommentdialog(
     context: context,
     builder: (context) => AlertDialog(
       title: const Text('Add Comment'),
-      content: TextField(
-        controller: controller,
-        decoration: const InputDecoration(
-          hintText: 'Write a Comment..',
+      content: Form(
+        key: formKey,
+        child: TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          decoration: const InputDecoration(
+            hintText: 'Write a Comment..',
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter Comment';
+            }
+            return null;
+          },
         ),
       ),
       actions: [
@@ -153,9 +164,9 @@ showcommentdialog(
         ),
         TextButton(
           onPressed: () {
+            if(formKey.currentState!.validate()){
+               String? formattedTime = dateAndtime();
 
-            String? formattedTime = dateAndtime();
-               
             CommentModel commentModel = CommentModel(
               userid: userid,
               text: controller.text,
@@ -165,6 +176,8 @@ showcommentdialog(
             postBloc.add(PostCommentEvent(comment: commentModel, postid: id));
             controller.text = "";
             Navigator.pop(context);
+            }
+          
           },
           child: const Text('Post'),
         ),

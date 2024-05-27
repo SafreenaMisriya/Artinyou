@@ -96,6 +96,7 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
                         currentStep: state.currentStep,
                         onStepContinue: () async {
                           if (state.currentStep == 0) {
+                            if(formKey.currentState!.validate()){
                             AddressModel data = AddressModel(
                                 name: namecontroller.text,
                                 phone: phonecontroller.text,
@@ -123,6 +124,7 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
                           context
                               .read<HardcopyBloc>()
                               .add(NextStephardcopyEvent());
+                          }
                         },
                         onStepCancel: () async {
                           if (state.currentStep == 1) {
@@ -183,7 +185,7 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
                                   Expanded(
                                       child: ElevatedButton(
                                           onPressed: details.onStepCancel,
-                                          child: const Text('Cancel'))),
+                                          child: const Text('Previous'))),
                                 const SizedBox(
                                   width: 12,
                                 ),

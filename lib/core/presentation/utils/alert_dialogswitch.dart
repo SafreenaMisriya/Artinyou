@@ -6,7 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void showCustomDialog(BuildContext context, String softprice,String postid,String username,String product,String imageurl,String hardprice,String userid) {
+void showCustomDialog(
+    BuildContext context,
+    String softprice,
+    String postid,
+    String username,
+    String product,
+    String imageurl,
+    String hardprice,
+    String userid,
+    double height) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -16,16 +25,16 @@ void showCustomDialog(BuildContext context, String softprice,String postid,Strin
           borderRadius: BorderRadius.all(Radius.circular(15.0)),
         ),
         content: SizedBox(
-          height: 200,
+          height: height * 0.3,
           child: BlocBuilder<ToggleCubit, bool>(
             builder: (context, state) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("""
-      Would You Like a Soft  Copy to
-      Dowload  or a Hard Copy delivered
-      to  your Address?
+      Do you  want Soft Copy or  
+             Hard  Copy?
+
       Please Select your Preference !""",
                       style: GoogleFonts.adamina(
                           fontSize: 14, color: Colors.black)),
@@ -59,10 +68,11 @@ void showCustomDialog(BuildContext context, String softprice,String postid,Strin
                           ]),
                       selectedIconScale: 1.0,
                       onChanged: (value) {
-                         context.read<ToggleCubit>().toggle(value);
+                        context.read<ToggleCubit>().toggle(value);
                       },
                     ),
                   ),
+                  SizedBox(height: height *0.02,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -77,10 +87,30 @@ void showCustomDialog(BuildContext context, String softprice,String postid,Strin
                       ),
                       TextButton(
                         onPressed: () {
-                         bool selection =  context.read<ToggleCubit>().state;
-                         selection
-                         ? Navigator.push(context, MaterialPageRoute(builder: (context)=> SoftCopyPayment(price: softprice, postid: postid, username: username, product: product, imageurl: imageurl,userid:userid ,)))
-                         : Navigator.push(context, MaterialPageRoute(builder: (context)=> HardcopyPaymentSteps(price: hardprice, postid: postid, name: username, product: product,userid: userid,)));
+                          bool selection = context.read<ToggleCubit>().state;
+                          selection
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SoftCopyPayment(
+                                            price: softprice,
+                                            postid: postid,
+                                            username: username,
+                                            product: product,
+                                            imageurl: imageurl,
+                                            userid: userid,
+                                          )))
+                              : Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          HardcopyPaymentSteps(
+                                            price: hardprice,
+                                            postid: postid,
+                                            name: username,
+                                            product: product,
+                                            userid: userid,
+                                          )));
                         },
                         child: const Text(
                           'CONFIRM',

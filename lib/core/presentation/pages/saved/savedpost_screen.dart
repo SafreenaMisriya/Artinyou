@@ -182,8 +182,7 @@ class SavedPostScreen extends StatelessWidget {
                                             Positioned(
                                               bottom: 85,
                                               right: 4,
-                                              child: likeFunction(
-                                                  userId, post[index].postid, postbloc),
+                                              child: LikeButtonWidget(userId: userId, postId:  post[index].postid, bloc: postbloc)
                                             ),
                                             Positioned(
                                                 bottom: 40,

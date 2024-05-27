@@ -65,7 +65,7 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
   void scrollDown() {
     if (scrollController.hasClients) {
       scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
+        scrollController.position.minScrollExtent,
         duration: const Duration(seconds: 1),
         curve: Curves.fastOutSlowIn,
       );
@@ -83,7 +83,8 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: SafeArea(
         child: Scaffold(
-          appBar: customAppbar(height,width,context,selecteditem.imageurl,selecteditem.username,widget.activetime),
+          appBar: customAppbar(height, width, context, selecteditem.imageurl,
+              selecteditem.username, widget.activetime),
           body: Column(
             children: [
               Expanded(child: BlocBuilder<MessageBloc, MessageState>(
@@ -103,8 +104,8 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                                   'https://i.pinimg.com/originals/8a/a4/59/8aa4595fb24b6ed585dddac4622b2445.gif',
                                 ),
                               )
-                            : ListView.builder(        
-                              reverse: true,  
+                            : ListView.builder(
+                                reverse: true,
                                 controller: scrollController,
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: messagesList.length,
@@ -117,16 +118,25 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                                 },
                               );
                       } else {
-                        return const Center(
-                          child: Text('No data'),
+                        return Center(
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: redcolor,
+                            ),
+                          ),
                         );
                       }
                     },
                   );
                 },
               )),
-              chatput(selecteditem.userid, widget.userid, messageBloc,
-                  selecteditem.username, emojiCubit,),
+              chatput(
+                selecteditem.userid,
+                widget.userid,
+                messageBloc,
+                selecteditem.username,
+                emojiCubit,
+              ),
               BlocBuilder<EmojiCubit, EmojiState>(
                 builder: (context, state) {
                   if (state == EmojiState.show) {
@@ -153,8 +163,14 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
       ),
     );
   }
-Widget chatput(String toid, String fromid, MessageBloc bloc, String toIdname,
-      EmojiCubit emojiCubit,) {
+
+  Widget chatput(
+    String toid,
+    String fromid,
+    MessageBloc bloc,
+    String toIdname,
+    EmojiCubit emojiCubit,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -214,11 +230,6 @@ Widget chatput(String toid, String fromid, MessageBloc bloc, String toIdname,
                       }
                     },
                     builder: (context, state) {
-                      if (state is Messageloading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
                       return Row(
                         children: [
                           IconButton(
@@ -274,5 +285,4 @@ Widget chatput(String toid, String fromid, MessageBloc bloc, String toIdname,
       ),
     );
   }
-
 }

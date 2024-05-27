@@ -67,3 +67,20 @@ class SearchLoaded extends PostState {
 
   SearchLoaded(this.post);
 }
+
+
+class PostLikeStatusLoaded extends PostState {
+  final String postId;
+  final bool isLiked;
+  final int likeCount;
+
+  PostLikeStatusLoaded({required this.postId, required this.isLiked, required this.likeCount});
+
+}
+class Postlikeerrorstate extends PostState {
+  final String postId;
+  final String error;
+
+  Postlikeerrorstate({required this.postId, required this.error});
+
+}

@@ -142,8 +142,7 @@ class SearchScreen extends StatelessWidget {
                                 Positioned(
                                   bottom: 85,
                                   right: 4,
-                                  child: likeFunction(
-                                      userid, state.post[index].postid, postbloc),
+                                  child: LikeButtonWidget(userId: userid, postId:  state.post[index].postid, bloc:postbloc)
                                 ),
                                 Positioned(
                                     bottom: 40,

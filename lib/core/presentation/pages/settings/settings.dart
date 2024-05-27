@@ -51,29 +51,7 @@ class SettingsScreen extends StatelessWidget {
                           builder: (context) => SavedPostScreen()));
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out', style: MyFonts.boldTextStyle),
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return ConfirmationDialog(
-                            message: 'Are you sure you want to Logout ?',
-                            onYesPressed: () async {
-                              SharedPreferences sharedPreferences =
-                                  await SharedPreferences.getInstance();
-                              sharedPreferences.remove('email');
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
-                                ),
-                              );
-                            });
-                      });
-                },
-              ),
+              
               ListTile(
                 leading: const Icon(Icons.privacy_tip),
                 title:
@@ -104,6 +82,29 @@ class SettingsScreen extends StatelessWidget {
                 leading: const Icon(Icons.share),
                 title: const Text('Share', style: MyFonts.boldTextStyle),
                 onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log Out', style: MyFonts.boldTextStyle),
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ConfirmationDialog(
+                            message: 'Are you sure you want to Logout ?',
+                            onYesPressed: () async {
+                              SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              sharedPreferences.remove('email');
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            });
+                      });
+                },
               ),
             ],
           ),

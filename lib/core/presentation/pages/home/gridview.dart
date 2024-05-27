@@ -4,6 +4,7 @@ import 'package:art_inyou/core/presentation/bloc/post/bloc/post_bloc.dart';
 import 'package:art_inyou/core/presentation/bloc/save/bloc/save_bloc.dart';
 import 'package:art_inyou/core/presentation/pages/post/post_screen.dart';
 import 'package:art_inyou/core/presentation/pages/home/showimage_screen.dart';
+import 'package:art_inyou/core/presentation/utils/colour.dart';
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/utils/snakbar.dart';
@@ -59,17 +60,17 @@ class _GridViewScreenState extends State<GridViewScreen> {
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
-          }else if (snapshot.data!.isEmpty) {
-                    return Center(
-                        child: Shimmer.fromColors(
-                            baseColor: Colors.blue,
-                            highlightColor: Colors.white,
-                            child: const Text(
-                              'No Data Available',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w300),
-                            )));
-                  } else if (snapshot.hasData) {
+          } else if (snapshot.data!.isEmpty) {
+            return Center(
+                child: Shimmer.fromColors(
+                    baseColor: Colors.blue,
+                    highlightColor: Colors.white,
+                    child: const Text(
+                      'No Data Available',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
+                    )));
+          } else if (snapshot.hasData) {
             List<PostModel>? posts = snapshot.data;
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -112,8 +113,10 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                                 FullimageScreen(
                                                   title: posts[index].title,
                                                   about: posts[index].about,
-                                                  softprice: posts[index].softprice,
-                                                  hardprice: posts[index].hardprice,
+                                                  softprice:
+                                                      posts[index].softprice,
+                                                  hardprice:
+                                                      posts[index].hardprice,
                                                   singleImagePath:
                                                       posts[index].imageUrl,
                                                   postBloc: postbloc,
@@ -136,19 +139,21 @@ class _GridViewScreenState extends State<GridViewScreen> {
                             child: BlocBuilder<PostBloc, PostState>(
                               builder: (context, state) {
                                 if (state is Postdeletesuccessstate) {
-                                 snakbarDeleteMessage(context, 'Post Deleted Successfully');
+                                  snakbarDeleteMessage(
+                                      context, 'Post Deleted Successfully');
                                 }
                                 return PopupMenuButton(
                                   iconColor: Colors.white,
                                   itemBuilder: (context) => [
                                     PopupMenuItem(
-                                      child: const Text('Save '),
-                                      onTap: () { saveBloc.add(SavePostEvent(
-                                          postid: posts[index].postid,
-                                          userid: widget.userId));
-                                          snakbarSuccessMessage(context, 'Post Saved Successfully');
-                                      }  
-                                    ),
+                                        child: const Text('Save '),
+                                        onTap: () {
+                                          saveBloc.add(SavePostEvent(
+                                              postid: posts[index].postid,
+                                              userid: widget.userId));
+                                          snakbarSuccessMessage(context,
+                                              'Post Saved Successfully');
+                                        }),
                                     const PopupMenuItem(
                                       child: Text('Share'),
                                     ),
@@ -193,21 +198,16 @@ class _GridViewScreenState extends State<GridViewScreen> {
                             ),
                           ),
                           Positioned(
-                            bottom: 30,
+                            bottom: 70,
                             right: 4,
-                            child: Text(
-                              '₹${posts[index].softprice}',
-                              style: MyFonts.iconTextStyle,
-                            ),
+                            child: LikeButtonWidget(
+                              bloc: postbloc,
+                              postId: posts[index].postid,
+                              userId:  widget.userId,
+                                ),
                           ),
                           Positioned(
-                            bottom: 85,
-                            right: 4,
-                            child: likeFunction(
-                                widget.userId, posts[index].postid, postbloc),
-                          ),
-                          Positioned(
-                              bottom: 40,
+                              bottom: 20,
                               right: 3,
                               child: commentFunction(
                                   context,
@@ -218,30 +218,52 @@ class _GridViewScreenState extends State<GridViewScreen> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: height * 0.03,
-                          width: height * 0.03,
-                          child: ClipOval(
-                            child: posts[index].profileImageUrl.isNotEmpty
-                                ? CachedNetworkImage(
-                                    imageUrl: posts[index].profileImageUrl,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const Placeholder(),
-                          ),
+                     Padding(
+                       padding: const EdgeInsets.only(left: 8,right: 8,bottom: 25),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                              height: height * 0.03,
+                              width: height * 0.03,
+                              child: ClipOval(
+                                child: posts[index].profileImageUrl.isNotEmpty
+                                    ? CachedNetworkImage(
+                                        imageUrl: posts[index].profileImageUrl,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Placeholder(),
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.02,
+                            ),
+                            Text(
+                              posts[index].username,
+                              style: MyFonts.bodyTextStyle,
+                            ),
+                              ],
+                            ),
+                            
+                            Row(
+                              children: [
+                                Shimmer.fromColors(
+                                    baseColor: redcolor,
+                                    highlightColor: Colors.white,
+                                    child: Text(
+                                      '₹${posts[index].softprice}',
+                                      style: const TextStyle(
+                                          fontSize: 18, fontWeight: FontWeight.w300),
+                                    )),
+                              ],
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: width * 0.02,
-                        ),
-                        Text(
-                          posts[index].username,
-                          style: MyFonts.bodyTextStyle,
-                        ),
-                      ],
-                    )
+                     ),
+                    
+                    
                   ],
                 ),
               ),
@@ -258,7 +280,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
 }
 
 Widget _buildCarousel(String imageUrl, BuildContext context, String title,
-    String about, String softprice,String hardprice) {
+    String about, String softprice, String hardprice) {
   List<String> imageUrlList = imageUrl.split(',');
   return GestureDetector(
     onTap: () {

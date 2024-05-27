@@ -10,24 +10,27 @@ import 'package:art_inyou/core/presentation/pages/tapbar_screens/grid_tabview.da
 import 'package:art_inyou/core/presentation/utils/font.dart';
 import 'package:art_inyou/core/presentation/utils/sizeof_screen.dart';
 import 'package:art_inyou/core/presentation/widgets/label.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key, });
+  const AccountScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
-     User? currentUser = FirebaseAuth.instance.currentUser;
-     Profilestorage storage=Profilestorage();
-  String userId = currentUser?.uid ?? '';
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    Profilestorage storage = Profilestorage();
+    String userId = currentUser?.uid ?? '';
     return Scaffold(
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           return FutureBuilder(
-            future:storage. getProfile(userId),
+            future: storage.getProfile(userId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
@@ -46,23 +49,34 @@ class AccountScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(onPressed: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context)=>const TabBarOrderandSell()));  
-                          }, icon: Icon(Icons.shopping_cart, size: height * 0.04,)),
-                         Center(
-                              child:  Text(
-                                  profileData.username,
-                                  style: MyFonts.headingTextStyle,
-                                ),
-                              ),
-                          
+                          IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const TabBarOrderandSell()));
+                              },
+                              icon: Icon(
+                                Icons.shopping_cart,
+                                size: height * 0.04,
+                              )),
+                          Center(
+                            child: Text(
+                              profileData.username,
+                              style: MyFonts.headingTextStyle,
+                            ),
+                          ),
                           IconButton(
                             onPressed: () async {
-                            
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SettingsScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SettingsScreen()));
                             },
                             icon: Icon(
-                              Icons.menu_rounded,
+                              Icons.settings,
                               size: height * 0.04,
                             ),
                           ),
@@ -73,13 +87,9 @@ class AccountScreen extends StatelessWidget {
                           width: height * 0.1,
                           height: height * 0.1,
                           child: ClipOval(
-                            child: Placeholder(
-                              child: Image.network(
-                               
-                                     profileData.imageurl!,
-                                    
-                                fit: BoxFit.cover,
-                              ),
+                            child: CachedNetworkImage(
+                              imageUrl: profileData.imageurl!,
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -105,7 +115,7 @@ class AccountScreen extends StatelessWidget {
                       ),
                       SizedBox(height: height * 0.02),
                       const Expanded(child: TabBarViewGridScreen())
-                      
+
                       //  Expanded(child: DropdownPrice(postsFuture: getPostOfuser(userId),visible: false,)),
                     ],
                   );
@@ -126,4 +136,3 @@ class AccountScreen extends StatelessWidget {
     );
   }
 }
-

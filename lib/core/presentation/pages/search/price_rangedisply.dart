@@ -229,10 +229,9 @@ class DropdownPrice extends StatelessWidget {
                                     ),
                                   ),
                                   Positioned(
-                                    bottom: 85,
+                                    bottom: 85,         
                                     right: 4,
-                                    child: likeFunction(
-                                        userId, posts[index].postid, postbloc),
+                                    child: LikeButtonWidget(userId: userId, postId:posts[index].postid, bloc: postbloc)
                                   ),
                                   Positioned(
                                       bottom: 40,

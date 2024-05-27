@@ -20,52 +20,54 @@ class TabBarViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
     String userId = currentUser?.uid ?? '';
-
     return SafeArea(
       child: DefaultTabController(
         length: 11,
         child: Column(
           children: [
-            const TabBar(
-              indicatorColor: Colors.red,
-              labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              isScrollable: true,
-              tabs: [
-                Tab(
-                  child: Text('All'),
-                ),
-                Tab(
-                  child: Text('Creative'),
-                ),
-                Tab(
-                  child: Text('Fantasy'),
-                ),
-                Tab(
-                  child: Text('Photography'),
-                ),
-                Tab(
-                  child: Text('Wallpapers'),
-                ),
-                Tab(
-                  child: Text('Drawings'),
-                ),
-                Tab(
-                  child: Text('Craft'),
-                ),
-                Tab(
-                  child: Text('Horror'),
-                ),
-                Tab(
-                  child: Text('TraditionalArt'),
-                ),
-                Tab(
-                  child: Text('DigitalArt'),
-                ),
-                Tab(
-                  child: Text('GameArt'),
-                ),
-              ],
+           const Padding(
+              padding:  EdgeInsets.only(top: 15,bottom: 15),
+              child:  TabBar(
+                indicatorColor: Colors.red,
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey,
+                isScrollable: true,
+                tabs: [
+                  Tab(
+                    child: Text('All'),
+                  ),
+                  Tab(
+                    child: Text('Creative'),
+                  ),
+                  Tab(
+                    child: Text('Fantasy'),
+                  ),
+                  Tab(
+                    child: Text('Photography'),
+                  ),
+                  Tab(
+                    child: Text('Wallpapers'),
+                  ),
+                  Tab(
+                    child: Text('Drawings'),
+                  ),
+                  Tab(
+                    child: Text('Craft'),
+                  ),
+                  Tab(
+                    child: Text('Horror'),
+                  ),
+                  Tab(
+                    child: Text('TraditionalArt'),
+                  ),
+                  Tab(
+                    child: Text('DigitalArt'),
+                  ),
+                  Tab(
+                    child: Text('GameArt'),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               child: TabBarView(

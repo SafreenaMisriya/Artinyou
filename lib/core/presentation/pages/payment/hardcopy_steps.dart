@@ -9,6 +9,7 @@ import 'package:art_inyou/core/presentation/widgets/address_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 List<Step> getSteps(
         TextEditingController namecontroller,
         TextEditingController phonecontroller,
@@ -30,55 +31,103 @@ List<Step> getSteps(
     [
       Step(
           title: const Text('Address'),
-          content: Column(
-            children: [
-              AddressTextform(
+          content: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                AddressTextform(
                   keyboardType: TextInputType.text,
                   controller: namecontroller,
-                  labelText: 'Full Name'),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              AddressTextform(
+                  labelText: 'Full Name',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: height * 0.03,
+                ),
+                AddressTextform(
                   maxLength: 10,
                   maxLines: 1,
                   keyboardType: TextInputType.phone,
                   controller: phonecontroller,
-                  labelText: 'Phone Number'),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              AddressTextform(
+                  labelText: 'Phone Number',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter Phone Number';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: height * 0.03,
+                ),
+                AddressTextform(
                   keyboardType: TextInputType.multiline,
                   controller: housecontroller,
-                  labelText: 'House No.,Building Name.,Area'),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              Row(
-                children: [
-                  SizedBox(
+                  labelText: 'House No.,Building Name.,Area',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter House NO';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: height * 0.03,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
                       height: height * 0.1,
                       width: width * 0.3,
                       child: AddressTextform(
-                          controller: statecontroller, labelText: 'State')),
-                  SizedBox(
-                    width: width * 0.1,
-                  ),
-                  SizedBox(
-                      height: height * 0.1,
-                      width: width * 0.3,
-                      child: AddressTextform(
-                          controller: citycontroller, labelText: 'City')),
-                ],
-              ),
-              AddressTextform(
+                        controller: statecontroller,
+                        labelText: 'State',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter State';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: width * 0.1,
+                    ),
+                    SizedBox(
+                        height: height * 0.1,
+                        width: width * 0.3,
+                        child: AddressTextform(
+                          controller: citycontroller,
+                          labelText: 'City',
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter City';
+                            }
+                            return null;
+                          },
+                        )),
+                  ],
+                ),
+                AddressTextform(
                   maxLength: 6,
                   maxLines: 1,
                   keyboardType: TextInputType.number,
                   controller: pincodecontroller,
-                  labelText: 'Pincode'),
-            ],
+                  labelText: 'Pincode',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter Pincode';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
           isActive: currentStep >= 0,
           state: currentStep > 0 ? StepState.complete : StepState.indexed),
@@ -249,17 +298,20 @@ List<Step> getSteps(
                     borderRadius: BorderRadius.circular(10)),
                 height: height * 0.07,
                 width: width * 0.8,
-                child: Row(
-                  children: [
-                    const Icon(Icons.account_balance_wallet),
-                    SizedBox(
-                      width: width * 0.03,
-                    ),
-                    const Text(
-                      'Wallets',
-                      style: MyFonts.bodyTextStyle,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.account_balance_wallet),
+                      SizedBox(
+                        width: width * 0.03,
+                      ),
+                      const Text(
+                        'Wallets',
+                        style: MyFonts.bodyTextStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               onTap: () => handlePayment(
@@ -277,17 +329,20 @@ List<Step> getSteps(
                     borderRadius: BorderRadius.circular(10)),
                 height: height * 0.07,
                 width: width * 0.8,
-                child: Row(
-                  children: [
-                    const Icon(Icons.currency_rupee_rounded),
-                    SizedBox(
-                      width: width * 0.03,
-                    ),
-                    const Text(
-                      'Net Banking',
-                      style: MyFonts.bodyTextStyle,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.currency_rupee_rounded),
+                      SizedBox(
+                        width: width * 0.03,
+                      ),
+                      const Text(
+                        'Net Banking',
+                        style: MyFonts.bodyTextStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               onTap: () => handlePayment(

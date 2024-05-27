@@ -32,11 +32,23 @@ class PostCommentEvent extends PostEvent {
   final CommentModel comment;
   PostCommentEvent({required this.postid, required this.comment});
 }
-class PostlikeEvent extends PostEvent{
-  final String postid;
+
+class PostlikeEvent extends PostEvent {
   final LikeModel model;
-  PostlikeEvent({required this.model,required this.postid});
+  final String postid;
+
+   PostlikeEvent({required this.model, required this.postid});
+
 }
+
+class LoadPostLikeStatusEvent extends PostEvent {
+  final String userId;
+  final String postId;
+
+  LoadPostLikeStatusEvent({required this.userId, required this.postId});
+
+}
+
 class CommentdeleteEvent extends PostEvent {
   final String postid;
   final String commentid;

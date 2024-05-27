@@ -80,6 +80,9 @@ class FirestoreService {
       throw Exception('Failed to comment post: $e');
     }
   }
+  Future<bool> getUserLikeStatus(String userId, String postId) async {
+  return await hasUserLikedPost(userId, postId);
+  }
 
   Future<bool> hasUserLikedPost(String userId, String postId) async {
     try {
@@ -95,7 +98,7 @@ class FirestoreService {
       throw Exception('Failed to check like status: $e');
     }
   }
-
+  
   Future<void> toggleLikePost(LikeModel model, String postId) async {
     try {
       bool hasLiked = await hasUserLikedPost(model.userid, postId);

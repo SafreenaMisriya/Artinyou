@@ -3,6 +3,7 @@ import 'package:art_inyou/core/data/model/commentmodel.dart';
 import 'package:art_inyou/core/data/model/likemodel.dart';
 import 'package:art_inyou/core/data/model/postmodel.dart';
 import 'package:art_inyou/core/data/repository/post_repository.dart';
+import 'package:art_inyou/core/domain/likes_fetching.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -67,15 +68,15 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(Postdeleteerrorstate(error: e.toString()));
       }
     });
-    on<PostlikeEvent>((event, emit)async{
-       emit(Postloading());
-      try {
-        await firestoreService.toggleLikePost(event.model, event.postid);
-         emit(PostedCommentstate());
-      } catch (e) {
-          emit(PostCommenterrorstate(error: e.toString()));
-      }
-    });
+    // on<PostlikeEvent>((event, emit)async{
+    //    emit(Postloading());
+    //   try {
+    //     await firestoreService.toggleLikePost(event.model, event.postid);
+    //      emit(PostedCommentstate());
+    //   } catch (e) {
+    //       emit(PostCommenterrorstate(error: e.toString()));
+    //   }
+    // });
         on<PostSearchEvent>((event, emit) async {
        emit(Postloading());
       try {
@@ -91,6 +92,28 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         emit(PostSearcherrorstate(error: e.toString()));
       }
     });
+    on<LoadPostLikeStatusEvent>((event, emit)async  {
+    emit(Postloading());
+    try {
+      bool liked = await firestoreService. hasUserLikedPost(event.userId, event.postId);
+      int count = await getPostLikeCount(event.postId);
+      emit(PostLikeStatusLoaded(postId: event.postId, isLiked: liked, likeCount: count));
+    } catch (e) {
+       emit(Postlikeerrorstate(error: e.toString(),postId: event.postId));
+    }
+  });
+
+  on<PostlikeEvent>((event, emit)async{
+    emit(Postloading());
+    try {
+      await firestoreService.toggleLikePost(event.model, event.postid);
+      bool liked = await firestoreService. hasUserLikedPost(event.model.userid, event.postid);
+      int count = await getPostLikeCount(event.postid);
+      emit(PostLikeStatusLoaded(postId: event.postid, isLiked: liked, likeCount: count));
+    } catch (e) {
+      emit(Postlikeerrorstate(error: e.toString(),postId: event.postid));
+  }
+ } );
 
     on<PostEvent>((event, emit) async {
       if (event is SelectImageEvent || event is UploadImageEvent) {
@@ -158,4 +181,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     return result;
   }
   
+
+
 }
+
