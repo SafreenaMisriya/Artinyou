@@ -8,6 +8,7 @@ import 'package:art_inyou/screens/home/showimage_screen.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/alertdialog/alertdialog.dart';
+import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:art_inyou/widgets/image_handling/carosel.dart';
 import 'package:art_inyou/widgets/comment/comment_post.dart';
 import 'package:art_inyou/widgets/like/like_buttonscreen.dart';
@@ -33,25 +34,9 @@ class SavedPostScreen extends StatelessWidget {
     String userId = currentUser?.uid ?? '';
     return SafeArea(
       child: Scaffold(
+        appBar: customAppbartop(context, 'Saved Post'),
         body: Column(
           children: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back)),
-                SizedBox(
-                  width: width * 0.1,
-                ),
-                const Text(
-                  'Saved Post',
-                  style: MyFonts.headingTextStyle,
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-              ],
-            ),
             Expanded(
               child: FutureBuilder(
                   future: fetchSaved(userId),

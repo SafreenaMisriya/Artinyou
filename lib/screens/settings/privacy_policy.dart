@@ -1,8 +1,7 @@
 // ignore_for_file: deprecated_member_use
-
 import 'package:art_inyou/utils/color/colour.dart';
-import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
+import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,32 +17,15 @@ sendEmail() async {
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
-    double width = Responsive.screenWidth(context);
     return SafeArea(
         child: Scaffold(
+          appBar: customAppbartop(context, 'Privacy Policy'),
           backgroundColor: color,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back)),
-                  SizedBox(
-                    width: width * 0.1,
-                  ),
-                  const Text(
-                    'Privacy Policy',
-                    style: MyFonts.headingTextStyle,
-                  ),
-                  SizedBox(
-                    height: height * 0.05,
-                  ),
-                ],
-              ),
               Padding(
                 padding:const EdgeInsets.all(8.0),
                 child: Text("""

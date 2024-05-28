@@ -5,6 +5,7 @@ import 'package:art_inyou/screens/payment/success_screen.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/utils/snakbar/snakbar.dart';
+import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:art_inyou/widgets/label/label.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,7 @@ class SoftCopyPayment extends StatelessWidget {
               price: price, postid: postid, userid: userid, hardcopy: '');
           return SafeArea(
             child: Scaffold(
+              appBar: customAppbartop(context, 'Order'),
               body: BlocBuilder<SoftcopyBloc, SoftcopyState>(
                 builder: (context, state) {
                   if (state.completed) {

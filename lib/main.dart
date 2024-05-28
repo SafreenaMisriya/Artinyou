@@ -12,7 +12,7 @@ import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/blocs/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/blocs/save/bloc/save_bloc.dart';
 import 'package:art_inyou/blocs/softcopy/softcopy_bloc.dart';
-import 'package:art_inyou/blocs/toggle_cubit.dart';
+import 'package:art_inyou/blocs/toggle/toggle_cubit.dart';
 import 'package:art_inyou/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Timer(const Duration(seconds: 2), () {
         finalEmail.value == null
            ? Navigator.push(context, MaterialPageRoute(builder: (context) => const OnboardingScreen()))
-            : Navigator.push(context, MaterialPageRoute(builder: (context) => const BottomBar()));
+            : Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const BottomBar()),(route) => false,);
       });
     });
   }
@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/image/logo3.png'),
+        child: Image.asset('assets/image/logo7.png'),
       ),
     );
   }

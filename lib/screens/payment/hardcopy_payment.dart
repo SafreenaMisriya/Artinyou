@@ -7,6 +7,7 @@ import 'package:art_inyou/screens/payment/hardcopy_steps.dart';
 import 'package:art_inyou/screens/payment/payment_screen.dart';
 import 'package:art_inyou/screens/payment/success_screen.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
+import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,6 +59,7 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
         create: (context) => HardcopyBloc(),
         child: SafeArea(
           child: Scaffold(
+            appBar: customAppbartop(context, 'Order'),
             body: BlocBuilder<HardcopyBloc, HardcopyState>(
               builder: (context, state) {
                 if (state.completed) {

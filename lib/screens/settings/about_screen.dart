@@ -1,37 +1,20 @@
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
+import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
-    double width = Responsive.screenWidth(context);
     return SafeArea(
         child: Scaffold(
+          appBar: customAppbartop(context, 'About Our App'),
             backgroundColor: color,
             body: SingleChildScrollView(
               child: Column(children: [
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back)),
-                    SizedBox(
-                      width: width * 0.1,
-                    ),
-                    const Text(
-                      'About Our App',
-                      style: MyFonts.headingTextStyle,
-                    ),
-                    SizedBox(
-                      height: height * 0.08,
-                    ),
-                  ],
-                ),
                 Column(
                   children: [
                     const Text(

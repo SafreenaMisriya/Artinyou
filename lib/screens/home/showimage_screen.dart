@@ -1,16 +1,19 @@
 import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/save/bloc/save_bloc.dart';
 import 'package:art_inyou/utils/alertdialog/alert_dialogswitch.dart';
+import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
+import 'package:art_inyou/utils/snakbar/snakbar.dart';
 import 'package:art_inyou/widgets/image_handling/carosel.dart';
 import 'package:art_inyou/widgets/comment/comment_post.dart';
 import 'package:art_inyou/widgets/label/label.dart';
 import 'package:art_inyou/widgets/like/like_buttonscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FullimageScreen extends StatelessWidget {
-
   final List<String>? imagePathList;
   final String? singleImagePath;
   final String? title;
@@ -36,8 +39,9 @@ class FullimageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late SaveBloc saveBloc;
     double height = Responsive.screenHeight(context);
-
+    saveBloc = BlocProvider.of<SaveBloc>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -58,7 +62,20 @@ class FullimageScreen extends StatelessWidget {
                     title ?? '',
                     style: MyFonts.boldTextStyle,
                   ),
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
+                  PopupMenuButton(
+                    color: color,
+                    icon: const Icon(Icons.menu_rounded,color: Colors.black,),
+                      iconColor: Colors.white,
+                      itemBuilder: (context) => [
+                            PopupMenuItem(
+                                child: const Text('Save '),
+                                onTap: () {
+                                  saveBloc.add(SavePostEvent(
+                                      postid: postid!, userid: userid!));
+                                  snakbarSuccessMessage(
+                                      context, 'Post Saved Successfully');
+                                }),
+                          ])
                 ],
               ),
               Padding(
@@ -75,38 +92,49 @@ class FullimageScreen extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(14),
                         child: SizedBox(
-                          height: height * 0.4,
-                          child:  Image.network(singleImagePath!)
-                        ),
+                            height: height * 0.4,
+                            child: Image.network(singleImagePath!)),
                       ),
-                   
                   ],
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  LikeButtonWidget(userId: userid!, postId: postid!, bloc:postBloc!),
-                  // likeFunction(userid!, postid!, postBloc!),
+                  LikeButtonWidget(
+                      userId: userid!, postId: postid!, bloc: postBloc!),
                   commentFunction(context, postid!, postBloc!, height, userid!),
                 ],
               ),
               SizedBox(
                 height: height * 0.02,
               ),
-               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                 Text('SoftCopy Price :',style: GoogleFonts.aladin(fontSize: 17),),
-                 Text('₹${softprice?? " "}',style: MyFonts.boldTextStyle,),
-                ],),
-              
-               Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-               Text('HardCopy Price :',style: GoogleFonts.aladin(fontSize: 17),),
-               Text('₹${hardprice?? " "}',style: MyFonts.boldTextStyle,),
-              ],),
+                  Text(
+                    'SoftCopy Price :',
+                    style: GoogleFonts.aladin(fontSize: 17),
+                  ),
+                  Text(
+                    '₹${softprice ?? " "}',
+                    style: MyFonts.boldTextStyle,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'HardCopy Price :',
+                    style: GoogleFonts.aladin(fontSize: 17),
+                  ),
+                  Text(
+                    '₹${hardprice ?? " "}',
+                    style: MyFonts.boldTextStyle,
+                  ),
+                ],
+              ),
               SizedBox(
                 height: height * 0.02,
               ),
@@ -117,9 +145,12 @@ class FullimageScreen extends StatelessWidget {
               SizedBox(
                 height: height * 0.03,
               ),
-              labelwidget(labelText: 'Buy Now', onTap: () {
-              showCustomDialog(context,softprice!,postid!,name!,title!,singleImagePath!,hardprice!,userid!,height);
-              })
+              labelwidget(
+                  labelText: 'Buy Now',
+                  onTap: () {
+                    showCustomDialog(context, softprice!, postid!, name!,
+                        title!, singleImagePath!, hardprice!, userid!, height);
+                  })
             ],
           ),
         ),

@@ -63,7 +63,7 @@ class OrdersScreen extends StatelessWidget {
                                       height: height * 0.01,
                                     ),
                                     Text(
-                                      'Purchased.On:${buyProducts[index].time}',
+                                      'P.On:${buyProducts[index].time}',
                                       style: TextStyle(color: greycolor),
                                     ),
                                     buyProducts[index].hardcopy.isEmpty

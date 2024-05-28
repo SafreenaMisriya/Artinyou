@@ -2,6 +2,7 @@ import 'package:art_inyou/repositories/buyandsell/buy_product_fetching.dart';
 import 'package:art_inyou/screens/buyandsell.dart/listview.dart';
 import 'package:art_inyou/screens/buyandsell.dart/sell_products.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
+import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -15,23 +16,10 @@ class TabBarOrderandSell extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        body: Column(
+        appBar: customAppbartop(context,'MY COLLECTIONS'),
+        body: 
+        Column(
           children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-                const Padding(
-                  padding: EdgeInsets.only(right: 130),
-                  child: Text('MY COLLECTIONS',style: MyFonts.headingTextStyle,),
-                )
-                  
-                ],
-              ),
             Expanded(
               child: DefaultTabController(
                 length: 2,
