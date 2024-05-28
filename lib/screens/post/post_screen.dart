@@ -1,5 +1,5 @@
 import 'package:art_inyou/models/model/postmodel.dart';
-import 'package:art_inyou/blocs/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/screens/bottombar/bottombar.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';

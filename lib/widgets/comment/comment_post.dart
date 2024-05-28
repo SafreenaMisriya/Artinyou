@@ -1,5 +1,5 @@
 import 'package:art_inyou/repositories/comment/comment_fetching.dart';
-import 'package:art_inyou/blocs/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/widgets/comment/commect_dialoge.dart';
 import 'package:flutter/material.dart';

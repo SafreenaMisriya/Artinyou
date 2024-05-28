@@ -1,4 +1,4 @@
-import 'package:art_inyou/blocs/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/utils/alertdialog/alert_dialogswitch.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';

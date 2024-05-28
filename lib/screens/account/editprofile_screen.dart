@@ -2,7 +2,7 @@
 
 import 'package:art_inyou/models/model/profilemodel.dart';
 import 'package:art_inyou/services/sharedpreferance.dart';
-import 'package:art_inyou/blocs/bloc/profile/bloc/profile_bloc.dart';
+import 'package:art_inyou/blocs/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/screens/account/account_screen.dart';
 import 'package:art_inyou/screens/bottombar/bottombar.dart';
 import 'package:art_inyou/utils/color/colour.dart';

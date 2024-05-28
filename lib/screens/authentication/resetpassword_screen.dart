@@ -1,6 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:art_inyou/blocs/bloc/email/bloc/emailauth_bloc.dart';
+import 'package:art_inyou/blocs/email/bloc/emailauth_bloc.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/label/label.dart';

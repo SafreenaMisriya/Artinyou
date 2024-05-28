@@ -1,4 +1,4 @@
-import 'package:art_inyou/blocs/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
+import 'package:art_inyou/blocs/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 import 'package:art_inyou/screens/authentication/otp_screen.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';

@@ -1,5 +1,5 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
-import 'package:art_inyou/blocs/bloc/toggle/toggle_cubit.dart';
+import 'package:art_inyou/blocs/toggle_cubit.dart';
 import 'package:art_inyou/screens/payment/hardcopy_payment.dart';
 import 'package:art_inyou/screens/payment/steps_payemt.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:art_inyou/models/model/paymentmodel.dart';
 import 'package:art_inyou/repositories/payment/payment_repository.dart';
-import 'package:art_inyou/blocs/bloc/softcopy/softcopy_bloc.dart';
+import 'package:art_inyou/blocs/softcopy/softcopy_bloc.dart';
 import 'package:art_inyou/utils/date_and_time/date_time.dart';
 import 'package:art_inyou/utils/snakbar/snakbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';

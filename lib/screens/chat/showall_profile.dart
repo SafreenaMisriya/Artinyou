@@ -1,6 +1,6 @@
 import 'package:art_inyou/models/model/profilemodel.dart';
 import 'package:art_inyou/repositories/profile/profiledata.dart';
-import 'package:art_inyou/blocs/bloc/profile/bloc/profile_bloc.dart';
+import 'package:art_inyou/blocs/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/loading_view/loadinglistview.dart';

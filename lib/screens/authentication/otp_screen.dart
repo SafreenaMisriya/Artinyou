@@ -8,7 +8,7 @@ import 'package:art_inyou/utils/textformfields/pintheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
-import '../../blocs/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
+import '../../blocs/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 
 class OtpScreen extends StatefulWidget {
  const OtpScreen({super.key});

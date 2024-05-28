@@ -1,8 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:art_inyou/blocs/bloc/email/bloc/emailauth_bloc.dart';
-import 'package:art_inyou/blocs/bloc/google_auth/cubit/googleauth_cubit.dart';
-import 'package:art_inyou/blocs/bloc/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
+import 'package:art_inyou/blocs/email/bloc/emailauth_bloc.dart';
+import 'package:art_inyou/blocs/google_auth/cubit/googleauth_cubit.dart';
+import 'package:art_inyou/blocs/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 import 'package:art_inyou/screens/settings/about_screen.dart';
 import 'package:art_inyou/screens/authentication/login_screen.dart';
 import 'package:art_inyou/screens/settings/privacy_policy.dart';

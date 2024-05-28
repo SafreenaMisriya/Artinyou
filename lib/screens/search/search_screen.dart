@@ -1,5 +1,5 @@
 // ignore_for_file: must_be_immutable
-import 'package:art_inyou/blocs/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/screens/search/price_select_dropdown.dart';
 import 'package:art_inyou/screens/home/showimage_screen.dart';
 import 'package:art_inyou/utils/color/colour.dart';

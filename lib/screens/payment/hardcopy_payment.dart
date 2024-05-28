@@ -2,7 +2,7 @@
 import 'package:art_inyou/models/model/addressmodel.dart';
 import 'package:art_inyou/repositories/payment/payment_repository.dart';
 import 'package:art_inyou/repositories/address/address_fetching.dart';
-import 'package:art_inyou/blocs/bloc/hardcopy/hardcopy_bloc.dart';
+import 'package:art_inyou/blocs/hardcopy/hardcopy_bloc.dart';
 import 'package:art_inyou/screens/payment/hardcopy_steps.dart';
 import 'package:art_inyou/screens/payment/payment_screen.dart';
 import 'package:art_inyou/screens/payment/success_screen.dart';

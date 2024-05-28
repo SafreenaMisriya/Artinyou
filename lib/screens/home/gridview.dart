@@ -1,7 +1,7 @@
 import 'package:art_inyou/models/model/postmodel.dart';
 import 'package:art_inyou/repositories/post/post_repository.dart';
-import 'package:art_inyou/blocs/bloc/post/bloc/post_bloc.dart';
-import 'package:art_inyou/blocs/bloc/save/bloc/save_bloc.dart';
+import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/save/bloc/save_bloc.dart';
 import 'package:art_inyou/screens/post/post_screen.dart';
 import 'package:art_inyou/screens/home/showimage_screen.dart';
 import 'package:art_inyou/utils/color/colour.dart';

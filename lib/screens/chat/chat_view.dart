@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:art_inyou/models/model/messagemodel.dart';
 import 'package:art_inyou/repositories/chat/chat_repository.dart';
-import 'package:art_inyou/blocs/bloc/message/message_bloc.dart';
-import 'package:art_inyou/blocs/bloc/emoji/emoji_cubit.dart';
+import 'package:art_inyou/blocs/message/message_bloc.dart';
+import 'package:art_inyou/blocs/emoji/emoji_cubit.dart';
 import 'package:art_inyou/screens/chat/chat_appbar.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';

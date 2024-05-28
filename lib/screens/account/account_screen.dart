@@ -2,7 +2,7 @@
 
 import 'package:art_inyou/models/model/profilemodel.dart';
 import 'package:art_inyou/repositories/profile/profile_repository.dart';
-import 'package:art_inyou/blocs/bloc/profile/bloc/profile_bloc.dart';
+import 'package:art_inyou/blocs/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/screens/account/editprofile_screen.dart';
 import 'package:art_inyou/screens/buyandsell.dart/order_sell_screen.dart';
 import 'package:art_inyou/screens/settings/settings.dart';

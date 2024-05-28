@@ -1,4 +1,4 @@
-import 'package:art_inyou/blocs/bloc/softcopy/softcopy_bloc.dart';
+import 'package:art_inyou/blocs/softcopy/softcopy_bloc.dart';
 import 'package:art_inyou/screens/payment/alert.dart';
 import 'package:art_inyou/screens/payment/payment_screen.dart';
 import 'package:art_inyou/screens/payment/success_screen.dart';

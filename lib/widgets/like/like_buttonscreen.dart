@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:like_button/like_button.dart';
 import 'package:art_inyou/models/model/likemodel.dart';
 import 'package:art_inyou/repositories/like/likes_fetching.dart';
-import 'package:art_inyou/blocs/bloc/post/bloc/post_bloc.dart';
+import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 
 FirestoreService service = FirestoreService();

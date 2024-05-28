@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:art_inyou/blocs/bloc/email/bloc/emailauth_bloc.dart';
-import 'package:art_inyou/blocs/bloc/google_auth/cubit/googleauth_cubit.dart';
+import 'package:art_inyou/blocs/email/bloc/emailauth_bloc.dart';
+import 'package:art_inyou/blocs/google_auth/cubit/googleauth_cubit.dart';
 import 'package:art_inyou/screens/authentication/resetpassword_screen.dart';
 import 'package:art_inyou/screens/authentication/signup_screen.dart';
 import 'package:art_inyou/screens/bottombar/bottombar.dart';

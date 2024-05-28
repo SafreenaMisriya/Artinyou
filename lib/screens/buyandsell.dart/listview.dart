@@ -1,6 +1,6 @@
 import 'package:art_inyou/models/model/paymentmodel.dart';
 import 'package:art_inyou/repositories/payment/payment_repository.dart';
-import 'package:art_inyou/blocs/bloc/orders/orders_cubit.dart';
+import 'package:art_inyou/blocs/orders/orders_cubit.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';

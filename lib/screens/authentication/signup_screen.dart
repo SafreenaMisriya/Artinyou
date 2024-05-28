@@ -1,7 +1,7 @@
 import 'package:art_inyou/models/model/emailmodel.dart';
 import 'package:art_inyou/services/sharedpreferance.dart';
-import 'package:art_inyou/blocs/bloc/email/bloc/emailauth_bloc.dart';
-import 'package:art_inyou/blocs/bloc/google_auth/cubit/googleauth_cubit.dart';
+import 'package:art_inyou/blocs/email/bloc/emailauth_bloc.dart';
+import 'package:art_inyou/blocs/google_auth/cubit/googleauth_cubit.dart';
 import 'package:art_inyou/screens/authentication/login_screen.dart';
 import 'package:art_inyou/screens/authentication/signinphone.dart';
 import 'package:art_inyou/screens/account/editprofile_screen.dart';
