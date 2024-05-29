@@ -16,7 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
                       children: [
                        Expanded(child: TabBarViewScreen()),
-                      //  Expanded(child: GridViewScreen()),
                       ],
                     
         ),

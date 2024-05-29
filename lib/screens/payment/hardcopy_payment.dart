@@ -1,4 +1,5 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:art_inyou/models/model/addressmodel.dart';
 import 'package:art_inyou/repositories/payment/payment_repository.dart';
 import 'package:art_inyou/repositories/address/address_fetching.dart';
@@ -20,13 +21,15 @@ class HardcopyPaymentSteps extends StatefulWidget {
   final String name;
   final String product;
   final String userid;
-  const HardcopyPaymentSteps(
-      {super.key,
-      required this.price,
-      required this.postid,
-      required this.name,
-      required this.product,
-      required this.userid});
+
+  const HardcopyPaymentSteps({
+    super.key,
+    required this.price,
+    required this.postid,
+    required this.name,
+    required this.product,
+    required this.userid,
+  });
 
   @override
   State<HardcopyPaymentSteps> createState() => _HardcopyPaymentStepsState();
@@ -34,20 +37,13 @@ class HardcopyPaymentSteps extends StatefulWidget {
 
 class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
   TextEditingController namecontroller = TextEditingController();
-
   TextEditingController phonecontroller = TextEditingController();
-
   TextEditingController housecontroller = TextEditingController();
-
   TextEditingController statecontroller = TextEditingController();
-
   TextEditingController citycontroller = TextEditingController();
-
   TextEditingController pincodecontroller = TextEditingController();
-
-  late HardcopyBloc bloc;
-
   bool edit = true;
+
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -55,157 +51,176 @@ class _HardcopyPaymentStepsState extends State<HardcopyPaymentSteps> {
     final hardcopBloc = BlocProvider.of<HardcopyBloc>(context);
     double height = Responsive.screenHeight(context);
     double width = Responsive.screenWidth(context);
+
     return BlocProvider<HardcopyBloc>(
-        create: (context) => HardcopyBloc(),
-        child: SafeArea(
-          child: Scaffold(
-            appBar: customAppbartop(context, 'Order'),
-            body: BlocBuilder<HardcopyBloc, HardcopyState>(
-              builder: (context, state) {
-                if (state.completed) {
-                  return const SuccessScreen(
-                      text: 'Order Confirmed Successfully');
-                } else {
-                  return SingleChildScrollView(
-                    child: Theme(
-                      data: Theme.of(context).copyWith(
-                          colorScheme:
-                              const ColorScheme.light(primary: Colors.green)),
-                      child: Stepper(
-                        type: StepperType.vertical,
-                        steps: getSteps(
-                            namecontroller,
-                            phonecontroller,
-                            housecontroller,
-                            statecontroller,
-                            citycontroller,
-                            pincodecontroller,
-                            state.currentStep,
-                            height,
-                            width,
-                            state,
-                            widget.price,
-                            widget.postid,
-                            currentuserId,
-                            context,
-                            PaymentService(context,
-                                price: widget.price,
-                                postid: widget.postid,
-                                userid: widget.userid,
-                                hardcopy: 'hardcopy'),
-                            widget.name,
-                            widget.product),
-                        currentStep: state.currentStep,
-                        onStepContinue: () async {
-                          if (state.currentStep == 0) {
-                            AddressModel data = AddressModel(
-                                name: namecontroller.text,
-                                phone: phonecontroller.text,
-                                price: widget.price,
-                                house: housecontroller.text,
-                                state: statecontroller.text,
-                                city: citycontroller.text,
-                                pincode: pincodecontroller.text,
-                                postid: widget.postid);
-                            AddressModel? addressData =
-                                await getAddress(currentuserId);
-                            if (edit) {
-                              hardcopBloc.add(AddressEvent(
-                                  addressModel: data, userid: currentuserId));
-                            } else {
-                              if (addressData != null) {
-                                hardcopBloc.add(UpdateaddressEvent(
-                                  addressModel: data,
-                                  userid: currentuserId,
-                                  id: addressData.id,
-                                ));
-                              }
+      create: (context) => HardcopyBloc(),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: customAppbartop(context, 'Order'),
+          body: BlocBuilder<HardcopyBloc, HardcopyState>(
+            builder: (context, state) {
+              if (state.completed) {
+                return const SuccessScreen(
+                    text: 'Order Confirmed Successfully');
+              } else {
+                return SingleChildScrollView(
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme:
+                          const ColorScheme.light(primary: Colors.green),
+                    ),
+                    child: Stepper(
+                      type: StepperType.vertical,
+                      steps: getSteps(
+                        namecontroller,
+                        phonecontroller,
+                        housecontroller,
+                        statecontroller,
+                        citycontroller,
+                        pincodecontroller,
+                        state.currentStep,
+                        height,
+                        width,
+                        state,
+                        widget.price,
+                        widget.postid,
+                        currentuserId,
+                        context,
+                        PaymentService(
+                          context,
+                          price: widget.price,
+                          postid: widget.postid,
+                          userid: widget.userid,
+                          hardcopy: 'hardcopy',
+                        ),
+                        widget.name,
+                        widget.product,
+                      ),
+                      currentStep: state.currentStep,
+                      onStepContinue: () async {
+                        if (state.currentStep == 0) {
+                          AddressModel data = AddressModel(
+                            name: namecontroller.text,
+                            phone: phonecontroller.text,
+                            price: widget.price,
+                            house: housecontroller.text,
+                            state: statecontroller.text,
+                            city: citycontroller.text,
+                            pincode: pincodecontroller.text,
+                            postid: widget.postid,
+                          );
+                          AddressModel? addressData =
+                              await getAddress(currentuserId);
+                          if (edit) {
+                            hardcopBloc.add(AddressEvent(
+                              addressModel: data,
+                              userid: currentuserId,
+                            ));
+                          } else {
+                            if (addressData != null) {
+                              hardcopBloc.add(UpdateaddressEvent(
+                                addressModel: data,
+                                userid: currentuserId,
+                                id: addressData.id,
+                              ));
                             }
-                          
+                          }
                           context
                               .read<HardcopyBloc>()
                               .add(NextStephardcopyEvent());
-                          }
-                        },
-                        onStepCancel: () async {
-                          if (state.currentStep == 1) {
-                            AddressModel? addressData =
-                                await getAddress(currentuserId);
-                            if (addressData != null) {
-                              edit = true;
-                              namecontroller.text = addressData.name;
-                              phonecontroller.text = addressData.phone;
-                              housecontroller.text = addressData.house;
-                              statecontroller.text = addressData.state;
-                              citycontroller.text = addressData.city;
-                              pincodecontroller.text = addressData.pincode;
-                              hardcopBloc.add(UpdateaddressEvent(
-                                  addressModel: addressData,
-                                  userid: currentuserId,
-                                  id: addressData.id));
-                            }
-                          }
+                        } else if (state.currentStep == 2) {
+                        } else {
                           context
                               .read<HardcopyBloc>()
-                              .add(PreviousStephardcopyEvent());
-                        },
-                        onStepTapped: (value) => context
+                              .add(NextStephardcopyEvent());
+                        }
+                      },
+                      onStepCancel: () async {
+                        if (state.currentStep == 1) {
+                          AddressModel? addressData =
+                              await getAddress(currentuserId);
+                          if (addressData != null) {
+                            edit = true;
+                            namecontroller.text = addressData.name;
+                            phonecontroller.text = addressData.phone;
+                            housecontroller.text = addressData.house;
+                            statecontroller.text = addressData.state;
+                            citycontroller.text = addressData.city;
+                            pincodecontroller.text = addressData.pincode;
+                            hardcopBloc.add(UpdateaddressEvent(
+                              addressModel: addressData,
+                              userid: currentuserId,
+                              id: addressData.id,
+                            ));
+                          }
+                        }
+                        context
                             .read<HardcopyBloc>()
-                            .add(GoToStephardcopyEvent(value)),
-                        controlsBuilder: (context, details) {
-                          final lastStep = state.currentStep ==
-                              getSteps(
-                                          namecontroller,
-                                          phonecontroller,
-                                          housecontroller,
-                                          statecontroller,
-                                          citycontroller,
-                                          pincodecontroller,
-                                          state.currentStep,
-                                          height,
-                                          width,
-                                          state,
-                                          widget.price,
-                                          widget.postid,
-                                          currentuserId,
-                                          context,
-                                          PaymentService(context,
-                                              price: widget.price,
-                                              postid: widget.postid,
-                                              userid: widget.userid,
-                                              hardcopy: "hardcopy"),
-                                          widget.name,
-                                          widget.product)
-                                      .length -
-                                  1;
-                          return Container(
-                            margin: const EdgeInsets.only(top: 50),
-                            child: Row(
-                              children: [
-                                if (state.currentStep != 0)
-                                  Expanded(
-                                      child: ElevatedButton(
-                                          onPressed: details.onStepCancel,
-                                          child: const Text('Previous'))),
-                                const SizedBox(
-                                  width: 12,
+                            .add(PreviousStephardcopyEvent());
+                      },
+                      onStepTapped: (value) => context
+                          .read<HardcopyBloc>()
+                          .add(GoToStephardcopyEvent(value)),
+                      controlsBuilder: (context, details) {
+                        final lastStep = state.currentStep ==
+                            getSteps(
+                                  namecontroller,
+                                  phonecontroller,
+                                  housecontroller,
+                                  statecontroller,
+                                  citycontroller,
+                                  pincodecontroller,
+                                  state.currentStep,
+                                  height,
+                                  width,
+                                  state,
+                                  widget.price,
+                                  widget.postid,
+                                  currentuserId,
+                                  context,
+                                  PaymentService(
+                                    context,
+                                    price: widget.price,
+                                    postid: widget.postid,
+                                    userid: widget.userid,
+                                    hardcopy: "hardcopy",
+                                  ),
+                                  widget.name,
+                                  widget.product,
+                                ).length -
+                                1;
+
+                        return Container(
+                          margin: const EdgeInsets.only(top: 50),
+                          child: Row(children: [
+                            if (state.currentStep != 0)
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: details.onStepCancel,
+                                  child: const Text('Previous'),
                                 ),
-                                Expanded(
-                                    child: ElevatedButton(
-                                        onPressed: details.onStepContinue,
-                                        child: Text(
-                                            lastStep ? 'Confirm' : 'Next'))),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: details.onStepContinue,
+                                  child: Text(lastStep ? 'Confirm' : 'Next'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+            },
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

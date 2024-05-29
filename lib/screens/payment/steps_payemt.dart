@@ -6,6 +6,7 @@ import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/utils/snakbar/snakbar.dart';
 import 'package:art_inyou/widgets/appbar/customappbar.dart';
+import 'package:art_inyou/widgets/image_handling/carosel.dart';
 import 'package:art_inyou/widgets/label/label.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class SoftCopyPayment extends StatelessWidget {
   final String username;
   final String product;
   final String userid;
-  final String imageurl;
+  final List<String>? imagePathList;
+  final String? imageurl;
   const SoftCopyPayment(
       {super.key,
       required this.price,
@@ -26,7 +28,8 @@ class SoftCopyPayment extends StatelessWidget {
       required this.username,
       required this.userid,
       required this.product,
-      required this.imageurl});
+      this.imageurl,
+      this.imagePathList});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class SoftCopyPayment extends StatelessWidget {
               body: BlocBuilder<SoftcopyBloc, SoftcopyState>(
                 builder: (context, state) {
                   if (state.completed) {
-                    return const  SuccessScreen(
+                    return const SuccessScreen(
                         text: 'ThankYou For Downloading !');
                   } else {
                     return Theme(
@@ -58,6 +61,7 @@ class SoftCopyPayment extends StatelessWidget {
                             height,
                             width,
                             price,
+                            imagePathList,
                             paymentService,
                             state,
                             username,
@@ -81,6 +85,7 @@ class SoftCopyPayment extends StatelessWidget {
                                           height,
                                           width,
                                           price,
+                                          imagePathList,
                                           paymentService,
                                           state,
                                           username,
@@ -98,16 +103,15 @@ class SoftCopyPayment extends StatelessWidget {
                                       child: ElevatedButton(
                                           onPressed: details.onStepCancel,
                                           child: const Text('Previous'))),
-                                          if(!lastStep)...[
-                                const SizedBox(
-                                  width: 12,
-                                ),
-                                Expanded(
-                                    child: ElevatedButton(
-                                        onPressed: details.onStepContinue,
-                                        child: Text(
-                                              'Next'))),
-                                          ]
+                                if (!lastStep) ...[
+                                  const SizedBox(
+                                    width: 12,
+                                  ),
+                                  Expanded(
+                                      child: ElevatedButton(
+                                          onPressed: details.onStepContinue,
+                                          child: const Text('Next'))),
+                                ]
                               ],
                             ),
                           );
@@ -129,11 +133,12 @@ class SoftCopyPayment extends StatelessWidget {
           double height,
           double width,
           String price,
+          final List<String>? imagePathList,
           PaymentService pay,
           SoftcopyState state,
           String name,
           String product,
-          String imageurl,
+          String? imageurl,
           BuildContext context) =>
       [
         Step(
@@ -237,10 +242,16 @@ class SoftCopyPayment extends StatelessWidget {
                 child: SizedBox(
                   height: height * 0.4,
                   width: width * 0.8,
-                  child: CachedNetworkImage(
-                    imageUrl: imageurl,
-                    fit: BoxFit.cover,
-                  ),
+                  child: imagePathList != null
+                      ? CaroselScreen(
+                          screenHeight: height * 0.3,
+                          itemCount: imagePathList.length,
+                          imageUrlList: imagePathList,
+                        )
+                      : CachedNetworkImage(
+                          imageUrl: imageurl!,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               SizedBox(
@@ -253,7 +264,10 @@ class SoftCopyPayment extends StatelessWidget {
                       onTap: () {
                         final dowload = MediaDownload();
                         if (state.paymentCompleted) {
-                          dowload.downloadMedia(context, imageurl);
+                          imagePathList != null
+                              ? dowload.downloadMedia(
+                                  context, imagePathList.toString())
+                              : dowload.downloadMedia(context, imageurl!);
                           context
                               .read<SoftcopyBloc>()
                               .add(DownloadSuccessEvent());

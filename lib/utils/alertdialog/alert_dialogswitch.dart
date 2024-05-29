@@ -8,11 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 void showCustomDialog(
     BuildContext context,
+    final List<String>? imagePathList,
     String softprice,
     String postid,
     String username,
     String product,
-    String imageurl,
+    String? imageurl,
     String hardprice,
     String userid,
     double height) {
@@ -93,11 +94,12 @@ void showCustomDialog(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => SoftCopyPayment(
+                                        imagePathList: imagePathList,
                                             price: softprice,
                                             postid: postid,
                                             username: username,
                                             product: product,
-                                            imageurl: imageurl,
+                                            imageurl: imageurl ,
                                             userid: userid,
                                           )))
                               : Navigator.push(

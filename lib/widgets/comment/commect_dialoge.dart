@@ -26,7 +26,7 @@ bottompCommentsheet(BuildContext context, String postid, PostBloc postBloc,
       return Padding(
         padding: EdgeInsets.only(
           left: 20,
-          right: 20,
+          right: 15,
           top: 20,
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),

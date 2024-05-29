@@ -1,23 +1,26 @@
+
 import 'package:art_inyou/models/model/paymentmodel.dart';
 import 'package:art_inyou/models/model/postmodel.dart';
 import 'package:art_inyou/repositories/post/post_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-FirestoreService service=FirestoreService();
-class PaymentRepo{
-   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-   Future<void>broughtproduct(PaymentModel paymentModel,String userid,String postid)async{
-    PostModel? post= await service.getPostDetails(postid);
-     try {
+
+FirestoreService service = FirestoreService();
+
+class PaymentRepo {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Future<void> broughtproduct(
+      PaymentModel paymentModel, String userid, String postid) async {
+    PostModel? post = await service.getPostDetails(postid);
+    try {
       Map<String, dynamic> paymentdata = {
         'amount': paymentModel.amount,
         'payedtime': paymentModel.time,
-        'status':paymentModel.status,
-        'postid':paymentModel.postid,
-        "image":post.imageUrl,
-        'title':post.title,
-        'userid':post.userid,
-        'hardcopy':paymentModel.hardcopy,
-
+        'status': paymentModel.status,
+        'postid': paymentModel.postid,
+        "image": post.imageUrl,
+        'title': post.title,
+        'userid': post.userid,
+        'hardcopy': paymentModel.hardcopy,
       };
       await firestore
           .collection('users_collection')
@@ -27,120 +30,113 @@ class PaymentRepo{
     } catch (e) {
       throw Exception('Failed to add post: $e');
     }
-   }
-Future<void> cancelOrder(String userid, String paymentId) async {
-  try {
-    DocumentReference docRef = FirebaseFirestore.instance
-        .collection('users_collection')
-        .doc(userid)
-        .collection('buy_products')
-        .doc(paymentId);
-
-    DocumentSnapshot docSnapshot = await docRef.get();
-
-    if (docSnapshot.exists) {
-      Map<String, dynamic>? orderData = docSnapshot.data() as Map<String, dynamic>?;
-
-      if (orderData != null && orderData.containsKey('amount')) {
-        // Ensure the amount is parsed as a double
-        double amount;
-        if (orderData['amount'] is String) {
-          amount = double.parse(orderData['amount']);
-        } else if (orderData['amount'] is double) {
-          amount = orderData['amount'];
-        } else {
-          throw Exception('Order amount is not in a valid format');
-        }
-
-        // Update the order status to 'Cancelled'
-        await docRef.update({'status': 'Cancelled'});
-
-        // Perform the refund operation
-        await refundToWallet(userid, amount);
-
-        // Remove the cancelled order from the collection
-        await docRef.delete();
-      } else {
-        throw Exception('Order amount not found');
-      }
-    } else {
-      throw Exception('Order not found');
-    }
-  } catch (e) {
-    throw Exception('Failed to cancel order: $e');
   }
-}
 
-Future<void> refundToWallet(String userid, double amount) async {
-  try {
-    DocumentReference walletRef = FirebaseFirestore.instance
-        .collection('users_collection')
-        .doc(userid)
-        .collection('wallet')
-        .doc('wallet_balance');
+  Future<void> cancelOrder(String userid, String paymentId) async {
+    try {
+      DocumentReference docRef = FirebaseFirestore.instance
+          .collection('users_collection')
+          .doc(userid)
+          .collection('buy_products')
+          .doc(paymentId);
 
-    DocumentSnapshot walletSnapshot = await walletRef.get();
+      DocumentSnapshot docSnapshot = await docRef.get();
 
-    if (walletSnapshot.exists) {
-      Map<String, dynamic>? walletData = walletSnapshot.data() as Map<String, dynamic>?;
-      if (walletData != null && walletData.containsKey('balance')) {
-        double currentBalance;
-        if (walletData['balance'] is String) {
-          currentBalance = double.parse(walletData['balance']);
-        } else if (walletData['balance'] is double) {
-          currentBalance = walletData['balance'];
+      if (docSnapshot.exists) {
+        Map<String, dynamic>? orderData =
+            docSnapshot.data() as Map<String, dynamic>?;
+
+        if (orderData != null && orderData.containsKey('amount')) {
+          double amount;
+          if (orderData['amount'] is String) {
+            amount = double.parse(orderData['amount']);
+          } else if (orderData['amount'] is double) {
+            amount = orderData['amount'];
+          } else {
+            throw Exception('Order amount is not in a valid format');
+          }
+          await docRef.update({'status': 'Cancelled'});
+          await refundToWallet(userid, amount);
+          await docRef.delete();
         } else {
-          throw Exception('Wallet balance is not in a valid format');
+          throw Exception('Order amount not found');
         }
-        double newBalance = currentBalance + amount;
+      } else {
+        throw Exception('Order not found');
+      }
+    } catch (e) {
+      throw Exception('Failed to cancel order: $e');
+    }
+  }
 
-        await walletRef.update({'balance': newBalance});
+  Future<void> refundToWallet(String userid, double amount) async {
+    try {
+      DocumentReference walletRef = FirebaseFirestore.instance
+          .collection('users_collection')
+          .doc(userid)
+          .collection('wallet')
+          .doc('wallet_balance');
+
+      DocumentSnapshot walletSnapshot = await walletRef.get();
+
+      if (walletSnapshot.exists) {
+        Map<String, dynamic>? walletData =
+            walletSnapshot.data() as Map<String, dynamic>?;
+        if (walletData != null && walletData.containsKey('balance')) {
+          double currentBalance;
+          if (walletData['balance'] is String) {
+            currentBalance = double.parse(walletData['balance']);
+          } else if (walletData['balance'] is double) {
+            currentBalance = walletData['balance'];
+          } else {
+            throw Exception('Wallet balance is not in a valid format');
+          }
+          double newBalance = currentBalance + amount;
+
+          await walletRef.update({'balance': newBalance});
+        } else {
+          await walletRef.set({'balance': amount});
+        }
       } else {
         await walletRef.set({'balance': amount});
       }
-    } else {
-      await walletRef.set({'balance': amount});
+    } catch (e) {
+      throw Exception('Failed to refund to wallet: $e');
     }
-  } catch (e) {
-    throw Exception('Failed to refund to wallet: $e');
   }
-}
 
+  Future<void> payUsingWallet(
+      String userid, PaymentModel paymentModel) async {
 
+    try {
+      DocumentReference walletRef = FirebaseFirestore.instance
+          .collection('users_collection')
+          .doc(userid)
+          .collection('wallet')
+          .doc('wallet_balance');
 
-Future<void> payUsingWallet(String userid, PaymentModel paymentModel) async {
-  try {
-    DocumentReference walletRef = FirebaseFirestore.instance
-        .collection('users_collection')
-        .doc(userid)
-        .collection('wallet')
-        .doc('wallet_balance');
+      DocumentSnapshot walletSnapshot = await walletRef.get();
 
-    DocumentSnapshot walletSnapshot = await walletRef.get();
+      if (walletSnapshot.exists) {
+        // Explicitly cast to Map<String, dynamic>
+        Map<String, dynamic> walletData =
+            walletSnapshot.data() as Map<String, dynamic>;
+        double walletBalance = walletData['balance'] as double;
+        if (walletBalance >= paymentModel.amountAsDouble) {
+          // Deduct amount from wallet
+          double newBalance = walletBalance - paymentModel.amountAsDouble;
+          await walletRef.update({'balance': newBalance});
 
-    if (walletSnapshot.exists) {
-      // Explicitly cast to Map<String, dynamic>
-      Map<String, dynamic> walletData = walletSnapshot.data() as Map<String, dynamic>;
-      double walletBalance = walletData['balance'] as double;
-
-      if (walletBalance >= paymentModel.amountAsDouble) {
-        // Deduct amount from wallet
-        double newBalance = walletBalance - paymentModel.amountAsDouble;
-        await walletRef.update({'balance': newBalance});
-
-        // Proceed with the payment using wallet
-        await broughtproduct(paymentModel, userid, paymentModel.postid);
+          // Proceed with the payment using wallet
+          await broughtproduct(paymentModel, userid, paymentModel.postid);
+        } else {
+          throw Exception('Insufficient wallet balance');
+        }
       } else {
-        throw Exception('Insufficient wallet balance');
+        throw Exception('Wallet not found');
       }
-    } else {
-      throw Exception('Wallet not found');
+    } catch (e) {
+      throw Exception('Failed to pay using wallet: $e');
     }
-  } catch (e) {
-    throw Exception('Failed to pay using wallet: $e');
   }
-}
-
-
- 
 }

@@ -7,7 +7,8 @@ Future<List<CommentModel>> getComments(String postId) async {
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore.instance
        .collection('posts')
        .doc(postId)
-       .collection('comment') 
+       .collection('comment')
+       .orderBy('commenttime',descending: true) 
        .get();
 
     for (var doc in querySnapshot.docs) {

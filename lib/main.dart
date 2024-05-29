@@ -1,4 +1,5 @@
 
+import 'package:art_inyou/blocs/internet/internet_bloc.dart';
 import 'package:art_inyou/repositories/chat/chat_repository.dart';
 import 'package:art_inyou/repositories/post/post_repository.dart';
 import 'package:art_inyou/repositories/profile/profile_repository.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<HardcopyBloc>(create: (context)=>HardcopyBloc()),
          BlocProvider<ToggleCubit>(create: (context)=>ToggleCubit()),
          BlocProvider<OrdersCubit>(create: (context)=>OrdersCubit()),
+          BlocProvider<InternetBloc>(create: (context)=>InternetBloc()),
         
       ],
       child: MaterialApp(

@@ -31,6 +31,7 @@ class SearchScreen extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
+               SizedBox(height: height*0.02,),
               Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: TextField(

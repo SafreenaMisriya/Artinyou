@@ -30,3 +30,5 @@ final String id;
  required this.id,
   });
 }
+
+class PaymentcompletedEvent extends HardcopyEvent{}

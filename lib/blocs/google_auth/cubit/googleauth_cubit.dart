@@ -21,7 +21,6 @@ class GoogleauthCubit extends Cubit<GoogleauthState> {
         idToken: googleauth.idToken,
       );
       final usercredential=await auth.signInWithCredential(credential);
-      print(usercredential.user?.email);
       emit(GoogleauthsuccessState(usercredential.user!));
     } catch (e) {
       emit(GoogleauthFailedState(e.toString()));

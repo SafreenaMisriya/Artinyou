@@ -1,3 +1,4 @@
+import 'package:art_inyou/blocs/hardcopy/hardcopy_bloc.dart';
 import 'package:art_inyou/models/model/paymentmodel.dart';
 import 'package:art_inyou/repositories/payment/payment_repository.dart';
 import 'package:art_inyou/blocs/softcopy/softcopy_bloc.dart';
@@ -51,6 +52,8 @@ class PaymentService {
     PaymentModel model= PaymentModel(amount: price, time: dateAndtime(),postid: postid,userid: userId,hardcopy: hardcopy);
     repo.broughtproduct(model, userId,postid);
      context.read<SoftcopyBloc>().add(PaymentSuccessEvent());
+     context.read<HardcopyBloc>().add(PaymentcompletedEvent());
+     
   }
 
   void handlePaymentError(PaymentFailureResponse response) {

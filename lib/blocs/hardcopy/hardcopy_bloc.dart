@@ -40,11 +40,14 @@ class HardcopyBloc extends Bloc<HardcopyEvent, HardcopyState> {
         if (event.id.isEmpty) {
           throw Exception("Document ID cannot be empty");
         }
-        await storage.updateaddress(event.userid, event.addressModel, event.id);
-        emit(state.copyWith(completed: true));
+        await storage.updateaddress(event.id, event.addressModel, event.userid);
+        emit(state.copyWith(currentStep: state.currentStep+1));
       } catch (e) {
         throw Exception(e.toString());
       }
+    });
+    on<PaymentcompletedEvent >((event, emit){
+    emit(state.copyWith(completed: true));
     });
   }
 }

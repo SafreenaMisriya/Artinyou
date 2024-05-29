@@ -95,7 +95,11 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                     posts[index].title,
                                     posts[index].about,
                                     posts[index].softprice,
-                                    posts[index].hardprice)
+                                    posts[index].hardprice,
+                                    posts[index].postid,
+                                    postbloc,
+                                    posts[index].userid,
+                                    posts[index].username)
                                 : GestureDetector(
                                     child: SizedBox(
                                       height: height * 0.3,
@@ -280,7 +284,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
 }
 
 Widget _buildCarousel(String imageUrl, BuildContext context, String title,
-    String about, String softprice, String hardprice) {
+    String about, String softprice, String hardprice,String postid,PostBloc postBloc,String userid,String username) {
   List<String> imageUrlList = imageUrl.split(',');
   return GestureDetector(
     onTap: () {
@@ -293,6 +297,10 @@ Widget _buildCarousel(String imageUrl, BuildContext context, String title,
                     about: about,
                     softprice: softprice,
                     hardprice: hardprice,
+                    postid:postid ,
+                    postBloc: postBloc,
+                    userid: userid,
+                    name: username,
                   )));
     },
     child: CaroselScreen(

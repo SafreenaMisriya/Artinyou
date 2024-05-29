@@ -18,7 +18,11 @@ class BottomBar extends StatefulWidget {
 class _BottomBarState extends State<BottomBar> {
   int currentIndex = 0;
   PageController pageController = PageController();
-
+@override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -73,9 +77,6 @@ class _BottomBarState extends State<BottomBar> {
               GButton(text: 'Profile', icon: Icons.account_circle),
             ],
             onTabChange: (index) {
-              setState(() {
-                currentIndex = index;
-              });
               pageController.jumpToPage(index);
             },
           ),

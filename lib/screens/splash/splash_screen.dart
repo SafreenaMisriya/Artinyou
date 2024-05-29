@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:art_inyou/screens/bottombar/bottombar.dart';
+import 'package:art_inyou/repositories/internet/internet_checking.dart';
 import 'package:art_inyou/screens/onboarding_screen.dart/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Timer(const Duration(seconds: 2), () {
         finalEmail.value == null
            ? Navigator.push(context, MaterialPageRoute(builder: (context) => const OnboardingScreen()))
-            : Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const BottomBar()),(route) => false,);
+            : Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) =>  InternetCheck()),(route) => false,);
       });
     });
   }

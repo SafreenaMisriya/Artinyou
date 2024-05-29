@@ -85,7 +85,7 @@ class FullimageScreen extends StatelessWidget {
                     if (imagePathList != null)
                       CaroselScreen(
                         screenHeight: height * 0.4,
-                        itemCount: imagePathList!.length,
+                        itemCount: imagePathList!.length ,
                         imageUrlList: imagePathList!,
                       )
                     else
@@ -93,7 +93,7 @@ class FullimageScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14),
                         child: SizedBox(
                             height: height * 0.4,
-                            child: Image.network(singleImagePath!)),
+                            child: Image.network(singleImagePath !)),
                       ),
                   ],
                 ),
@@ -102,7 +102,7 @@ class FullimageScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   LikeButtonWidget(
-                      userId: userid!, postId: postid!, bloc: postBloc!),
+                      userId: userid!, postId: postid !, bloc: postBloc !),
                   commentFunction(context, postid!, postBloc!, height, userid!),
                 ],
               ),
@@ -148,8 +148,8 @@ class FullimageScreen extends StatelessWidget {
               labelwidget(
                   labelText: 'Buy Now',
                   onTap: () {
-                    showCustomDialog(context, softprice!, postid!, name!,
-                        title!, singleImagePath!, hardprice!, userid!, height);
+                    showCustomDialog(context,imagePathList, softprice!, postid!, name!,
+                        title!, singleImagePath??'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ718nztPNJfCbDJjZG8fOkejBnBAeQw5eAUA&s', hardprice!, userid!, height);
                   })
             ],
           ),
