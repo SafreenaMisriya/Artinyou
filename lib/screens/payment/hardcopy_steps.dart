@@ -3,7 +3,6 @@ import 'package:art_inyou/repositories/address/address_fetching.dart';
 import 'package:art_inyou/blocs/hardcopy/hardcopy_bloc.dart';
 import 'package:art_inyou/screens/payment/alert.dart';
 import 'package:art_inyou/screens/payment/payment_screen.dart';
-import 'package:art_inyou/screens/payment/success_screen.dart';
 import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/textformfields/address_textform.dart';
@@ -263,108 +262,103 @@ List<Step> getSteps(
           state: currentStep > 0 ? StepState.complete : StepState.indexed),
       Step(
         title: const Text('Payment'),
-        content: BlocBuilder<HardcopyBloc, HardcopyState>(
-          builder: (context, state) {
-            if(state.completed){
-              return SuccessScreen(text: 'Order Confirmed Successfully');
-            }else{
-            return Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Total Amount',
-                      style: MyFonts.boldTextStyle,
-                    ),
-                    Text(
-                      '₹$price',
-                      style: MyFonts.boldTextStyle,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                const Align(
-                  alignment: AlignmentDirectional.topStart,
-                  child: Text(
-                    'Payments',
-                    style: MyFonts.headingTextStyle,
+        content:
+            BlocBuilder<HardcopyBloc, HardcopyState>(builder: (context, state) {
+          return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Total Amount',
+                    style: MyFonts.boldTextStyle,
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                GestureDetector(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.green),
-                        borderRadius: BorderRadius.circular(10)),
-                    height: height * 0.07,
-                    width: width * 0.8,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.account_balance_wallet),
-                          SizedBox(
-                            width: width * 0.03,
-                          ),
-                          const Text(
-                            'Wallets',
-                            style: MyFonts.bodyTextStyle,
-                          ),
-                        ],
-                      ),
-                    ),
+                  Text(
+                    '₹$price',
+                    style: MyFonts.boldTextStyle,
                   ),
-                  onTap: () => handlePayment(
-                    context,
-                    price,
-                    postid,
-                    name,
-                    product,
-                    pay,
-                    currentuserId,
-                  ),
+                ],
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              const Align(
+                alignment: AlignmentDirectional.topStart,
+                child: Text(
+                  'Payments',
+                  style: MyFonts.headingTextStyle,
                 ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                GestureDetector(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.green,
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.green),
+                      borderRadius: BorderRadius.circular(10)),
+                  height: height * 0.07,
+                  width: width * 0.8,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.account_balance_wallet),
+                        SizedBox(
+                          width: width * 0.03,
                         ),
-                        borderRadius: BorderRadius.circular(10)),
-                    height: height * 0.07,
-                    width: width * 0.8,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.currency_rupee_rounded),
-                          SizedBox(
-                            width: width * 0.03,
-                          ),
-                          const Text(
-                            'Net Banking',
-                            style: MyFonts.bodyTextStyle,
-                          ),
-                        ],
-                      ),
+                        const Text(
+                          'Wallets',
+                          style: MyFonts.bodyTextStyle,
+                        ),
+                      ],
                     ),
                   ),
-                  onTap: () => handlePayment(context, price, postid, name,
-                      product, pay, currentuserId),
                 ),
-              ],
-            );
-            }
-          },
-        ),
+                onTap: () => handlePayment(
+                  context,
+                  price,
+                  postid,
+                  name,
+                  product,
+                  pay,
+                  currentuserId,
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.green,
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
+                  height: height * 0.07,
+                  width: width * 0.8,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.currency_rupee_rounded),
+                        SizedBox(
+                          width: width * 0.03,
+                        ),
+                        const Text(
+                          'Net Banking',
+                          style: MyFonts.bodyTextStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () => handlePayment(
+                    context, price, postid, name, product, pay, currentuserId),
+              ),
+            ],
+          );
+        }),
         isActive: currentStep >= 2,
       ),
     ];
