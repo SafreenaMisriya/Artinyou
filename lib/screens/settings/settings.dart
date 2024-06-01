@@ -12,6 +12,7 @@ import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/alertdialog/alertdialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -79,12 +80,17 @@ class SettingsScreen extends StatelessWidget {
               ListTile(
                 leading: const Icon(Icons.star),
                 title: const Text('Rate US', style: MyFonts.boldTextStyle),
-                onTap: () {},
+                onTap: () {
+                  showRating(context,height,width);
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.share),
                 title: const Text('Share', style: MyFonts.boldTextStyle),
-                onTap: () {},
+                onTap: () {
+                  Share.share(
+                      'https://www.amazon.com/dp/B0D5LV6D99/ref=apps_sf_sta');
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
@@ -96,7 +102,8 @@ class SettingsScreen extends StatelessWidget {
                         return ConfirmationDialog(
                             message: 'Are you sure you want to Logout ?',
                             onYesPressed: () async {
-                              SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                              SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
                               sharedPreferences.remove('email');
                               sharedPreferences.remove('phone');
                               context.read<GoogleauthCubit>().logout();
@@ -117,5 +124,21 @@ class SettingsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  static Future<void>showRating(BuildContext context,double height,double width)async{
+  showDialog(context: context, builder: (context){
+      return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+             SizedBox(
+              height: height*0.3,
+              width: width*0.3,
+              child: Image.asset('assets/image/logo7.png'),
+             )
+          ],
+        ),
+      );
+  });
   }
 }

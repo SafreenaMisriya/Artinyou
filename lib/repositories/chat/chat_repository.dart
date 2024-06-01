@@ -33,7 +33,7 @@ class ChatRepository {
     return firestore
         .collection('chats')
         .where('members', arrayContains: userId)
-        .orderBy('lastActive', descending: false)
+        .orderBy('lastActive', descending: true)
         .snapshots()
         .map((snapshot) {
           return snapshot.docs.map((doc) {
