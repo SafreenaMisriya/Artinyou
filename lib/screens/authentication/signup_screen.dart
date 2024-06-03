@@ -14,6 +14,7 @@ import 'package:art_inyou/services/password.dart';
 import 'package:art_inyou/utils/textformfields/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpAuth extends StatefulWidget {
@@ -134,7 +135,7 @@ class _SignUpAuthState extends State<SignUpAuth> {
                             child: BlocBuilder<EmailauthBloc, EmailauthState>(
                               builder: (context, state) {
                                 if (state is EmailloadingState) {
-                                  return const CircularProgressIndicator();
+                                  return SpinKitFadingCircle(color: redcolor,);
                                 } else {
                                   return myfonts('Sign Up');
                                 }
@@ -202,7 +203,7 @@ class _SignUpAuthState extends State<SignUpAuth> {
                           }
                         },
                         child: state is GoogleauthLoadingState
-                            ? const CircularProgressIndicator()
+                            ? SpinKitFadingCircle(color: redcolor,)
                             : Container(
                                 height: height * 0.07,
                                 width: width * 0.9,

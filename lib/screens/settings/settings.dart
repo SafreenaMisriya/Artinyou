@@ -7,6 +7,7 @@ import 'package:art_inyou/screens/settings/about_screen.dart';
 import 'package:art_inyou/screens/authentication/login_screen.dart';
 import 'package:art_inyou/screens/settings/privacy_policy.dart';
 import 'package:art_inyou/screens/saved/savedpost_screen.dart';
+import 'package:art_inyou/screens/settings/rating.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/alertdialog/alertdialog.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -78,10 +80,22 @@ class SettingsScreen extends StatelessWidget {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.feedback),
+                title:
+                    const Text('Send feedback', style: MyFonts.boldTextStyle),
+                onTap: () async {
+                  final Uri uri = Uri(
+                      scheme: 'mailto', path: 'safreenamisriya02@gmail.com');
+                  if (await canLaunchUrl(uri)) {
+                    await launchUrl(uri);
+                  }
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.star),
                 title: const Text('Rate US', style: MyFonts.boldTextStyle),
                 onTap: () {
-                  showRating(context,height,width);
+                  showRating(context, height, width);
                 },
               ),
               ListTile(
@@ -125,20 +139,6 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
   }
-  static Future<void>showRating(BuildContext context,double height,double width)async{
-  showDialog(context: context, builder: (context){
-      return AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-             SizedBox(
-              height: height*0.3,
-              width: width*0.3,
-              child: Image.asset('assets/image/logo7.png'),
-             )
-          ],
-        ),
-      );
-  });
-  }
+
+  
 }

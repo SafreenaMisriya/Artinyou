@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'package:animate_do/animate_do.dart';
 import 'package:art_inyou/repositories/internet/internet_checking.dart';
-import 'package:art_inyou/screens/onboarding_screen.dart/onboarding_screen.dart';
+import 'package:art_inyou/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -47,8 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image.asset('assets/image/logo7.png'),
+      body: BounceInDown(
+        from: 200,
+        child: Center(
+          child: Image.asset('assets/image/logo7.png'),
+        ),
       ),
     );
   }

@@ -9,6 +9,7 @@ import 'package:art_inyou/widgets/alertdialog/alertdialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 PaymentRepo repo = PaymentRepo();
 class OrdersScreen extends StatelessWidget {
   final String userid;
@@ -25,7 +26,7 @@ class OrdersScreen extends StatelessWidget {
           child: BlocBuilder<OrdersCubit, OrdersState>(
             builder: (context, state) {
               if (state is OrderLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return  Center(child:SpinKitFadingCircle(color: redcolor,));
               } else if (state is OrderLoaded) {
                 List<PaymentModel> buyProducts = state.orders;
                 return Column(

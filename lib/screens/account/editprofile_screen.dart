@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:art_inyou/models/model/profilemodel.dart';
-import 'package:art_inyou/services/sharedpreferance.dart';
 import 'package:art_inyou/blocs/profile/bloc/profile_bloc.dart';
 import 'package:art_inyou/screens/account/account_screen.dart';
 import 'package:art_inyou/screens/bottombar/bottombar.dart';
@@ -12,6 +10,7 @@ import 'package:art_inyou/utils/textformfields/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ProfileScreen extends StatefulWidget {
   final ProfileModel? edit;
@@ -78,13 +77,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 TextButton(
                     onPressed: () async {
-                      await SharedPreferenceHelper().saveId(userId);
-                      await SharedPreferenceHelper()
-                          .saveDisplayname(usernamecontroller.text);
-                      await SharedPreferenceHelper()
-                          .saveDisplayname(biocontroller.text);
-                      await SharedPreferenceHelper().savePic(images.join());
                       ProfileModel model = ProfileModel(
+                          followers: [],
+                          following: [],
                           userid: userId,
                           username: usernamecontroller.text,
                           bio: biocontroller.text,
@@ -120,8 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 builder: (context, state) {
                   if (state is Profileloading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return  Center(
+                      child:SpinKitFadingCircle(color: redcolor,),
                     );
                   }
                   return Column(

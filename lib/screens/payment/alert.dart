@@ -9,6 +9,7 @@ import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/snakbar/snakbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 PaymentRepo repo = PaymentRepo();
 
@@ -29,7 +30,7 @@ void handlePayment(
         future: getWalletBalance(currentuserId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return  Center(child:SpinKitFadingCircle(color: redcolor,));
           } else if (snapshot.hasData) {
             double walletBalance = snapshot.data ?? 0.0;
             return Column(

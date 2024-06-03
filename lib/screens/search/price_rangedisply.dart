@@ -175,9 +175,6 @@ class DropdownPrice extends StatelessWidget {
                                                           posts[index].postid,
                                                       userid: userId)),
                                             ),
-                                            const PopupMenuItem(
-                                              child: Text('Share'),
-                                            ),
                                             if (posts[index].userid == userId)
                                               PopupMenuItem(
                                                 child: const Text('Edit'),

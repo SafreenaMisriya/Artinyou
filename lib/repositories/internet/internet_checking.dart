@@ -2,10 +2,12 @@
 
 import 'package:art_inyou/blocs/internet/internet_bloc.dart';
 import 'package:art_inyou/screens/bottombar/bottombar.dart';
+import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class InternetCheck extends StatelessWidget {
   InternetCheck({super.key});
@@ -30,8 +32,8 @@ class InternetCheck extends StatelessWidget {
             } else if (state is InternetConnectedState) {
               return const BottomBar();
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return  Center(
+                child:SpinKitFadingCircle(color: redcolor,),
               );
             }
           },

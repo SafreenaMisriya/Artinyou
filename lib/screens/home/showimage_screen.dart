@@ -149,7 +149,7 @@ class FullimageScreen extends StatelessWidget {
                   labelText: 'Buy Now',
                   onTap: () {
                     showCustomDialog(context,imagePathList, softprice!, postid!, name!,
-                        title!, singleImagePath??'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ718nztPNJfCbDJjZG8fOkejBnBAeQw5eAUA&s', hardprice!, userid!, height);
+                        title!, singleImagePath, hardprice!, userid!, height);
                   })
             ],
           ),

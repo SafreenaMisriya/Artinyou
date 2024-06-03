@@ -2,6 +2,7 @@ import 'package:art_inyou/models/model/postmodel.dart';
 import 'package:art_inyou/repositories/post/post_repository.dart';
 import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/blocs/save/bloc/save_bloc.dart';
+import 'package:art_inyou/screens/account/otheruser_profile.dart';
 import 'package:art_inyou/screens/post/post_screen.dart';
 import 'package:art_inyou/screens/home/showimage_screen.dart';
 import 'package:art_inyou/utils/color/colour.dart';
@@ -158,9 +159,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                           snakbarSuccessMessage(context,
                                               'Post Saved Successfully');
                                         }),
-                                    const PopupMenuItem(
-                                      child: Text('Share'),
-                                    ),
+                                   
                                     if (posts[index].userid == widget.userId)
                                       PopupMenuItem(
                                         child: const Text('Edit'),
@@ -227,28 +226,31 @@ class _GridViewScreenState extends State<GridViewScreen> {
                        child: Row(
                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                              height: height * 0.03,
-                              width: height * 0.03,
-                              child: ClipOval(
-                                child: posts[index].profileImageUrl.isNotEmpty
-                                    ? CachedNetworkImage(
-                                        imageUrl: posts[index].profileImageUrl,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : const Placeholder(),
+                            GestureDetector(
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                height: height * 0.03,
+                                width: height * 0.03,
+                                child: ClipOval(
+                                  child: posts[index].profileImageUrl.isNotEmpty
+                                      ? CachedNetworkImage(
+                                          imageUrl: posts[index].profileImageUrl,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : const Placeholder(),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            Text(
-                              posts[index].username,
-                              style: MyFonts.bodyTextStyle,
-                            ),
-                              ],
+                              SizedBox(
+                                width: width * 0.02,
+                              ),
+                              Text(
+                                posts[index].username,
+                                style: MyFonts.bodyTextStyle,
+                              ),
+                                ],
+                              ),
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=>OtherUserProfile(profile:posts[index].profileImageUrl ,userid: posts[index].userid,username: posts[index].username,))),
                             ),
                             
                             Row(

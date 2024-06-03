@@ -1,12 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:art_inyou/models/model/profilemodel.dart';
 import 'package:art_inyou/repositories/profile/profile_repository.dart';
 import 'package:art_inyou/blocs/profile/bloc/profile_bloc.dart';
+import 'package:art_inyou/repositories/profile/profiledata.dart';
 import 'package:art_inyou/screens/account/editprofile_screen.dart';
+import 'package:art_inyou/screens/account/follow_tabview.dart';
 import 'package:art_inyou/screens/buyandsell.dart/order_sell_screen.dart';
 import 'package:art_inyou/screens/settings/settings.dart';
 import 'package:art_inyou/screens/tapbar_screens/grid_tabview.dart';
+import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/label/label.dart';
@@ -14,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({
@@ -33,8 +36,8 @@ class AccountScreen extends StatelessWidget {
             future: storage.getProfile(userId),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return  Center(
+                  child:SpinKitFadingCircle(color: redcolor,),
                 );
               } else if (snapshot.hasError) {
                 return Center(
@@ -46,43 +49,46 @@ class AccountScreen extends StatelessWidget {
                   return Column(
                     children: [
                       SizedBox(height: height * 0.03),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                              onPressed: () {
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const TabBarOrderandSell()));
+                                },
+                                child: const Text(
+                                  'My Orders',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                )),
+                            Center(
+                              child: Text(
+                                profileData.username,
+                                style: MyFonts.headingTextStyle,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () async {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const TabBarOrderandSell()));
+                                            const SettingsScreen()));
                               },
-                              child: const Text(
-                                'My Orders',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              )),
-                          Center(
-                            child: Text(
-                              profileData.username,
-                              style: MyFonts.headingTextStyle,
+                              icon: Icon(
+                                Icons.settings,
+                                size: height * 0.04,
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () async {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SettingsScreen()));
-                            },
-                            icon: Icon(
-                              Icons.settings,
-                              size: height * 0.04,
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       Center(
                         child: SizedBox(
@@ -102,6 +108,71 @@ class AccountScreen extends StatelessWidget {
                         style: const TextStyle(color: Colors.grey),
                       ),
                       SizedBox(height: height * 0.04),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FutureBuilder(
+                            future: getPostCount(userId),
+                            builder: (context, snapshot) {
+                              return Column(
+                                children: [
+                                  Text(
+                                    ' ${snapshot.data ?? 0}',
+                                    style: MyFonts.headingTextStyle,
+                                  ),
+                                  const Text(
+                                    'Posts',
+                                    style: MyFonts.boldTextStyle,
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                          GestureDetector(
+                            child: Column(
+                              children: [
+                                Text(
+                                  profileData.followers.length.toString(),
+                                  style: MyFonts.headingTextStyle,
+                                ),
+                                const Text(
+                                  'Followers',
+                                  style: MyFonts.boldTextStyle,
+                                )
+                              ],
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Tabfollow(
+                                          userid: profileData.userid,
+                                          username: profileData.username,
+                                        ))),
+                          ),
+                          GestureDetector(
+                            child: Column(
+                              children: [
+                                Text(
+                                  profileData.following.length.toString(),
+                                  style: MyFonts.headingTextStyle,
+                                ),
+                                const Text(
+                                  'Following',
+                                  style: MyFonts.boldTextStyle,
+                                )
+                              ],
+                            ),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Tabfollow(
+                                          userid: profileData.userid,
+                                          username: profileData.username,
+                                        ))),
+                          )
+                        ],
+                      ),
+                      SizedBox(height: height * 0.04),
                       labelwidget(
                         labelText: 'Edit Profile',
                         onTap: () {
@@ -117,8 +188,6 @@ class AccountScreen extends StatelessWidget {
                       ),
                       SizedBox(height: height * 0.02),
                       const Expanded(child: TabBarViewGridScreen())
-
-                      //  Expanded(child: DropdownPrice(postsFuture: getPostOfuser(userId),visible: false,)),
                     ],
                   );
                 } else {

@@ -9,6 +9,7 @@ import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/chat/message_card.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -120,9 +121,9 @@ class _ChatShowScreenState extends State<ChatShowScreen> {
                       } else {
                         return Center(
                           child: Center(
-                            child: CircularProgressIndicator(
-                              color: redcolor,
-                            ),
+                            child:SpinKitFadingCircle(color: redcolor,)
+                              
+                            
                           ),
                         );
                       }

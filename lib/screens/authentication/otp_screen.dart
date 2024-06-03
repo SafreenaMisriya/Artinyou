@@ -7,6 +7,7 @@ import 'package:art_inyou/widgets/label/label.dart';
 import 'package:art_inyou/utils/textformfields/pintheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pinput/pinput.dart';
 import '../../blocs/otpauth_bloc/bloc/otpauth_bloc_bloc.dart';
 
@@ -92,7 +93,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           ],
                         );
                       }
-                      return const CircularProgressIndicator();
+                      return SpinKitFadingCircle(color: redcolor,);
                     },
                   );
                 },

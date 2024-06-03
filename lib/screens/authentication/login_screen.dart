@@ -14,6 +14,7 @@ import 'package:art_inyou/services/password.dart';
 import 'package:art_inyou/utils/textformfields/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: BlocBuilder<EmailauthBloc, EmailauthState>(
                               builder: (context, state) {
                                 if (state is EmailloadingState) {
-                                  return const CircularProgressIndicator();
+                                  return SpinKitFadingCircle(color: redcolor,);
                                 } else {
                                   return myfonts('LogIn');
                                 }
@@ -152,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                     child: state is GoogleauthLoadingState
-                        ? const CircularProgressIndicator()
+                        ? SpinKitFadingCircle(color: redcolor,)
                         : Container(
                             height: height * 0.07,
                             width: width * 0.9,

@@ -8,11 +8,17 @@ final class ProfileInitial extends ProfileState {}
 final class Profileloading extends ProfileState {}
 
 final class Profileaddstate extends ProfileState {}
+final class Followaddstate extends ProfileState{}
 
-
+final class UnFollowaddstate extends ProfileState{}
 final class Profileerrorstate extends ProfileState {
   final String error;
   Profileerrorstate({required this.error});
+}
+class FollowingStatusState extends ProfileState {
+  final bool isFollowing;
+
+   FollowingStatusState(this.isFollowing);
 }
 
 final class ProfileEditState extends ProfileState {}

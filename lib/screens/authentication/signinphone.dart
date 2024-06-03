@@ -7,6 +7,7 @@ import 'package:art_inyou/widgets/label/label.dart';
 import 'package:art_inyou/utils/textformfields/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninPhoneScreen extends StatefulWidget {
@@ -132,7 +133,7 @@ class _SigninPhoneScreenState extends State<SigninPhoneScreen> {
                       child: BlocBuilder<OtpauthBloc, OtpauthBlocState>(
                         builder: (context, state) {
                           if (state is OtpAuthloadingState) {
-                            return const CircularProgressIndicator();
+                            return SpinKitFadingCircle(color: redcolor,);
                           } else {
                             return myfonts('Sign Up');
                           }

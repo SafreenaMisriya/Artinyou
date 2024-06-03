@@ -10,13 +10,14 @@ import 'package:art_inyou/widgets/dropdown/dropdown.dart';
 import 'package:art_inyou/utils/textformfields/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class PostScreen extends StatefulWidget {
   final PostModel? edit;
- final  String?  userId;
- final String? postid;
+  final String? userId;
+  final String? postid;
 
-  const PostScreen({super.key, this.edit, this.userId,this.postid});
+  const PostScreen({super.key, this.edit, this.userId, this.postid});
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -42,7 +43,7 @@ class _PostScreenState extends State<PostScreen> {
       aboutcontroller.text = edit.about;
       softpricecontroller.text = edit.softprice;
       hardpricecontroller.text = edit.hardprice;
-      selectedCategory = edit.category; 
+      selectedCategory = edit.category;
       uploadedImageUrls = edit.imageUrl.split(',');
     }
     super.initState();
@@ -73,7 +74,7 @@ class _PostScreenState extends State<PostScreen> {
                 uploadedImageUrls = state.imageUrls;
               } else if (state is ImageUploading) {
                 return Center(
-                    child: CircularProgressIndicator(
+                    child: SpinKitFadingCircle(
                   color: redcolor,
                 ));
               }
@@ -90,7 +91,8 @@ class _PostScreenState extends State<PostScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const BottomBar()));
+                                        builder: (context) =>
+                                            const BottomBar()));
                               },
                               icon: Icon(
                                 Icons.close,
@@ -104,7 +106,7 @@ class _PostScreenState extends State<PostScreen> {
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   PostModel postModel = PostModel(
-                                    userid: widget.userId ?? ' id'  , 
+                                    userid: widget.userId ?? ' id',
                                     imageUrl: uploadedImageUrls.join(','),
                                     title: titlecontroller.text,
                                     softprice: softpricecontroller.text,
@@ -124,8 +126,8 @@ class _PostScreenState extends State<PostScreen> {
                                               ? postBloc.add(PostEditEvent(
                                                   post: postModel,
                                                   postid: widget.postid!))
-                                              : postBloc.add(
-                                                  PostAddEvent(post: postModel));
+                                              : postBloc.add(PostAddEvent(
+                                                  post: postModel));
                                         },
                                       );
                                     },
@@ -141,18 +143,20 @@ class _PostScreenState extends State<PostScreen> {
                       SizedBox(
                         height: height * 0.03,
                       ),
-                       uploadedImageUrls.isNotEmpty
-                       ? Container()
-                      : IconButton(
-                        onPressed: () {
-                          context.read<PostBloc>().add(SelectImageEvent());
-                        },
-                        icon: const Icon(
-                          Icons.add_circle_outline_rounded,
-                          color: Colors.red,
-                          size: 50,
-                        ),
-                      ),
+                      uploadedImageUrls.isNotEmpty
+                          ? Container()
+                          : IconButton(
+                              onPressed: () {
+                                context
+                                    .read<PostBloc>()
+                                    .add(SelectImageEvent());
+                              },
+                              icon: const Icon(
+                                Icons.add_circle_outline_rounded,
+                                color: Colors.red,
+                                size: 50,
+                              ),
+                            ),
                       uploadedImageUrls.isNotEmpty
                           ? uploadedImageUrls.length > 1
                               ? CaroselScreen(
@@ -175,7 +179,6 @@ class _PostScreenState extends State<PostScreen> {
                               'No image selected',
                               style: MyFonts.boldTextStyle,
                             ),
-                     
                       SizedBox(height: height * 0.03),
                       CustomTextField(
                           controller: titlecontroller,
@@ -187,44 +190,43 @@ class _PostScreenState extends State<PostScreen> {
                             return null;
                           }),
                       SizedBox(height: height * 0.03),
-                          
-                          DropDowm(
-                            onChanged: (value) {
-                              selectedCategory = value;
-                            },
+                      DropDowm(
+                        onChanged: (value) {
+                          selectedCategory = value;
+                        },
+                      ),
+                      SizedBox(height: height * 0.03),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: width * 0.45,
+                            child: CustomTextField(
+                                controller: softpricecontroller,
+                                labelText: '₹ Soft  Copy  Price',
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter  softcopy Price';
+                                  }
+                                  return null;
+                                }),
                           ),
-                          SizedBox(height: height * 0.03),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                                width: width * 0.45,
-                                child: CustomTextField(
-                                    controller: softpricecontroller,
-                                    labelText: '₹ Soft  Copy  Price',
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter  softcopy Price';
-                                      }
-                                      return null;
-                                    }),
-                              ),
-                               SizedBox(
-                                width: width * 0.45,
-                                child: CustomTextField(
-                                    controller: hardpricecontroller,
-                                    labelText: '₹ Hard  Copy  Price',
-                                    keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter  hard copy Price';
-                                      }
-                                      return null;
-                                    }),
-                              ),
-                      ],
-                    ),
+                          SizedBox(
+                            width: width * 0.45,
+                            child: CustomTextField(
+                                controller: hardpricecontroller,
+                                labelText: '₹ Hard  Copy  Price',
+                                keyboardType: TextInputType.number,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter  hard copy Price';
+                                  }
+                                  return null;
+                                }),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: height * 0.03),
                       CustomTextField(
                           maxLines: 3,

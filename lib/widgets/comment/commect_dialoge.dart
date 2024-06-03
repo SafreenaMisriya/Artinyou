@@ -7,6 +7,7 @@ import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 TextEditingController controller = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -45,8 +46,8 @@ bottompCommentsheet(BuildContext context, String postid, PostBloc postBloc,
                             future: getComments(postid),
                             builder: (context, snapshot) {
                               if (snapshot.data == null) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                return  Center(
+                                    child:SpinKitFadingCircle(color: redcolor,));
                               } else if (snapshot.hasData) {
                                 List<CommentModel> comments = snapshot.data!;
                                 return ListView.builder(

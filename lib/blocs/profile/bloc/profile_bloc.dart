@@ -67,7 +67,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
  on<ProfileAddEvent>((event, emit)async {
     emit(Profileloading());
     try {
-      await firestoreService.addprofile(event.model);
+       firestoreService.addprofile(event.model);
       emit(Profileaddstate());
       
      
@@ -75,11 +75,37 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(Profileerrorstate(error: e.toString()));
     }
     });
-
-   on<ProfileEditEvent>((event, emit)async{
+       on<FollowEvent>((event, emit)async{
     emit(Profileloading());
     try {
-      await firestoreService.updateProfile(event.model);
+      await firestoreService.followUser(event.otheruserid);
+      emit(Followaddstate());
+      add(CheckfollowStatusEvent(otheruserid: event.otheruserid));
+       
+    } catch (e) {
+      emit(ProfileEditError(error: e.toString()));
+    }
+   });
+    on<UnFollowEvent>((event, emit)async{
+    emit(Profileloading());
+    try {
+      await firestoreService.unfollowUser(event.otheruserid);
+      emit(UnFollowaddstate());
+       add(CheckfollowStatusEvent(otheruserid: event.otheruserid));
+       
+    } catch (e) {
+      emit(ProfileEditError(error: e.toString()));
+    }
+   });
+   on<CheckfollowStatusEvent>((event, emit)async{
+   bool isfollowing= await firestoreService.checkIfFollowing(event.otheruserid);
+    emit(isfollowing? FollowingStatusState(true) : FollowingStatusState(false));
+   });
+
+   on<ProfileEditEvent>((event, emit)async{ 
+    emit(Profileloading());
+    try {
+       firestoreService.updateProfile(event.model);
       emit(ProfileEditState());
        
     } catch (e) {
@@ -105,6 +131,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
    final result= await FlutterImageCompress.compressAndGetFile(path, newpath,quality: i);
    return result;
 }
+
 
 
 }

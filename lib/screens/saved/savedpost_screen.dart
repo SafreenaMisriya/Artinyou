@@ -5,6 +5,7 @@ import 'package:art_inyou/repositories/save/savedpost_fetching.dart';
 import 'package:art_inyou/blocs/post/bloc/post_bloc.dart';
 import 'package:art_inyou/blocs/save/bloc/save_bloc.dart';
 import 'package:art_inyou/screens/home/showimage_screen.dart';
+import 'package:art_inyou/utils/color/colour.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/alertdialog/alertdialog.dart';
@@ -17,6 +18,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SavedPostScreen extends StatelessWidget {
@@ -42,8 +44,8 @@ class SavedPostScreen extends StatelessWidget {
                   future: fetchSaved(userId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return  Center(
+                        child:SpinKitFadingCircle(color: redcolor,),
                       );
                     } else if (snapshot.hasData) {
                       List<PostModel>? post = snapshot.data;

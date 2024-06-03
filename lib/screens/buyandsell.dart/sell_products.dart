@@ -4,6 +4,7 @@ import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SellProductScreen extends StatelessWidget {
@@ -20,7 +21,7 @@ class SellProductScreen extends StatelessWidget {
         future: postsFuture,
         builder: (context, snapshot) {
            if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(),);
+            return  Center(child:SpinKitFadingCircle(color: redcolor,),);
           } else if (snapshot.hasData) {
             List<PaymentModel> buyprduct = snapshot.data!;
              double totalAmount = buyprduct.fold(0.0, (sum, item) => sum + item.amountAsDouble);

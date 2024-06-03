@@ -1,7 +1,7 @@
 
-import 'package:art_inyou/screens/onboarding_screen.dart/intro_screen1.dart';
-import 'package:art_inyou/screens/onboarding_screen.dart/intro_screen2.dart';
-import 'package:art_inyou/screens/onboarding_screen.dart/intro_screen3.dart';
+import 'package:art_inyou/screens/onboarding_screen/intro_screen1.dart';
+import 'package:art_inyou/screens/onboarding_screen/intro_screen2.dart';
+import 'package:art_inyou/screens/onboarding_screen/intro_screen3.dart';
 import 'package:art_inyou/screens/authentication/signup_screen.dart';
 import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';

@@ -4,85 +4,93 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class Profilestorage {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Future<void> addprofile(ProfileModel profile) async {
+  Stream<void> addprofile(ProfileModel profile) async* {
     try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        String userId = user.uid;
-        await firestore.collection('profile').doc(userId).set({
-          'imageUrl': profile.imageurl,
-          'username': profile.username,
-          'bio': profile.bio,
-          'userId': userId,
-        });
-      } else {
-        throw Exception('User not authenticated');
-      }
+      String userid = FirebaseAuth.instance.currentUser!.uid;
+      await firestore.collection('profile').doc(userid).set({
+        'imageUrl': profile.imageurl,
+        'username': profile.username,
+        'bio': profile.bio,
+        'userId': userid,
+        'followers': profile.followers,
+        'following': profile.following,
+      });
     } catch (e) {
       throw Exception('Failed to add post: $e');
     }
   }
 
-Future<String> updateProfile(ProfileModel profile) async {
-  try {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      String userId = user.uid;
-      DocumentReference profileRef = firestore.collection('profile').doc(userId);
+  Stream<String> updateProfile(ProfileModel profile) async* {
+    try {
+      String userid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentReference profileRef =
+          firestore.collection('profile').doc(userid);
       await profileRef.set({
         'imageUrl': profile.imageurl,
         'username': profile.username,
         'bio': profile.bio,
-        'userId': userId,
-      }, SetOptions(merge: true)); 
-      return userId;
-    } else {
-      throw Exception('User not authenticated');
-    }
-  } catch (e) {
-    throw Exception('Failed to update profile: $e');
-  }
-}
-
-
- Future<ProfileModel?> getProfile(String userId) async {
-  try {
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection('profile').doc(userId).get();
-    if (snapshot.exists) {
-      return ProfileModel.fromJson(snapshot.data()!, id: snapshot.id);
-    } else {
-      return null;
-    }
-  } catch (e) {
-    throw Exception('Failed to fetch profile: $e');
-  }
-}
-Future<Map<String, dynamic>?> getLastMessageWithProfile(String chatroomId) async {
-    try {
-      DocumentSnapshot<Map<String, dynamic>> lastMessageSnapshot =
-          await firestore.collection('conversations').doc(chatroomId).collection('lastMessage').doc(chatroomId).get();
-
-      if (lastMessageSnapshot.exists) {
-        // Get the sender's user ID from the last message
-        String userId = lastMessageSnapshot.data()!['userId'];
-
-        // Fetch the sender's profile information
-        ProfileModel? senderProfile = await getProfile(userId);
-
-        if (senderProfile != null) {
-          // Construct the result with last message, sender's profile, and last message time
-          return {
-            'lastMessageTime': lastMessageSnapshot.data()!['time'],
-            'lastMessage': lastMessageSnapshot.data()!['message'],
-            'senderProfile': senderProfile,
-          };
-        }
-      }
-      return null;
+        'userId': userid,
+      }, SetOptions(merge: true));
+      yield userid;
     } catch (e) {
-      throw Exception('Failed to fetch last message with profile: $e');
+      throw Exception('Failed to update profile: $e');
     }
   }
 
+  Future<ProfileModel?> getProfile(String userId) async {
+    try {
+      DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+          .instance
+          .collection('profile')
+          .doc(userId)
+          .get();
+      if (snapshot.exists) {
+        return ProfileModel.fromJson(snapshot.data()!, id: snapshot.id);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch profile: $e');
+    }
+  }
 
+  Future<void> unfollowUser(String otheruserid) async {
+    String currentuserid = FirebaseAuth.instance.currentUser!.uid;
+    await firestore.collection('profile').doc(currentuserid).update({
+      'following': FieldValue.arrayRemove([otheruserid])
+    });
+    await firestore.collection('profile').doc(otheruserid).update({
+      'followers': FieldValue.arrayRemove([currentuserid])
+    });
+  }
+
+  Future<void> followUser(String otheruserid) async {
+
+    String currentuserid = FirebaseAuth.instance.currentUser!.uid;
+    await firestore.collection('profile').doc(currentuserid).update({
+      'following': FieldValue.arrayUnion([otheruserid])
+    });
+    await firestore.collection('profile').doc(otheruserid).update({
+      'followers': FieldValue.arrayUnion([currentuserid])
+    });
+  }
+
+  Future<bool> checkIfFollowing(
+    String otherUserId,
+  ) async {
+    String currentuserid = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      var userDoc =
+          await firestore.collection('profile').doc(currentuserid).get();
+      if (userDoc.exists) {
+        List<dynamic> following = userDoc.data()?['following'] ?? [];
+        bool isFollowing =  following.contains(otherUserId);
+          return isFollowing;
+      }
+      return false;
+    } catch (e) {
+
+      return false;
+    }
+  }
 }

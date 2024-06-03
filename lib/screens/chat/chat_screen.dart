@@ -13,6 +13,7 @@ import 'package:art_inyou/utils/fonts/font.dart';
 import 'package:art_inyou/utils/loading_view/loadinglistview.dart';
 import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 Profilestorage storge = Profilestorage();
 ChatRepository chat = ChatRepository();
@@ -86,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
             stream: chat.getChats(widget.userid),
             builder: (context, chatSnapshot) {
               if (chatSnapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return  Center(child:SpinKitFadingCircle(color: redcolor,));
               }
               if (chatSnapshot.hasError) {
                 return Center(child: Text('Error: ${chatSnapshot.error}'));

@@ -29,3 +29,15 @@ class ProfileChatSearchEvent extends ProfileEvent{
     final String searchword;
 ProfileChatSearchEvent(this.profiles,this.searchword);
 }
+class FollowEvent extends ProfileEvent{
+  final String otheruserid;
+  FollowEvent({required this.otheruserid,});
+}
+class UnFollowEvent extends ProfileEvent{
+  final String otheruserid;
+  UnFollowEvent({required this.otheruserid,});
+}
+class CheckfollowStatusEvent extends ProfileEvent{
+  final String otheruserid;
+  CheckfollowStatusEvent({required this.otheruserid});
+}
