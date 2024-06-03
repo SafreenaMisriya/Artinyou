@@ -9,6 +9,7 @@ import 'package:art_inyou/utils/mediaquery/sizeof_screen.dart';
 import 'package:art_inyou/widgets/appbar/customappbar.dart';
 import 'package:art_inyou/widgets/label/followlabel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +28,7 @@ class OtherUserProfile extends StatelessWidget {
     double height = Responsive.screenHeight(context);
     final profileBloc = BlocProvider.of<ProfileBloc>(context);
     profileBloc.add(CheckfollowStatusEvent(otheruserid: userid));
+      String  currentUserid = FirebaseAuth.instance.currentUser!.uid;
     return SafeArea(
         child: Scaffold(
             appBar: customAppbartop(context, username),
@@ -128,7 +130,9 @@ class OtherUserProfile extends StatelessWidget {
                             })
                       ],
                     ),
+                    if(userid !=currentUserid)
                     SizedBox(height: height * 0.04),
+                     if(userid !=currentUserid)
                     followlabelwidget(
                       labelText: isfollowing ? 'Following' : 'Follow',
                       color: isfollowing ? iconcolor : redcolor,

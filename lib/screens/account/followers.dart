@@ -8,26 +8,30 @@ import 'package:shimmer/shimmer.dart';
 
 class FollowersScreen extends StatelessWidget {
   final String userid;
-  const FollowersScreen({super.key,required this.userid});
+  const FollowersScreen({super.key, required this.userid});
 
   @override
   Widget build(BuildContext context) {
-       double height = Responsive.screenHeight(context);
-       double width = Responsive.screenWidth(context);
+    double height = Responsive.screenHeight(context);
+    double width = Responsive.screenWidth(context);
     return SafeArea(
-      child:Column(
+      child: Column(
         children: [
-          SizedBox(height: height*0.03,),
+          SizedBox(
+            height: height * 0.03,
+          ),
           Expanded(
             child: StreamBuilder<List<Map<String, dynamic>>>(
-              stream: getFollowers(userid),
-              builder: (context, snapshot) {
-                 if (snapshot.connectionState == ConnectionState.waiting) {
-              return  Center(child:SpinKitFadingCircle(color: redcolor,));
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child:Shimmer.fromColors(
+                stream: getFollowers(userid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: SpinKitFadingCircle(
+                      color: redcolor,
+                    ));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(
+                        child: Shimmer.fromColors(
                             baseColor: Colors.blue,
                             highlightColor: Colors.white,
                             child: const Text(
@@ -35,13 +39,13 @@ class FollowersScreen extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w300),
                             )));
-            }
-             List<Map<String, dynamic>> followers = snapshot.data!;
-                return ListView.builder(
+                  }
+                  List<Map<String, dynamic>> followers = snapshot.data!;
+                  return ListView.builder(
                     physics: const BouncingScrollPhysics(),
-                    itemCount:followers.length,
+                    itemCount: followers.length,
                     itemBuilder: (context, index) {
-                         final user = followers[index];
+                      final user = followers[index];
                       return GestureDetector(
                         child: ListTile(
                           leading: SizedBox(
@@ -77,12 +81,10 @@ class FollowersScreen extends StatelessWidget {
                       );
                     },
                   );
-              }
-            ),
+                }),
           ),
         ],
       ),
-      
     );
   }
 }

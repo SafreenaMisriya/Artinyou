@@ -16,6 +16,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -70,9 +71,7 @@ class DropdownPrice extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
-                      child: LinearProgressIndicator(
-                        color: redcolor,
-                      ),
+                      child: SpinKitFadingCircle(color: redcolor,)
                     );
                   } else if (snapshot.data!.isEmpty) {
                     return Center(

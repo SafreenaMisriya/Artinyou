@@ -26,9 +26,8 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = Responsive.screenHeight(context);
-    User? currentUser = FirebaseAuth.instance.currentUser;
+   String userId = FirebaseAuth.instance.currentUser!.uid;
     Profilestorage storage = Profilestorage();
-    String userId = currentUser?.uid ?? '';
     return Scaffold(
       body: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
@@ -38,10 +37,6 @@ class AccountScreen extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return  Center(
                   child:SpinKitFadingCircle(color: redcolor,),
-                );
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error: ${snapshot.error}'),
                 );
               } else if (snapshot.hasData) {
                 ProfileModel? profileData = snapshot.data;
@@ -107,7 +102,7 @@ class AccountScreen extends StatelessWidget {
                         profileData.bio,
                         style: const TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(height: height * 0.04),
+                      SizedBox(height: height * 0.02),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

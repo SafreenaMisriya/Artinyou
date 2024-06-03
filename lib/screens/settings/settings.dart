@@ -133,6 +133,7 @@ class SettingsScreen extends StatelessWidget {
                       });
                 },
               ),
+             const Center(child: Text('V.1.0.0'),)
             ],
           ),
         ),

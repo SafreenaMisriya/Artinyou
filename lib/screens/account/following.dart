@@ -17,16 +17,9 @@ class FollowingScreen extends StatelessWidget {
     double height = Responsive.screenHeight(context);
     double width = Responsive.screenWidth(context);
     final profileBloc = BlocProvider.of<ProfileBloc>(context);
-    profileBloc.add(CheckfollowStatusEvent(otheruserid: userid));
     return SafeArea(
       child: Scaffold(
-        body: BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-             bool isfollowing = false;
-                if (state is FollowingStatusState) {
-                  isfollowing = state.isFollowing;
-                }
-            return Column(
+        body:  Column(
               children: [
                 SizedBox(
                   height: height * 0.03,
@@ -37,11 +30,8 @@ class FollowingScreen extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return  Center(
-                              child: SpinKitFadingCircle(color: redcolor,));
-                        } else if (snapshot.hasError) {
                           return Center(
-                              child: Text('Error: ${snapshot.error}'));
+                              child: SpinKitFadingCircle(color: redcolor));
                         } else if (!snapshot.hasData ||
                             snapshot.data!.isEmpty) {
                           return Center(
@@ -81,11 +71,11 @@ class FollowingScreen extends StatelessWidget {
                                   child: Container(
                                     height: height * 0.05,
                                     width: width * 0.25,
-                                    color: isfollowing ? iconcolor: Colors.blue,
-                                    child:  Center(
+                                    color: iconcolor,
+                                    child: const Center(
                                       child: Text(
-                                       isfollowing ? 'Following':'Follow',
-                                        style:const TextStyle(
+                                        'Following',
+                                        style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
@@ -94,13 +84,8 @@ class FollowingScreen extends StatelessWidget {
                                     ),
                                   ),
                                   onTap: () {
-                                    if (isfollowing) {
-                                      profileBloc.add(
-                                          UnFollowEvent(otheruserid: userid));
-                                    } else {
-                                      profileBloc.add(
-                                          FollowEvent(otheruserid: userid));
-                                    }
+                                    profileBloc.add(UnFollowEvent(
+                                        otheruserid: user['userId']));
                                   },
                                 ),
                               ),
@@ -110,9 +95,8 @@ class FollowingScreen extends StatelessWidget {
                       }),
                 ),
               ],
-            );
-          },
-        ),
+            )
+        
       ),
     );
   }
